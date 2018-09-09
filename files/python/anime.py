@@ -8,6 +8,11 @@ class Anime(Frame):
         self.main = main
         self.jikan = jikan
         self.anime = self.jikan.anime(malId)
-        self.lTitre = Label(self, text = self.anime["title"], font="-size 25 -weight bold")
+        if len(self.anime["title"]) < 15:
+            self.lTitre = Label(self, text = self.anime["title"], font="-size 25 -weight bold")
+        elif len(self.anime["title"]) < 25:
+            self.lTitre = Label(self, text = self.anime["title"], font="-size 23 -weight bold")
+        else:
+            self.lTitre = Label(self, text = self.anime["title"], font="-size 21 -weight bold")
         self.lTitre.pack(pady = 10)
         self.pack(side=RIGHT)

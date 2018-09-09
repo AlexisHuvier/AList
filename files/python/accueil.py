@@ -18,7 +18,12 @@ class Accueil(Frame):
         self.lTitreTM = Label(self.topManga, text = "Top 10 Manga", font= "-size 22")
         self.lTitreTM.pack(pady = 10)
         for i in range(10):
-            self.lTitreM = Button(self.topManga, text = str(i+1) + ". "+self.tManga["top"][i]["title"], font = "-size 15", command = lambda x=self.tManga["top"][i]["mal_id"]: self.openManga(x))
+            if len(self.tManga["top"][i]["title"]) < 15:
+                self.lTitreM = Button(self.topManga, text = str(i+1) + ". "+self.tManga["top"][i]["title"], font = "-size 15", command = lambda x=self.tManga["top"][i]["mal_id"]: self.openManga(x))
+            elif len(self.tManga["top"][i]["title"]) < 25:
+                self.lTitreM = Button(self.topManga, text = str(i+1) + ". "+self.tManga["top"][i]["title"], font = "-size 13", command = lambda x=self.tManga["top"][i]["mal_id"]: self.openManga(x))
+            else:
+                self.lTitreM = Button(self.topManga, text = str(i+1) + ". "+self.tManga["top"][i]["title"], font = "-size 11", command = lambda x=self.tManga["top"][i]["mal_id"]: self.openManga(x))
             self.lTitreM.pack(pady=5)
         self.topManga.pack(side=RIGHT)
 
@@ -28,7 +33,12 @@ class Accueil(Frame):
         self.lTitreTA = Label(self.topAnime, text = "Top 10 Anime", font= "-size 22")
         self.lTitreTA.pack(pady = 10)
         for i in range(10):
-            self.lTitreA = Button(self.topAnime, text = str(i+1) + ". "+self.tAnime["top"][i]["title"], font = "-size 15", command = lambda x=self.tAnime["top"][i]["mal_id"]: self.openAnime(x))
+            if len(self.tAnime["top"][i]["title"]) < 15:
+                self.lTitreA = Button(self.topAnime, text = str(i+1) + ". "+self.tAnime["top"][i]["title"], font = "-size 15", command = lambda x=self.tAnime["top"][i]["mal_id"]: self.openAnime(x))
+            elif len(self.tAnime["top"][i]["title"]) < 25:
+                self.lTitreA = Button(self.topAnime, text = str(i+1) + ". "+self.tAnime["top"][i]["title"], font = "-size 13", command = lambda x=self.tAnime["top"][i]["mal_id"]: self.openAnime(x))
+            else:
+                self.lTitreA = Button(self.topAnime, text = str(i+1) + ". "+self.tAnime["top"][i]["title"], font = "-size 11", command = lambda x=self.tAnime["top"][i]["mal_id"]: self.openAnime(x))
             self.lTitreA.pack(pady=5)
         self.topAnime.pack(side=LEFT)
         

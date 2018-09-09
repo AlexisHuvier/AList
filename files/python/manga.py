@@ -8,6 +8,11 @@ class Manga(Frame):
         self.main = main
         self.jikan = jikan
         self.manga = self.jikan.manga(malId)
-        self.lTitre = Label(self, text = self.manga["title"], font="-size 25 -weight bold")
+        if len(self.manga["title"]) < 15:
+            self.lTitre = Label(self, text = self.manga["title"], font="-size 25 -weight bold")
+        elif len(self.manga["title"]) < 25:
+            self.lTitre = Label(self, text = self.manga["title"], font="-size 23 -weight bold")
+        else:
+            self.lTitre = Label(self, text = self.manga["title"], font="-size 21 -weight bold")
         self.lTitre.pack(pady = 10)
         self.pack(side=RIGHT)
