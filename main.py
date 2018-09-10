@@ -1,5 +1,6 @@
 from tkinter import *
 from jikanpy import Jikan
+import os
 
 from files.python.menu import Menu
 from files.python.accueil import Accueil
@@ -62,4 +63,6 @@ class Main(Tk):
                     self.page.pack(side=RIGHT)
             self.pageActuel = page
 
+os.makedirs("files/anime", exist_ok=True)
+os.makedirs("files/manga", exist_ok=True)
 Main()
