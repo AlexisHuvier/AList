@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.messagebox import showinfo
 from PIL import Image, ImageTk
 import urllib.request
 import os
@@ -123,10 +124,18 @@ class Manga(Frame):
         
         self.bLien = Button(self, command= lambda: self.openWeb(self.manga["url"]), text = "Lien MAL")
         self.bLien.pack(side = RIGHT, padx = 20, pady = 10)
-        self.bAddList = Button(self, text = "Ajouter à ma liste")
+        self.bAddList = Button(self, text = "Ajouter à ma liste", command= self.addToList)
         self.bAddList.pack(side = RIGHT, padx = 20, pady = 10)
         
         self.pack(side=RIGHT)
     
     def openWeb(self, url):
         webbrowser.open(url)
+    
+    def addToList(self):
+        with open("files/manga/"+str(self.manga["mal_id"])+".txt", "w") as fichier:
+            if self.manga["chapters"]:
+                fichier.write("ID : "+str(self.manga["mal_id"])+"\nNom : "+self.manga["title"]+"\nStatus : A voir\nChapitres : 0\nChapitres Max : "+str(self.manga["chapters"]))
+            else:
+                fichier.write("ID : "+str(self.manga["mal_id"])+"\nNom : "+self.manga["title"]+"\nStatus : A voir\nChapitres : 0\nChapitres Max : 0")
+        showinfo("Manga ajouté", "Le manga a été ajouté à votre liste")

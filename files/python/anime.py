@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.messagebox import showinfo
 from PIL import Image, ImageTk
 import urllib.request
 import os
@@ -116,10 +117,19 @@ class Anime(Frame):
         self.bLien.pack(side = RIGHT, padx = 20, pady = 10)
         self.bTrailer = Button(self, command = lambda: self.openWeb(self.anime["trailer_url"]), text = "Trailer")
         self.bTrailer.pack(side = RIGHT, padx = 20, pady = 10)
-        self.bAddList = Button(self, text = "Ajouter à ma liste")
+        self.bAddList = Button(self, text = "Ajouter à ma liste", command = self.addToList)
         self.bAddList.pack(side = RIGHT, padx = 20, pady = 10)
         
         self.pack(side=RIGHT)
     
     def openWeb(self, url):
         webbrowser.open(url)
+    
+    def addToList(self):
+        with open("files/anime/"+str(self.anime["mal_id"])+".txt", "w") as fichier:
+            if self.anime["episodes"]:
+                fichier.write("ID : "+str(self.anime["mal_id"])+"\nNom : "+self.anime["title"]+"\nStatus : A voir\nEpisodes : 0\nEpisodes Max : "+str(self.anime["episodes"]))
+            else:
+                fichier.write("ID : "+str(self.anime["mal_id"])+"\nNom : "+self.anime["title"]+"\nStatus : A voir\nEpisodes : 0\nEpisodes Max : 0")
+        showinfo("Anime ajouté", "L'anime a été ajouté à votre liste")
+                
