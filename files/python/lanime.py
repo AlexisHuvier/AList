@@ -1,5 +1,7 @@
 from tkinter import *
-from tkinter.messagebox import showerror
+from tkinter.messagebox import showerror, showinfo
+from tkinter.filedialog import askopenfilename
+from lxml import etree
 import glob
 
 class lAnime(Frame):
@@ -9,7 +11,7 @@ class lAnime(Frame):
         self.config(width=800, height=600)
         self.main = main
         self.jikan = jikan
-        self.lTitre = Label(self, text = "Liste de mes animes", font="-size 25 -weight bold")
+        self.lTitre = Label(self, text = "Liste de mes animes", font="-size 22 -weight bold")
         self.lTitre.pack(pady = 10)
         
         self.bLeft = Button(self, text = "<", command = self.showLeftPage)
@@ -17,7 +19,13 @@ class lAnime(Frame):
         self.bRight = Button(self, text = ">", command= self.showRightPage)
         self.bRight.pack(side = RIGHT, padx = 10)
         self.fAnimes = Frame(self)
-        self.fAnimes.pack(pady = 25)
+        self.fAnimes.pack(pady = 5)
+        self.fButtons = Frame(self)
+        self.fButtons.pack(pady = 5)
+        self.bImport = Button(self.fButtons, text = "Importer MAL")
+        self.bImport.pack(side = LEFT, padx = 10)
+        self.bExport = Button(self.fButtons, text = "Exporter MAL")
+        self.bExport.pack(side = RIGHT, padx = 10)
         self.page = 0
         self.pageMax = len(glob.glob("./files/anime/*.txt"))//6
         
@@ -41,8 +49,15 @@ class lAnime(Frame):
         
     def createPage(self):
         self.fAnimes.destroy()
+        self.fButtons.destroy()
         self.fAnimes = Frame(self)
-        self.fAnimes.pack(pady = 25)
+        self.fAnimes.pack(pady = 5)
+        self.fButtons = Frame(self)
+        self.fButtons.pack(pady = 5)
+        self.bImport = Button(self.fButtons, text = "Importer MAL", command = self.importMAL)
+        self.bImport.pack(side = LEFT, padx = 10)
+        self.bExport = Button(self.fButtons, text = "Exporter MAL")
+        self.bExport.pack(side = RIGHT, padx = 10)
         if len(glob.glob("./files/anime/*.txt")) > 0:
             self.fList = Frame(self.fAnimes)
             self.fList.pack(side = LEFT, padx =10)
@@ -78,4 +93,30 @@ class lAnime(Frame):
     
     def modifyAnime(self, malId):
         self.main.showPage("animeM|"+str(malId))
+    
+    def importMAL(self):
+        self.xmlMAL = askopenfilename(defaultextension='.xml', title = "Choisissez votre fichier exporté de MyAnimeList")
+        if self.xmlMAL != "":
+            try:
+                tree = etree.parse(self.xmlMAL)
+                for anime in tree.xpath("/myanimelist/anime"):
+                    tempText = "ID : "+anime[0].text+"\nNom : "+anime[1].text+"\n"
+                    if anime[12].text == "Watching":
+                        tempText += "Status : En visionnement\n"
+                    elif anime[12].text == "Completed":
+                        tempText += "Status : Fini\n"
+                    elif anime[12].text == "Plan to Watch":
+                        tempText += "Status : A voir\n"
+                    else:
+                        tempText += "Status : Abandonné\n"
+                    tempText += "Episodes : "+anime[5].text+"\nEpisodes Max : "+anime[3].text
+                    with open("files/anime/"+anime[0].text+".txt", "w") as fichier:
+                        fichier.write(tempText)
+                showinfo("Import réussi", "Tous les animés ont été importés")
+                self.main.showPage("lAnime")
+            except:
+                showerror("Erreur", "Sélectionnez un fichier valide")
+        else:
+            showerror("Erreur", "Sélectionnez un fichier valide")
+        
 

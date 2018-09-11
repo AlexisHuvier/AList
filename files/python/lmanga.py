@@ -1,5 +1,7 @@
 from tkinter import *
-from tkinter.messagebox import showerror
+from tkinter.messagebox import showerror, showinfo
+from tkinter.filedialog import askopenfilename
+from lxml import etree
 import glob
 
 class lManga(Frame):
@@ -16,7 +18,13 @@ class lManga(Frame):
         self.bRight = Button(self, text = ">", command= self.showRightPage)
         self.bRight.pack(side = RIGHT, padx = 10)
         self.fMangas = Frame(self)
-        self.fMangas.pack(pady = 25)
+        self.fMangas.pack(pady = 5)
+        self.fButtons = Frame(self)
+        self.fButtons.pack(pady = 5)
+        self.bImport = Button(self.fButtons, text = "Importer MAL")
+        self.bImport.pack(side = LEFT, padx = 10)
+        self.bExport = Button(self.fButtons, text = "Exporter MAL")
+        self.bExport.pack(side = RIGHT, padx = 10)
         self.page = 0
         self.pageMax = len(glob.glob("./files/manga/*.txt"))//6
         
@@ -40,8 +48,15 @@ class lManga(Frame):
         
     def createPage(self):
         self.fMangas.destroy()
+        self.fButtons.destroy()
         self.fMangas = Frame(self)
-        self.fMangas.pack(pady = 25)
+        self.fMangas.pack(pady = 5)
+        self.fButtons = Frame(self)
+        self.fButtons.pack(pady = 5)
+        self.bImport = Button(self.fButtons, text = "Importer MAL", command = self.importMAL)
+        self.bImport.pack(side = LEFT, padx = 10)
+        self.bExport = Button(self.fButtons, text = "Exporter MAL")
+        self.bExport.pack(side = RIGHT, padx = 10)
         if len(glob.glob("./files/manga/*.txt")) > 0:
             self.fList = Frame(self.fMangas)
             self.fList.pack(side = LEFT, padx =10)
@@ -77,3 +92,28 @@ class lManga(Frame):
     
     def modifyManga(self, malId):
         self.main.showPage("mangaM|"+str(malId))
+    
+    def importMAL(self):
+        self.xmlMAL = askopenfilename(defaultextension='.xml', title = "Choisissez votre fichier exporté de MyAnimeList")
+        if self.xmlMAL != "":
+            try:
+                tree = etree.parse(self.xmlMAL)
+                for manga in tree.xpath("/myanimelist/manga"):
+                    tempText = "ID : "+manga[0].text+"\nNom : "+manga[1].text+"\n"
+                    if manga[12].text == "Reading":
+                        tempText += "Status : En visionnement\n"
+                    elif manga[12].text == "Completed":
+                        tempText += "Status : Fini\n"
+                    elif manga[12].text == "Plan to Watch":
+                        tempText += "Status : A voir\n"
+                    else:
+                        tempText += "Status : Abandonné\n"
+                    tempText += "Chapitres : "+manga[6].text+"\nChapitres Max : "+manga[3].text
+                    with open("files/manga/"+manga[0].text+".txt", "w") as fichier:
+                        fichier.write(tempText)
+                showinfo("Import réussi", "Tous les mangas ont été importés")
+                self.main.showPage("lManga")
+            except:
+                showerror("Erreur", "Sélectionnez un fichier valide")
+        else:
+            showerror("Erreur", "Sélectionnez un fichier valide")
