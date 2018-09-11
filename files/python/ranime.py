@@ -31,12 +31,10 @@ class rAnime(Frame):
             self.fResult.pack(pady=10)
             self.result = self.jikan.search("anime", self.eSearch.get())
             for i in range(5):
-                if len(self.result["results"][i]["title"]) < 15:
-                    self.bResult = Button(self.fResult, font="-size 15", text = self.result["results"][i]["title"], command = lambda x=self.result["results"][i]["mal_id"]: self.openAnime(x))
-                elif len(self.result["results"][i]["title"]) < 25:
-                    self.bResult = Button(self.fResult, font="-size 13", text = self.result["results"][i]["title"], command = lambda x=self.result["results"][i]["mal_id"]: self.openAnime(x))
+                if len(self.result["results"][i]["title"]) < 20:
+                    self.bResult = Button(self.fResult, font="-size 15", width = 20, text = self.result["results"][i]["title"], command = lambda x=self.result["results"][i]["mal_id"]: self.openAnime(x))
                 else:
-                    self.bResult = Button(self.fResult, font="-size 11", text = self.result["results"][i]["title"], command = lambda x=self.result["results"][i]["mal_id"]: self.openAnime(x))
+                    self.bResult = Button(self.fResult, font="-size 15", width = 20, text = self.result["results"][i]["title"][:17]+"...", command = lambda x=self.result["results"][i]["mal_id"]: self.openAnime(x))
                 self.bResult.pack(pady = 10)
             
     def searchAlea(self):
@@ -53,12 +51,10 @@ class rAnime(Frame):
                         self.animeAlea = {"error" : "test"}
             except:
                 break
-        if len(self.animeAlea["title"]) < 15:
-            self.bResult = Button(self.fResult, font="-size 15", text = self.animeAlea["title"], command = lambda x=self.animeAlea["mal_id"]: self.openAnime(x))
-        elif len(self.animeAlea["title"]) < 25:
-            self.bResult = Button(self.fResult, font="-size 13", text = self.animeAlea["title"], command = lambda x=self.animeAlea["mal_id"]: self.openAnime(x))
+        if len(self.animeAlea["title"]) < 20:
+            self.bResult = Button(self.fResult, font="-size 15", width = 20, text = self.animeAlea["title"], command = lambda x=self.animeAlea["mal_id"]: self.openAnime(x))
         else:
-            self.bResult = Button(self.fResult, font="-size 11", text = self.animeAlea["title"], command = lambda x=self.animeAlea["mal_id"]: self.openAnime(x))
+            self.bResult = Button(self.fResult, font="-size 15", width = 20, text = self.animeAlea["title"][:17]+"...", command = lambda x=self.animeAlea["mal_id"]: self.openAnime(x))
         self.bResult.pack(pady = 10)
     
     def openAnime(self, malId):
