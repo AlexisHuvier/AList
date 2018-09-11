@@ -68,9 +68,13 @@ class lAnime(Frame):
             self.lAEp.pack(pady =5)
             self.bInfo = Button(self.fAnime, text = "Plus d'info", command = lambda x=infos[0].split(" : ")[1]: self.openAnime(x))
             self.bInfo.pack(side = RIGHT, pady =5, padx = 5)
-            self.bModif = Button(self.fAnime, text = "Modifier")
+            self.bModif = Button(self.fAnime, text = "Modifier", command = lambda x=infos[0].split(" : ")[1]: self.modifyAnime(x))
             self.bModif.pack(pady = 5, padx = 5)
             self.fAnime.pack(pady = 10)
     
     def openAnime(self, malId):
         self.main.showPage("anime|"+str(malId))
+    
+    def modifyAnime(self, malId):
+        self.main.showPage("animeM|"+str(malId))
+

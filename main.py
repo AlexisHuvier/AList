@@ -10,6 +10,8 @@ from files.python.lanime import lAnime
 from files.python.lmanga import lManga
 from files.python.manga import Manga
 from files.python.anime import Anime
+from files.python.manime import mAnime
+from files.python.mmanga import mManga
 
 class Main(Tk):
     def __init__(self):
@@ -51,6 +53,10 @@ class Main(Tk):
                         self.page = Anime(self, self.jikan, page.split("|")[1])
                     elif page.split("|")[0] == "manga":
                         self.page = Manga(self, self.jikan, page.split("|")[1])
+                    elif page.split("|")[0] == "animeM":
+                        self.page = mAnime(self, self.jikan, page.split("|")[1])
+                    elif page.split("|")[0] == "mangaM":
+                        self.page = mManga(self, self.jikan, page.split("|")[1])
                     else:
                         self.page = Frame(self)
                         self.page.pack_propagate(False)

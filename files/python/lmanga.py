@@ -67,9 +67,12 @@ class lManga(Frame):
             self.lAEp.pack(pady =5)
             self.bInfo = Button(self.fManga, text = "Plus d'info", command = lambda x=infos[0].split(" : ")[1]: self.openManga(x))
             self.bInfo.pack(side = RIGHT, pady =5, padx = 5)
-            self.bModif = Button(self.fManga, text = "Modifier")
+            self.bModif = Button(self.fManga, text = "Modifier", command = lambda x=infos[0].split(" : ")[1]: self.modifyManga(x))
             self.bModif.pack(pady = 5, padx = 5)
             self.fManga.pack(pady = 10)
     
     def openManga(self, malId):
         self.main.showPage("manga|"+str(malId))
+    
+    def modifyManga(self, malId):
+        self.main.showPage("mangaM|"+str(malId))
