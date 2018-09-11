@@ -12,14 +12,12 @@ class lAnime(Frame):
         self.lTitre = Label(self, text = "Liste de mes animes", font="-size 25 -weight bold")
         self.lTitre.pack(pady = 10)
         
+        self.bLeft = Button(self, text = "<", command = self.showLeftPage)
+        self.bLeft.pack(side = LEFT, padx = 10)
         self.bRight = Button(self, text = ">", command= self.showRightPage)
         self.bRight.pack(side = RIGHT, padx = 10)
-        self.bLeft = Button(self, text = "<", command = self.showLeftPage)
-        self.fAnimes2 = Frame(self)
-        self.fAnimes2.pack(side = RIGHT, pady = 20, padx= 70)
         self.fAnimes = Frame(self)
         self.fAnimes.pack(pady = 25)
-        self.bLeft.pack(side = LEFT, padx = 10)
         self.page = 0
         self.pageMax = len(glob.glob("./files/anime/*.txt"))//6
         
@@ -42,12 +40,15 @@ class lAnime(Frame):
         self.createPage()
         
     def createPage(self):
-        self.fAnimes2.destroy()
         self.fAnimes.destroy()
-        self.fAnimes2 = Frame(self)
-        self.fAnimes2.pack(side = RIGHT, pady = 20, padx= 70)
         self.fAnimes = Frame(self)
         self.fAnimes.pack(pady = 25)
+        if len(glob.glob("./files/anime/*.txt")) > 0:
+            self.fList = Frame(self.fAnimes)
+            self.fList.pack(side = LEFT, padx =10)
+        if len(glob.glob("./files/anime/*.txt"))-6*self.page > 3:
+            self.fList2 = Frame(self.fAnimes)
+            self.fList2.pack(side = RIGHT, padx =10)
         for i in range(6):
             contenu = ""
             try:
@@ -57,9 +58,9 @@ class lAnime(Frame):
                 break
             infos = contenu.split("\n")
             if i < 3:
-                self.fAnime = Frame(self.fAnimes)
+                self.fAnime = Frame(self.fList)
             else:
-                self.fAnime = Frame(self.fAnimes2)
+                self.fAnime = Frame(self.fList2)
             self.lAName = Label(self.fAnime, text = infos[1].split(" : ")[1], font = "-size 13")
             self.lAName.pack(pady=10)
             self.lAStatus = Label(self.fAnime, text = "Status : "+infos[2].split(" : ")[1], font = "-size 11")
