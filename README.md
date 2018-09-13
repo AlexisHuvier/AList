@@ -1,5 +1,5 @@
-# Browthon
-Navigateur web en python
+# AList
+Gestionnaire d'anime/manga avec d'autres fonctionnalités
 
 ## Dépendances :
 - Python 3.5+
@@ -25,6 +25,11 @@ Navigateur web en python
 - /
 
 ## Changelog : 
+
+### V X.X.X : XXX Update - XX Sept 2018 (INDEV):
+- Amélioration graphique de la page d'accueil et des pages de recherches
+- Ajout de la page de modification pour manga (oublie de la précédente version)
+- Possibilité d'importer une liste de MyAnimeList via la page des listes d'animés/mangas
 
 ### V 0.0.1 : Initial Update - 11 Sept 2018 (LATEST) :
 - Première version
