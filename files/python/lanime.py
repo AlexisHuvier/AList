@@ -56,7 +56,7 @@ class lAnime(Frame):
         self.fButtons.pack(pady = 5)
         self.bImport = Button(self.fButtons, text = "Importer MAL", command = self.importMAL)
         self.bImport.pack(side = LEFT, padx = 10)
-        self.bExport = Button(self.fButtons, text = "Exporter MAL")
+        self.bExport = Button(self.fButtons, text = "Exporter MAL", command = self.exportMALFen)
         self.bExport.pack(side = RIGHT, padx = 10)
         if len(glob.glob("./files/anime/*.txt")) > 0:
             self.fList = Frame(self.fAnimes)
@@ -118,5 +118,45 @@ class lAnime(Frame):
                 showerror("Erreur", "Sélectionnez un fichier valide")
         else:
             showerror("Erreur", "Sélectionnez un fichier valide")
+    
+    def exportMALFen(self):
+        self.fen=Toplevel(self.main)
+        self.e1=Entry(self.fen)
+        self.e1.insert(0, "Pseudo")
+        self.e1.pack(pady = 10)
+        self.e2 = Entry(self.fen)
+        self.e2.insert(0, "ID MAL")
+        self.e2.pack(pady = 10)
+        self.bValid = Button(self.fen, text = "Valider", command = self.exportMAL)
+        self.bValid.pack(pady = 10)
+        self.bQuit = Button(self.fen, text = "Annuler", command = fen.destroy)
+        self.bQuit.pack(pady = 10)
+    
+    def exportMAL(self):
+        if self.e1.get() in ["Pseudo", ""] or self.e2.get() in ["ID MAL", ""]:
+            showerror("Erreur", "Entrez des valeurs valides") 
+        else:
+            try:
+                pseudo = self.e1.get()
+                idMAL = int(self.e2.get())
+            except:
+                showerror("Erreur", "Votre id n'est pas un nombre")
+            else:
+                print(pseudo, idMAL)
+                self.fen.destroy()
+                
+                mal = etree.Element("myanimelist")
+                    
+                myinfo = etree.SubElement(mal, "myinfo")
+                userid = etree.SubElement(myinfo, "user_id")
+                userid.text = idMAL
+                username = etree.SubElement(myinfo, "user_name")
+                username.text = pseudo
+                userexport = etree.SubElement(myinfo, "user_export_type")
+                userexport.text = 1
+            
+                print(etree.tostring(users, pretty_print=True))
+                
+                showinfo("Export réussi", "Tous les animes ont été exportés")
         
 
