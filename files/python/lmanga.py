@@ -55,7 +55,7 @@ class lManga(Frame):
         self.fButtons.pack(pady = 5)
         self.bImport = Button(self.fButtons, text = "Importer MAL", command = self.importMAL)
         self.bImport.pack(side = LEFT, padx = 10)
-        self.bExport = Button(self.fButtons, text = "Exporter MAL")
+        self.bExport = Button(self.fButtons, text = "Exporter MAL", command = self.exportMALFen)
         self.bExport.pack(side = RIGHT, padx = 10)
         if len(glob.glob("./files/manga/*.txt")) > 0:
             self.fList = Frame(self.fMangas)
@@ -118,3 +118,135 @@ class lManga(Frame):
                 showerror("Erreur", "Sélectionnez un fichier valide")
         else:
             showerror("Erreur", "Sélectionnez un fichier valide")
+    
+    def exportMALFen(self):
+        self.fen=Toplevel(self.main)
+        self.e1=Entry(self.fen)
+        self.e1.insert(0, "Pseudo")
+        self.e1.pack(pady = 10)
+        self.e2 = Entry(self.fen)
+        self.e2.insert(0, "ID MAL")
+        self.e2.pack(pady = 10)
+        self.bValid = Button(self.fen, text = "Valider", command = self.exportMAL)
+        self.bValid.pack(pady = 10)
+        self.bQuit = Button(self.fen, text = "Annuler", command = self.fen.destroy)
+        self.bQuit.pack(pady = 10)
+    
+    def exportMAL(self):
+        if self.e1.get() in ["Pseudo", ""] or self.e2.get() in ["ID MAL", ""]:
+            showerror("Erreur", "Entrez des valeurs valides") 
+        else:
+            showerror("Erreur", "Bientôt")
+            """try:
+                pseudo = self.e1.get()
+                idMAL = int(self.e2.get())
+            except:
+                showerror("Erreur", "Votre id n'est pas un nombre")
+            else:
+                self.fen.destroy()
+                
+                totalmanga = 0
+                watchingmanga = 0
+                completemanga = 0
+                onholdmanga = 0
+                droppedmanga = 0
+                plantowatchmanga = 0
+                for i in glob.glob("./files/manga/*.txt"):
+                    totalmanga += 1
+                    with open(i, "r") as fichier:
+                        contenu = fichier.read()
+                        if contenu.split("\n")[2].split(" : ")[1] == "En visionnement":
+                            watchingmanga += 1
+                        elif contenu.split("\n")[2].split(" : ")[1] == "Fini":
+                            completemanga += 1
+                        elif contenu.split("\n")[2].split(" : ")[1] == "A voir":
+                            plantowatchmanga += 1
+                        else:
+                            droppedmanga += 1
+                            
+                mal = etree.Element("myanimelist")
+                    
+                myinfo = etree.SubElement(mal, "myinfo")
+                userid = etree.SubElement(myinfo, "user_id")
+                userid.text = str(idMAL)
+                username = etree.SubElement(myinfo, "user_name")
+                username.text = pseudo
+                userexport = etree.SubElement(myinfo, "user_export_type")
+                userexport.text = "1"
+                usertotal = etree.SubElement(myinfo, "user_total_manga")
+                usertotal.text = str(totalmanga)
+                userwatching = etree.SubElement(myinfo, "user_total_watching")
+                userwatching.text = str(watchingmanga)
+                usercomplete = etree.SubElement(myinfo, "user_total_completed")
+                usercomplete.text = str(completemanga)
+                useronhold = etree.SubElement(myinfo, "user_total_onhold")
+                useronhold.text = str(onholdmanga)
+                userdropped = etree.SubElement(myinfo, "user_total_dropped")
+                userdropped.text = str(droppedmanga)
+                userplantowatch = etree.SubElement(myinfo, "user_total_plantowatch")
+                userplantowatch.text = str(plantowatchmanga)
+                
+                for i in glob.glob("./files/manga/*.txt"):
+                    with open(i, "r") as fichier:
+                        contenu = fichier.read()
+                    infos = contenu.split("\n")
+                    
+                    manga = etree.SubElement(mal, "manga")
+                    mangaid = etree.SubElement(manga, "series_mangadb_id")
+                    mangaid.text = infos[0].split(" : ")[1]
+                    mangatitle = etree.SubElement(manga, "series_title")
+                    mangatitle.text = "<![CDATA["+infos[1].split(" : ")[1]+"]]>"
+                    mangatype = etree.SubElement(manga, "series_volumes")
+                    mangatype.text = "0"
+                    mangaep = etree.SubElement(manga, "series_episodes")
+                    mangaep.text = infos[4].split(" : ")[1]
+                    mangamyid = etree.SubElement(manga, "my_id")
+                    mangamyid.text = "0"
+                    mangawatchep = etree.SubElement(manga, "my_watched_episodes")
+                    mangawatchep.text = infos[3].split(" : ")[1]
+                    mangastart = etree.SubElement(manga, "my_start_date")
+                    mangastart.text = "0000-00-00"
+                    mangaend = etree.SubElement(manga, "my_finish_date")
+                    mangaend.text = "0000-00-00"
+                    mangarated = etree.SubElement(manga, "my_rated")
+                    mangascore = etree.SubElement(manga, "my_score")
+                    mangascore.text = "0"
+                    mangadvd = etree.SubElement(manga, "my_dvd")
+                    mangastorage = etree.SubElement(manga, "my_storage")
+                    mangastatus = etree.SubElement(manga, "my_status")
+                    if infos[2].split(" : ")[1] == "En visionnement":
+                        mangastatus.text = "Watching"
+                    elif infos[2].split(" : ")[1] == "Fini":
+                        mangastatus.text = "Completed"
+                    elif infos[2].split(" : ")[1] == "A voir":
+                        mangastatus.text = "Plan to Watch"
+                    else:
+                        mangastatus.text = "Dropped"
+                    mangacomments = etree.SubElement(manga, "my_comments")
+                    mangacomments.text = "<![CDATA[]]>"
+                    mangatimes = etree.SubElement(manga, "my_times_watched")
+                    mangatimes.text = "0"
+                    mangarewatch = etree.SubElement(manga, "my_rewatch_value")
+                    mangatags = etree.SubElement(manga, "my_tags")
+                    mangatags.text = "<![CDATA[]]>"
+                    mangarewatching = etree.SubElement(manga, "my_rewatching")
+                    mangarewatching.text = "0"
+                    mangarewatchingep = etree.SubElement(manga, "my_rewatching_ep")
+                    mangarewatchingep.text = "0"
+                    mangaupdate = etree.SubElement(manga, "update_on_import")
+                    mangaupdate.text = "1"
+                    
+                self.xmlMAL = asksaveasfilename(defaultextension='.xml', title = "Choisissez votre fichier pour MyAnimeList")
+                if self.xmlMAL != "":
+                    try:
+                        with open(self.xmlMAL, "w") as fichier:
+                            fichier.write('<?xml version="1.0" encoding="UTF-8" ?>\n')
+                            fichier.write(etree.tostring(mal, pretty_print=True).decode('utf-8'))
+                        showinfo("Export réussi", "Tous les mangas ont été exportés")
+                    except:
+                        showerror("Erreur", "L'écriture du fichier n'a pas pu être faite.")
+                else:
+                    showerror("Erreur", "Sélectionnez un fichier valide")"""
+        
+
+
