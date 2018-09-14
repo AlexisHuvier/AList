@@ -60,3 +60,7 @@ target/
 files/anime/
 
 files/manga/
+
+\.vscode/
+
+*.xml
