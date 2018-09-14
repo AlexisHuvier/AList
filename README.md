@@ -30,6 +30,8 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 - Amélioration graphique de la page d'accueil et des pages de recherches
 - Ajout de la page de modification pour manga (oublie de la précédente version)
 - Possibilité d'importer une liste de MyAnimeList via la page des listes d'animés/mangas
+- Possibilité d'exporter sa liste d'anime pour l'import sur MAL
+- Ajout d'une nouvelle ligne dans les fichiers anime/manga pour le type de celui-ci
 
 ### V 0.0.1 : Initial Update - 11 Sept 2018 (LATEST) :
 - Première version
