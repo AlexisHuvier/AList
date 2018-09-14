@@ -128,8 +128,8 @@ class Anime(Frame):
     def addToList(self):
         with open("files/anime/"+str(self.anime["mal_id"])+".txt", "w") as fichier:
             if self.anime["episodes"]:
-                fichier.write("ID : "+str(self.anime["mal_id"])+"\nNom : "+self.anime["title"]+"\nStatus : A voir\nEpisodes : 0\nEpisodes Max : "+str(self.anime["episodes"]))
+                fichier.write("ID : "+str(self.anime["mal_id"])+"\nNom : "+self.anime["title"]+"\nStatus : A voir\nEpisodes : 0\nEpisodes Max : "+str(self.anime["episodes"])+"\nType : "+str(self.anime["type"]))
             else:
-                fichier.write("ID : "+str(self.anime["mal_id"])+"\nNom : "+self.anime["title"]+"\nStatus : A voir\nEpisodes : 0\nEpisodes Max : 0")
+                fichier.write("ID : "+str(self.anime["mal_id"])+"\nNom : "+self.anime["title"]+"\nStatus : A voir\nEpisodes : 0\nEpisodes Max : 0\nType : "+str(self.anime["type"]))
         showinfo("Anime ajouté", "L'anime a été ajouté à votre liste")
                 

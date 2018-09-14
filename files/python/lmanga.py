@@ -109,6 +109,7 @@ class lManga(Frame):
                     else:
                         tempText += "Status : Abandonné\n"
                     tempText += "Chapitres : "+manga[6].text+"\nChapitres Max : "+manga[3].text
+                    tempText += "\nType : "+anime[2].text
                     with open("files/manga/"+manga[0].text+".txt", "w") as fichier:
                         fichier.write(tempText)
                 showinfo("Import réussi", "Tous les mangas ont été importés")

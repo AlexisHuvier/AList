@@ -110,6 +110,7 @@ class lAnime(Frame):
                     else:
                         tempText += "Status : Abandonné\n"
                     tempText += "Episodes : "+anime[5].text+"\nEpisodes Max : "+anime[3].text
+                    tempText += "\nType : "+anime[2].text
                     with open("files/anime/"+anime[0].text+".txt", "w") as fichier:
                         fichier.write(tempText)
                 showinfo("Import réussi", "Tous les animés ont été importés")
