@@ -135,7 +135,7 @@ class Manga(Frame):
     def addToList(self):
         with open("files/manga/"+str(self.manga["mal_id"])+".txt", "w") as fichier:
             if self.manga["chapters"]:
-                fichier.write("ID : "+str(self.manga["mal_id"])+"\nNom : "+self.manga["title"]+"\nStatus : A voir\nChapitres : 0\nChapitres Max : "+str(self.manga["chapters"])+"\nType : "+str(self.anime["type"]))
+                fichier.write("ID : "+str(self.manga["mal_id"])+"\nNom : "+self.manga["title"]+"\nStatus : A voir\nChapitres : 0\nChapitres Max : "+str(self.manga["chapters"])+"\nType : "+str(self.manga["type"]))
             else:
-                fichier.write("ID : "+str(self.manga["mal_id"])+"\nNom : "+self.manga["title"]+"\nStatus : A voir\nChapitres : 0\nChapitres Max : 0\nType : "+str(self.anime["type"]))
+                fichier.write("ID : "+str(self.manga["mal_id"])+"\nNom : "+self.manga["title"]+"\nStatus : A voir\nChapitres : 0\nChapitres Max : 0\nType : "+str(self.manga["type"]))
         showinfo("Manga ajouté", "Le manga a été ajouté à votre liste")
