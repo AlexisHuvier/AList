@@ -1,4 +1,5 @@
 from tkinter import *
+import webbrowser
 
 class Accueil(Frame):
     def __init__(self, main, jikan):
@@ -7,41 +8,22 @@ class Accueil(Frame):
         self.config(width=800, height=600)
         self.main = main
         self.jikan = jikan
-        self.tManga = self.jikan.top(type='manga')
-        self.tAnime = self.jikan.top(type='anime')
         self.lTitre = Label(self, text = "Accueil", font="-size 25 -weight bold")
-        self.lTitre.pack(pady = 10)
+        self.lTitre.pack(pady = 30)
         
-        self.topManga = Frame(self)
-        self.topManga.pack_propagate(False)
-        self.topManga.config(width=400, height=600)
-        self.lTitreTM = Label(self.topManga, text = "Top 10 Manga", font= "-size 22")
-        self.lTitreTM.pack(pady = 10)
-        for i in range(10):
-            if len(self.tManga["top"][i]["title"]) < 20:
-                self.lTitreM = Button(self.topManga, text = str(i+1) + ". "+self.tManga["top"][i]["title"], font = "-size 15", width = 20, command = lambda x=self.tManga["top"][i]["mal_id"]: self.openManga(x))
-            else:
-                self.lTitreM = Button(self.topManga, text = str(i+1) + ". "+self.tManga["top"][i]["title"][:17]+"...", width = 20, font = "-size 15", command = lambda x=self.tManga["top"][i]["mal_id"]: self.openManga(x))
-            self.lTitreM.pack(pady=5)
-        self.topManga.pack(side=RIGHT)
+        self.lInfos = Label(self, font = "-size 18", text = "Ce logiciel est un gestionnaire de manga / anime.\nMais il propose d'autres fonctionnalités :\n - Top d'anime/manga\n- Import de liste venant de MyAnimeList\n- Export de sa liste d'anime pour MyAnimeList\n\nIl a été créé par LavaPower\nVersion : 0.1.0 - First Beta Update")
+        self.lInfos.pack(pady=30)
 
-        self.topAnime = Frame(self)
-        self.topAnime.pack_propagate(False)
-        self.topAnime.config(width=400, height=600)
-        self.lTitreTA = Label(self.topAnime, text = "Top 10 Anime", font= "-size 22")
-        self.lTitreTA.pack(pady = 10)
-        for i in range(10):
-            if len(self.tAnime["top"][i]["title"]) < 20:
-                self.lTitreA = Button(self.topAnime, text = str(i+1) + ". "+self.tAnime["top"][i]["title"], width = 20, font = "-size 15", command = lambda x=self.tAnime["top"][i]["mal_id"]: self.openAnime(x))
-            else:
-                self.lTitreA = Button(self.topAnime, text = str(i+1) + ". "+self.tAnime["top"][i]["title"][:17]+"...", width = 20, font = "-size 15", command = lambda x=self.tAnime["top"][i]["mal_id"]: self.openAnime(x))
-            self.lTitreA.pack(pady=5)
-        self.topAnime.pack(side=LEFT)
-        
+        self.bGithub = Button(self, font = "-size 18", text = "Github", command = lambda: self.openWeb("https://github.com/LavaPower/AList"))
+        self.bGithub.pack(pady = 10)
+
+        self.bWiki = Button(self, font = "-size 18", text = "Wiki", command = lambda: self.openWeb("https://github.com/LavaPower/AList/wiki"))
+        self.bWiki.pack(pady=10)
+
+        self.bDiscord = Button(self, font = "-size 18", text = "Discord", command = lambda: self.openWeb("https://discord.gg/kxdK7BZ"))
+        self.bDiscord.pack(pady=10)
+
         self.pack(side=RIGHT)
     
-    def openManga(self, malId):
-        self.main.showPage("manga|"+str(malId))
-    
-    def openAnime(self, malId):
-        self.main.showPage("anime|"+str(malId))
+    def openWeb(self, url):
+        webbrowser.open(url)
