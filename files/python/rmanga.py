@@ -16,8 +16,6 @@ class rManga(Frame):
         self.eSearch.pack(pady = 10)
         self.bEntry = Button(self, text = "Rechercher", font = "-size 15", command = self.searchEntry)
         self.bEntry.pack(pady = 10)
-        self.bAlea = Button(self, text = "Au hasard", font = "-size 15", command = self.searchAlea)
-        self.bAlea.pack(pady = 10)
         self.fResult = Frame(self)
         self.fResult.pack(pady=10)
         self.pack(side=RIGHT)
@@ -37,25 +35,5 @@ class rManga(Frame):
                     self.bResult = Button(self.fResult, font="-size 15", width = 20, text = self.result["results"][i]["title"][:17]+"...", command = lambda x=self.result["results"][i]["mal_id"]: self.openManga(x))
                 self.bResult.pack(pady = 10)
             
-    def searchAlea(self):
-        self.fResult.destroy()
-        self.fResult = Frame(self)
-        self.fResult.pack(pady=10)
-        self.mangaAlea = {"error" : "test"}
-        while True:
-            try:
-                if self.mangaAlea["error"]:
-                    try:
-                        self.mangaAlea = self.jikan.manga(randint(1, 20726))
-                    except:
-                        self.mangaAlea = {"error" : "test"}
-            except:
-                break
-        if len(self.mangaAlea["title"]) < 20:
-            self.bResult = Button(self.fResult, font="-size 15", width = 20, text = self.mangaAlea["title"], command = lambda x=self.mangaAlea["mal_id"]: self.openManga(x))
-        else:
-            self.bResult = Button(self.fResult, font="-size 15", width = 20, text = self.mangaAlea["title"][:17]+"...", command = lambda x=self.mangaAlea["mal_id"]: self.openManga(x))
-        self.bResult.pack(pady = 10)
-    
     def openManga(self, malId):
         self.main.showPage("manga|"+str(malId))
