@@ -130,7 +130,7 @@ class lAnime(Frame):
         self.e2.pack(pady = 10)
         self.bValid = Button(self.fen, text = "Valider", command = self.exportMAL)
         self.bValid.pack(pady = 10)
-        self.bQuit = Button(self.fen, text = "Annuler", command = fen.destroy)
+        self.bQuit = Button(self.fen, text = "Annuler", command = self.fen.destroy)
         self.bQuit.pack(pady = 10)
     
     def exportMAL(self):
