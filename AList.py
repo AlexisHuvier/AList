@@ -12,6 +12,7 @@ from files.python.manga import Manga
 from files.python.anime import Anime
 from files.python.manime import mAnime
 from files.python.mmanga import mManga
+from files.python.tops import Tops
 
 class Main(Tk):
     def __init__(self):
@@ -39,6 +40,8 @@ class Main(Tk):
             self.page.destroy()
             if page == "accueil":
                 self.page = Accueil(self, self.jikan)
+            elif page == "tops":
+                self.page = Tops(self, self.jikan)
             elif page == "rAnime":
                 self.page = rAnime(self, self.jikan)
             elif page == "rManga":
