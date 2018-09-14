@@ -11,7 +11,7 @@ class Accueil(Frame):
         self.lTitre = Label(self, text = "Accueil", font="-size 25 -weight bold")
         self.lTitre.pack(pady = 30)
         
-        self.lInfos = Label(self, font = "-size 18", text = "Ce logiciel est un gestionnaire de manga / anime.\nMais il propose d'autres fonctionnalités :\n - Top d'anime/manga\n- Import de liste venant de MyAnimeList\n- Export de sa liste d'anime pour MyAnimeList\n\nIl a été créé par LavaPower\nVersion : 0.1.0 - First Beta Update")
+        self.lInfos = Label(self, font = "-size 18", text = "Ce logiciel est un gestionnaire de manga / anime.\nMais il propose d'autres fonctionnalités :\n - Top d'anime/manga\n- Import de liste venant de MyAnimeList\n- Export de sa liste d'anime pour MyAnimeList\n\nIl a été créé par LavaPower\nVersion : 0.1.0 - Initial Update")
         self.lInfos.pack(pady=30)
 
         self.bGithub = Button(self, font = "-size 18", text = "Github", command = lambda: self.openWeb("https://github.com/LavaPower/AList"))
