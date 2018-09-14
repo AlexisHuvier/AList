@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter.messagebox import showerror, showinfo
-from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import askopenfilename, asksaveasfilename
 from lxml import etree
 import glob
 
@@ -136,7 +136,7 @@ class lManga(Frame):
         if self.e1.get() in ["Pseudo", ""] or self.e2.get() in ["ID MAL", ""]:
             showerror("Erreur", "Entrez des valeurs valides") 
         else:
-            showerror("Erreur", "Bientôt")
+            showerror("Erreur", "L'export de manga pour MAL est actuellement indisponible.\nMAL a désactivé son import pour les mangas.")
             """try:
                 pseudo = self.e1.get()
                 idMAL = int(self.e2.get())
@@ -172,7 +172,7 @@ class lManga(Frame):
                 username = etree.SubElement(myinfo, "user_name")
                 username.text = pseudo
                 userexport = etree.SubElement(myinfo, "user_export_type")
-                userexport.text = "1"
+                userexport.text = "2"
                 usertotal = etree.SubElement(myinfo, "user_total_manga")
                 usertotal.text = str(totalmanga)
                 userwatching = etree.SubElement(myinfo, "user_total_watching")
@@ -198,24 +198,26 @@ class lManga(Frame):
                     mangatitle.text = "<![CDATA["+infos[1].split(" : ")[1]+"]]>"
                     mangatype = etree.SubElement(manga, "series_volumes")
                     mangatype.text = "0"
-                    mangaep = etree.SubElement(manga, "series_episodes")
+                    mangaep = etree.SubElement(manga, "series_chapters")
                     mangaep.text = infos[4].split(" : ")[1]
                     mangamyid = etree.SubElement(manga, "my_id")
                     mangamyid.text = "0"
-                    mangawatchep = etree.SubElement(manga, "my_watched_episodes")
+                    mangawatchvol = etree.SubElement(manga, "my_read_volumes")
+                    mangawatchvol.text = "0"
+                    mangawatchep = etree.SubElement(manga, "my_read_chapters")
                     mangawatchep.text = infos[3].split(" : ")[1]
                     mangastart = etree.SubElement(manga, "my_start_date")
                     mangastart.text = "0000-00-00"
                     mangaend = etree.SubElement(manga, "my_finish_date")
                     mangaend.text = "0000-00-00"
-                    mangarated = etree.SubElement(manga, "my_rated")
+                    mangarated = etree.SubElement(manga, "my_scanalation_group")
+                    mangarated.text = "<![CDATA[]]>"
                     mangascore = etree.SubElement(manga, "my_score")
                     mangascore.text = "0"
-                    mangadvd = etree.SubElement(manga, "my_dvd")
                     mangastorage = etree.SubElement(manga, "my_storage")
                     mangastatus = etree.SubElement(manga, "my_status")
                     if infos[2].split(" : ")[1] == "En visionnement":
-                        mangastatus.text = "Watching"
+                        mangastatus.text = "Reading"
                     elif infos[2].split(" : ")[1] == "Fini":
                         mangastatus.text = "Completed"
                     elif infos[2].split(" : ")[1] == "A voir":
@@ -224,15 +226,11 @@ class lManga(Frame):
                         mangastatus.text = "Dropped"
                     mangacomments = etree.SubElement(manga, "my_comments")
                     mangacomments.text = "<![CDATA[]]>"
-                    mangatimes = etree.SubElement(manga, "my_times_watched")
+                    mangatimes = etree.SubElement(manga, "my_times_read")
                     mangatimes.text = "0"
-                    mangarewatch = etree.SubElement(manga, "my_rewatch_value")
+                    mangarewatch = etree.SubElement(manga, "my_reread_value")
                     mangatags = etree.SubElement(manga, "my_tags")
                     mangatags.text = "<![CDATA[]]>"
-                    mangarewatching = etree.SubElement(manga, "my_rewatching")
-                    mangarewatching.text = "0"
-                    mangarewatchingep = etree.SubElement(manga, "my_rewatching_ep")
-                    mangarewatchingep.text = "0"
                     mangaupdate = etree.SubElement(manga, "update_on_import")
                     mangaupdate.text = "1"
                     
