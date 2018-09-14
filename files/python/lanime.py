@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter.messagebox import showerror, showinfo
-from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import askopenfilename, asksaveasfilename
 from lxml import etree
 import glob
 
@@ -143,21 +143,109 @@ class lAnime(Frame):
             except:
                 showerror("Erreur", "Votre id n'est pas un nombre")
             else:
-                print(pseudo, idMAL)
                 self.fen.destroy()
                 
+                totalanime = 0
+                watchinganime = 0
+                completeanime = 0
+                onholdanime = 0
+                droppedanime = 0
+                plantowatchanime = 0
+                for i in glob.glob("./files/anime/*.txt"):
+                    totalanime += 1
+                    with open(i, "r") as fichier:
+                        contenu = fichier.read()
+                        if contenu.split("\n")[2].split(" : ")[1] == "En visionnement":
+                            watchinganime += 1
+                        elif contenu.split("\n")[2].split(" : ")[1] == "Fini":
+                            completeanime += 1
+                        elif contenu.split("\n")[2].split(" : ")[1] == "A voir":
+                            plantowatchanime += 1
+                        else:
+                            droppedanime += 1
+                            
                 mal = etree.Element("myanimelist")
                     
                 myinfo = etree.SubElement(mal, "myinfo")
                 userid = etree.SubElement(myinfo, "user_id")
-                userid.text = idMAL
+                userid.text = str(idMAL)
                 username = etree.SubElement(myinfo, "user_name")
                 username.text = pseudo
                 userexport = etree.SubElement(myinfo, "user_export_type")
-                userexport.text = 1
-            
-                print(etree.tostring(users, pretty_print=True))
+                userexport.text = "1"
+                usertotal = etree.SubElement(myinfo, "user_total_anime")
+                usertotal.text = str(totalanime)
+                userwatching = etree.SubElement(myinfo, "user_total_watching")
+                userwatching.text = str(watchinganime)
+                usercomplete = etree.SubElement(myinfo, "user_total_completed")
+                usercomplete.text = str(completeanime)
+                useronhold = etree.SubElement(myinfo, "user_total_onhold")
+                useronhold.text = str(onholdanime)
+                userdropped = etree.SubElement(myinfo, "user_total_dropped")
+                userdropped.text = str(droppedanime)
+                userplantowatch = etree.SubElement(myinfo, "user_total_plantowatch")
+                userplantowatch.text = str(plantowatchanime)
                 
-                showinfo("Export réussi", "Tous les animes ont été exportés")
+                for i in glob.glob("./files/anime/*.txt"):
+                    with open(i, "r") as fichier:
+                        contenu = fichier.read()
+                    infos = contenu.split("\n")
+                    
+                    anime = etree.SubElement(mal, "anime")
+                    animeid = etree.SubElement(anime, "series_animedb_id")
+                    animeid.text = infos[0].split(" : ")[1]
+                    animetitle = etree.SubElement(anime, "series_title")
+                    animetitle.text = "<![CDATA["+infos[1].split(" : ")[1]+"]]>"
+                    animetype = etree.SubElement(anime, "series_type")
+                    animetype.text = infos[5].split(" : ")[1]
+                    animeep = etree.SubElement(anime, "series_episodes")
+                    animeep.text = infos[4].split(" : ")[1]
+                    animemyid = etree.SubElement(anime, "my_id")
+                    animemyid.text = "0"
+                    animewatchep = etree.SubElement(anime, "my_watched_episodes")
+                    animewatchep.text = infos[3].split(" : ")[1]
+                    animestart = etree.SubElement(anime, "my_start_date")
+                    animestart.text = "0000-00-00"
+                    animeend = etree.SubElement(anime, "my_finish_date")
+                    animeend.text = "0000-00-00"
+                    animerated = etree.SubElement(anime, "my_rated")
+                    animescore = etree.SubElement(anime, "my_score")
+                    animescore.text = "0"
+                    animedvd = etree.SubElement(anime, "my_dvd")
+                    animestorage = etree.SubElement(anime, "my_storage")
+                    animestatus = etree.SubElement(anime, "my_status")
+                    if infos[2].split(" : ")[1] == "En visionnement":
+                        animestatus.text = "Watching"
+                    elif infos[2].split(" : ")[1] == "Fini":
+                        animestatus.text = "Completed"
+                    elif infos[2].split(" : ")[1] == "A voir":
+                        animestatus.text = "Plan to Watch"
+                    else:
+                        animestatus.text = "Dropped"
+                    animecomments = etree.SubElement(anime, "my_comments")
+                    animecomments.text = "<![CDATA[]]>"
+                    animetimes = etree.SubElement(anime, "my_times_watched")
+                    animetimes.text = "0"
+                    animerewatch = etree.SubElement(anime, "my_rewatch_value")
+                    animetags = etree.SubElement(anime, "my_tags")
+                    animetags.text = "<![CDATA[]]>"
+                    animerewatching = etree.SubElement(anime, "my_rewatching")
+                    animerewatching.text = "0"
+                    animerewatchingep = etree.SubElement(anime, "my_rewatching_ep")
+                    animerewatchingep.text = "0"
+                    animeupdate = etree.SubElement(anime, "update_on_import")
+                    animeupdate.text = "1"
+                    
+                self.xmlMAL = asksaveasfilename(defaultextension='.xml', title = "Choisissez votre fichier pour MyAnimeList")
+                if self.xmlMAL != "":
+                    try:
+                        with open(self.xmlMAL, "w") as fichier:
+                            fichier.write('<?xml version="1.0" encoding="UTF-8" ?>\n')
+                            fichier.write(etree.tostring(mal, pretty_print=True).decode('utf-8'))
+                        showinfo("Export réussi", "Tous les animes ont été exportés")
+                    except:
+                        showerror("Erreur", "L'écriture du fichier n'a pas pu être faite.")
+                else:
+                    showerror("Erreur", "Sélectionnez un fichier valide")
         
 
