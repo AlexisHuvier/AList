@@ -19,14 +19,14 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
     - Jikanpy (V 0.1.0 --> Latest)
 
 ## Remerciements :
-- /
+- Xeness (https://github.com/TheoBessel/) : Pour sa tentative de créer une version standalone pour Mac (Pas encore dispo)
 
 ## Bugs connus de la version en développement :
 - /
 
 ## Changelog : 
 
-### V 0.2.0 : Tops Update - 16 Sept 2018 (INDEV):
+### V 0.2.0 : Tops Update - 16 Sept 2018 (LATEST):
 - Amélioration graphique de la page d'accueil et des pages de recherches
 - Ajout de la page de modification pour manga (oublie de la précédente version)
 - Possibilité d'importer une liste de MyAnimeList via la page des listes d'animés/mangas
@@ -36,5 +36,5 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 - Déplacement de la fonction "Au hasard" dans la page des tops
 - Modification de la page d'accueil
 
-### V 0.0.1 : Initial Update - 11 Sept 2018 (LATEST) :
+### V 0.0.1 : Initial Update - 11 Sept 2018s :
 - Première version
