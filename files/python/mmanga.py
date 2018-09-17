@@ -13,10 +13,10 @@ class mManga(Frame):
         with open("./files/manga/"+malId+".txt", "r") as fichier:
             self.infos = fichier.read().split("\n")
         
-        self.lTitre = Label(self, text = "Modification Manga\n"+self.infos[1].split(" : ")[1], font="-size 25 -weight bold")
-        self.lTitre.pack(pady = 30)
+        self.lTitre = Label(self, text = "Modification Manga\n"+self.infos[1].split(" : ")[1], font="-size 20 -weight bold")
+        self.lTitre.pack(pady = 20)
         
-        self.lStatus = Label(self, text = "Status :", font= "-size 18")
+        self.lStatus = Label(self, text = "Status :", font= "-size 15")
         self.lStatus.pack(pady = 5)
         self.liStatus = Listbox(self, selectmode = "single")
         self.liStatus.insert(1, "A voir")

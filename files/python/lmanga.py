@@ -11,7 +11,7 @@ class lManga(Frame):
         self.config(width=800, height=600)
         self.main = main
         self.jikan = jikan
-        self.lTitre = Label(self, text = "Liste de mes mangas", font="-size 25 -weight bold")
+        self.lTitre = Label(self, text = "Liste de mes mangas", font="-size 22 -weight bold")
         self.lTitre.pack(pady = 10)
         self.bLeft = Button(self, text = "<", command = self.showLeftPage)
         self.bLeft.pack(side = LEFT, padx = 10)
@@ -76,16 +76,18 @@ class lManga(Frame):
             else:
                 self.fManga = Frame(self.fList2)
             self.lAName = Label(self.fManga, text = infos[1].split(" : ")[1], font = "-size 13")
-            self.lAName.pack(pady=10)
+            self.lAName.pack(pady=7)
             self.lAStatus = Label(self.fManga, text = "Status : "+infos[2].split(" : ")[1], font = "-size 11")
             self.lAStatus.pack(pady=0)
-            self.lAEp = Label(self.fManga, text = "Chapitres : "+infos[3].split(" : ")[1]+" / "+infos[4].split(" : ")[1], font = "-size 11")
-            self.lAEp.pack(pady =5)
+            self.lAVol = Label(self.fManga, text = "Volumes : "+infos[3].split(" : ")[1]+" / "+infos[4].split(" : ")[1], font = "-size 11")
+            self.lAVol.pack(pady =0)
+            self.lAEp = Label(self.fManga, text = "Chapitres : "+infos[5].split(" : ")[1]+" / "+infos[6].split(" : ")[1], font = "-size 11")
+            self.lAEp.pack(pady =0)
             self.bInfo = Button(self.fManga, text = "Plus d'info", command = lambda x=infos[0].split(" : ")[1]: self.openManga(x))
-            self.bInfo.pack(side = RIGHT, pady =5, padx = 5)
+            self.bInfo.pack(side = RIGHT, pady =7, padx = 5)
             self.bModif = Button(self.fManga, text = "Modifier", command = lambda x=infos[0].split(" : ")[1]: self.modifyManga(x))
-            self.bModif.pack(pady = 5, padx = 5)
-            self.fManga.pack(pady = 10)
+            self.bModif.pack(pady = 7, padx = 0)
+            self.fManga.pack(pady = 2)
     
     def openManga(self, malId):
         self.main.showPage("manga|"+str(malId))
