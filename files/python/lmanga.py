@@ -108,8 +108,9 @@ class lManga(Frame):
                         tempText += "Status : A voir\n"
                     else:
                         tempText += "Status : Abandonné\n"
-                    tempText += "Chapitres : "+manga[6].text+"\nChapitres Max : "+manga[3].text
-                    tempText += "\nType : "+anime[2].text
+                    tempText += "Volumes : "+manga[5].text+"\nVolumes Max : "+manga[2].text
+                    tempText += "\nChapitres : "+manga[6].text+"\nChapitres Max : "+manga[3].text
+                    tempText += "\nType : Manga"
                     with open("files/manga/"+manga[0].text+".txt", "w") as fichier:
                         fichier.write(tempText)
                 showinfo("Import réussi", "Tous les mangas ont été importés")
@@ -197,15 +198,15 @@ class lManga(Frame):
                     mangatitle = etree.SubElement(manga, "series_title")
                     mangatitle.text = "<![CDATA["+infos[1].split(" : ")[1]+"]]>"
                     mangatype = etree.SubElement(manga, "series_volumes")
-                    mangatype.text = "0"
+                    mangatype.text = infos[4].split(" : ")[1]
                     mangaep = etree.SubElement(manga, "series_chapters")
-                    mangaep.text = infos[4].split(" : ")[1]
+                    mangaep.text = infos[6].split(" : ")[1]
                     mangamyid = etree.SubElement(manga, "my_id")
                     mangamyid.text = "0"
                     mangawatchvol = etree.SubElement(manga, "my_read_volumes")
-                    mangawatchvol.text = "0"
+                    mangawatchvol.text = infos[3].split(" : ")[1]
                     mangawatchep = etree.SubElement(manga, "my_read_chapters")
-                    mangawatchep.text = infos[3].split(" : ")[1]
+                    mangawatchep.text = infos[5].split(" : ")[1]
                     mangastart = etree.SubElement(manga, "my_start_date")
                     mangastart.text = "0000-00-00"
                     mangaend = etree.SubElement(manga, "my_finish_date")

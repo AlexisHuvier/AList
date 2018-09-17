@@ -33,15 +33,21 @@ class mManga(Frame):
         elif self.infos[2].split(" : ")[1] == "Abandonné":
             self.liStatus.selection_set(3)
         
-        self.lEpisodes = Label(self, text = "Chapitres vus (Max : "+self.infos[4].split(" : ")[1]+")", font = "-size 18")
+        self.lEpisodes = Label(self, text = "Chapitres vus (Max : "+self.infos[6].split(" : ")[1]+")", font = "-size 15")
         self.lEpisodes.pack(pady = 10)
         self.eEpisodes = Entry(self)
         self.eEpisodes.insert(0, self.infos[3].split(" : ")[1])
         self.eEpisodes.pack(pady= 5)
+
+        self.lVolumes = Label(self, text = "Volumes vus (Max : "+self.infos[4].split(" : ")[1]+")", font = "-size 15")
+        self.lVolumes.pack(pady = 10)
+        self.eVolumes = Entry(self)
+        self.eVolumes.insert(0, self.infos[3].split(" : ")[1])
+        self.eVolumes.pack(pady= 5)
         
-        self.bDelete = Button(self, text = "Supprimer", font = "-size 18", command = self.delete)
-        self.bDelete.pack(pady=20)
-        self.bValider = Button(self, text = "Valider", font = "-size 18", command = self.valider)
+        self.bDelete = Button(self, width = 12, text = "Supprimer", font = "-size 15", command = self.delete)
+        self.bDelete.pack(pady=15)
+        self.bValider = Button(self, width = 12, text = "Valider", font = "-size 15", command = self.valider)
         self.bValider.pack(pady = 5)
         
         self.pack(side=RIGHT)
@@ -58,14 +64,20 @@ class mManga(Frame):
         except ValueError:
             showerror("Erreur", "Il faut entrer un nombre valide de chapitres.")
         else:
-            if len(self.liStatus.curselection()) == 1 and self.liStatus.curselection()[0] in [0, 1, 2, 3]:
-                i = self.liStatus.curselection()[0]
-                self.infos[3] = self.infos[3].split(" : ")[0] + " : "+str(temp)
-                self.infos[2] = self.infos[2].split(" : ")[0] + " : "+ self.liStatus.get(i)
-                with open("files/manga/"+str(self.infos[0].split(" : ")[1])+".txt", "w") as fichier:
-                    fichier.write("\n".join(self.infos))
-                showinfo("Enregistrement réussi", "Les modifications ont bien été prise en compte")
-                self.main.showPage("lManga")
+            try:
+                temp2 = int(self.eVolumes.get())
+            except ValueError:
+                showerror("Erreur", "Il faut entrer un nombre valide de volumes.")
             else:
-                showerror("Erreur", "Il faut sélectionner un status valide.")
+                if len(self.liStatus.curselection()) == 1 and self.liStatus.curselection()[0] in [0, 1, 2, 3]:
+                    i = self.liStatus.curselection()[0]
+                    self.infos[3] = self.infos[3].split(" : ")[0] + " : "+str(temp2)
+                    self.infos[5] = self.infos[5].split(" : ")[0] + " : "+str(temp)
+                    self.infos[2] = self.infos[2].split(" : ")[0] + " : "+ self.liStatus.get(i)
+                    with open("files/manga/"+str(self.infos[0].split(" : ")[1])+".txt", "w") as fichier:
+                        fichier.write("\n".join(self.infos))
+                    showinfo("Enregistrement réussi", "Les modifications ont bien été prise en compte")
+                    self.main.showPage("lManga")
+                else:
+                    showerror("Erreur", "Il faut sélectionner un status valide.")
         
