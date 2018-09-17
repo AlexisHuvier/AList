@@ -2,6 +2,7 @@ from tkinter import *
 import webbrowser
 
 class Accueil(Frame):
+    """Page d'accueil du logiciel"""
     def __init__(self, main, jikan):
         super(Accueil, self).__init__(main, bg="#9f9f9f", relief = GROOVE)
         self.pack_propagate(False)
@@ -26,4 +27,5 @@ class Accueil(Frame):
         self.pack(side=RIGHT)
     
     def openWeb(self, url):
+        """Ouvre une page internet avec comme url <url>"""
         webbrowser.open(url)

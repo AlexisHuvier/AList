@@ -6,6 +6,7 @@ import os
 import webbrowser
 
 class Anime(Frame):
+    """Page présentant un animé (peut prendre un temps à s'ouvrir)"""
     def __init__(self, main, jikan, malId):
         super(Anime, self).__init__(main, bg="#9f9f9f", relief = GROOVE)
         self.pack_propagate(False)
@@ -123,9 +124,11 @@ class Anime(Frame):
         self.pack(side=RIGHT)
     
     def openWeb(self, url):
+        """Ouvre une page internet avec comme url <url>"""
         webbrowser.open(url)
     
     def addToList(self):
+        """Ajoute l'animé à sa liste d'animé"""
         with open("files/anime/"+str(self.anime["mal_id"])+".txt", "w") as fichier:
             if self.anime["episodes"]:
                 fichier.write("ID : "+str(self.anime["mal_id"])+"\nNom : "+self.anime["title"]+"\nStatus : A voir\nEpisodes : 0\nEpisodes Max : "+str(self.anime["episodes"])+"\nType : "+str(self.anime["type"]))

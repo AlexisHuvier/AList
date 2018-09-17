@@ -3,6 +3,7 @@ from tkinter.messagebox import showerror
 from random import randint
 
 class rManga(Frame):
+    """Page de recherche de manga"""
     def __init__(self, main, jikan):
         super(rManga, self).__init__(main, bg="#9f9f9f", relief = GROOVE)
         self.pack_propagate(False)
@@ -21,6 +22,7 @@ class rManga(Frame):
         self.pack(side=RIGHT)
     
     def searchEntry(self):
+        """Valide la recherche"""
         if self.eSearch.get() == "":
             showerror("Erreur", "Entrez quelque chose à rechercher")
         else:
@@ -36,4 +38,5 @@ class rManga(Frame):
                 self.bResult.pack(pady = 10)
             
     def openManga(self, malId):
+        """Ouvre la page présentant le manga ayant l'id MAL <malId>"""
         self.main.showPage("manga|"+str(malId))

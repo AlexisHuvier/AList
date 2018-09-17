@@ -3,6 +3,7 @@ from tkinter.messagebox import showerror
 from random import randint
 
 class rAnime(Frame):
+    """Page de recherche d'animé"""
     def __init__(self, main, jikan):
         super(rAnime, self).__init__(main, bg="#9f9f9f", relief = GROOVE)
         self.pack_propagate(False)
@@ -21,6 +22,7 @@ class rAnime(Frame):
         self.pack(side=RIGHT)
     
     def searchEntry(self):
+        """Valide la recherche"""
         if self.eSearch.get() == "":
             showerror("Erreur", "Entrez quelque chose à rechercher")
         else:
@@ -36,4 +38,5 @@ class rAnime(Frame):
                 self.bResult.pack(pady = 10)
     
     def openAnime(self, malId):
+        """Ouvre la page présentant l'animé ayant l'id MAL <malId>"""
         self.main.showPage("anime|"+str(malId))

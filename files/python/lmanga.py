@@ -5,6 +5,7 @@ from lxml import etree
 import glob
 
 class lManga(Frame):
+    """Page qui liste ses mangas"""
     def __init__(self, main, jikan):
         super(lManga, self).__init__(main, bg="#9f9f9f", relief = GROOVE)
         self.pack_propagate(False)
@@ -33,6 +34,7 @@ class lManga(Frame):
         self.pack(side=RIGHT)
     
     def showRightPage(self):
+        """Affiche la page suivante"""
         if self.page == self.pageMax:
             self.page = 0
         else:
@@ -40,6 +42,7 @@ class lManga(Frame):
         self.createPage()
     
     def showLeftPage(self):
+        """Affiche la page précédente"""
         if self.page == 0:
             self.page = self.pageMax
         else:
@@ -47,6 +50,7 @@ class lManga(Frame):
         self.createPage()
         
     def createPage(self):
+        """Créer la page à afficher puis l'affiche"""
         self.fMangas.destroy()
         self.fButtons.destroy()
         self.fMangas = Frame(self)
@@ -90,12 +94,15 @@ class lManga(Frame):
             self.fManga.pack(pady = 2)
     
     def openManga(self, malId):
+        """Ouvre une page présentant le manga dont l'id MAL est <malId>"""
         self.main.showPage("manga|"+str(malId))
     
     def modifyManga(self, malId):
+        """Ouvre une page pour modifier les infos enregistrés pour le manga ayant comme id MAL <malId>"""
         self.main.showPage("mangaM|"+str(malId))
     
     def importMAL(self):
+        """Import un .xml exporté de MyAnimeList"""
         self.xmlMAL = askopenfilename(defaultextension='.xml', title = "Choisissez votre fichier exporté de MyAnimeList")
         if self.xmlMAL != "":
             try:
@@ -123,6 +130,7 @@ class lManga(Frame):
             showerror("Erreur", "Sélectionnez un fichier valide")
     
     def exportMALFen(self):
+        """Ouvre une fenêtre pour récupérer les informations utiles à l'export pour MAL"""
         self.fen=Toplevel(self.main)
         self.e1=Entry(self.fen)
         self.e1.insert(0, "Pseudo")
@@ -136,6 +144,7 @@ class lManga(Frame):
         self.bQuit.pack(pady = 10)
     
     def exportMAL(self):
+        """Export la liste dans .xml pour MAL"""
         if self.e1.get() in ["Pseudo", ""] or self.e2.get() in ["ID MAL", ""]:
             showerror("Erreur", "Entrez des valeurs valides") 
         else:

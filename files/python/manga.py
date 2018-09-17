@@ -6,6 +6,7 @@ import os
 import webbrowser
 
 class Manga(Frame):
+    """Page présentant un manga (peut prendre un temps à s'ouvrir)"""
     def __init__(self, main, jikan, malId):
         super(Manga, self).__init__(main, bg="#9f9f9f", relief = GROOVE)
         self.pack_propagate(False)
@@ -130,9 +131,11 @@ class Manga(Frame):
         self.pack(side=RIGHT)
     
     def openWeb(self, url):
+        """Ouvre une page internet avec comme url <url>"""
         webbrowser.open(url)
     
     def addToList(self):
+        """Ajoute le manga à sa liste de manga"""
         with open("files/manga/"+str(self.manga["mal_id"])+".txt", "w") as fichier:
             if self.manga["chapters"]:
                 if self.manga["volumes"]:

@@ -3,6 +3,7 @@ from tkinter.messagebox import showinfo, showerror, askquestion
 import os
 
 class mManga(Frame):
+    """Page pour modifier les informations d'un manga"""
     def __init__(self, main, jikan, malId):
         super(mManga, self).__init__(main, bg="#9f9f9f", relief = GROOVE)
         self.pack_propagate(False)
@@ -53,12 +54,14 @@ class mManga(Frame):
         self.pack(side=RIGHT)
         
     def delete(self):
+        """Supprime le manga de sa liste"""
         if askquestion("Quitter", "Êtes-vous sûr de supprimer "+self.infos[1].split(" : ")[1]+" ?") == "yes":
             os.remove("files/manga/"+self.infos[0].split(" : ")[1]+".txt")
             showinfo("Suppression réussie", "Le manga n'est plus dans votre liste")
             self.main.showPage("lManga")
     
     def valider(self):
+        """Valide les changements d'informations"""
         try:
             temp = int(self.eEpisodes.get())
         except ValueError:

@@ -4,6 +4,7 @@ from datetime import datetime
 from random import randint
 
 class Tops(Frame):
+    """Page affichant divers tops (peut être longue à afficher un top)"""
     def __init__(self, main, jikan):
         super(Tops, self).__init__(main, bg="#9f9f9f", relief = GROOVE)
         self.pack_propagate(False)
@@ -30,7 +31,10 @@ class Tops(Frame):
         self.pack(side=RIGHT)
     
     def valide(self):
+        """Valide le choix du top"""
         self.fTops.destroy()
+
+        #Top anime
         if self.vTop.get() == "Anime depuis toujours":
             self.tAnime = self.jikan.top(type='anime')
             self.fTops = Frame(self)
@@ -45,6 +49,8 @@ class Tops(Frame):
                     self.lTitreA = Button(self.fTops, text = str(i+1) + ". "+self.tAnime["top"][i]["title"][:37]+"...", width = 40, font = "-size 13", command = lambda x=self.tAnime["top"][i]["mal_id"]: self.openAnime(x))
                 self.lTitreA.pack(pady=3)
             self.fTops.pack()
+
+        #Top manga
         elif self.vTop.get() == "Manga depuis toujours":
             self.tManga = self.jikan.top(type='manga')
 
@@ -60,6 +66,8 @@ class Tops(Frame):
                     self.lTitreM = Button(self.fTops, text = str(i+1) + ". "+self.tManga["top"][i]["title"][:37]+"...", width = 40, font = "-size 13", command = lambda x=self.tManga["top"][i]["mal_id"]: self.openManga(x))
                 self.lTitreM.pack(pady=3)
             self.fTops.pack()
+        
+        #Anime du jour
         elif self.vTop.get() == "Anime du jour":
             self.animeAlea = {"error" : "test"}
             boucle = 0
@@ -84,6 +92,8 @@ class Tops(Frame):
                 self.lTitreM = Button(self.fTops, text = self.animeAlea["title"][:37]+"...", width = 40, font = "-size 13", command = lambda x=self.animeAlea["mal_id"]: self.openAnime(x))
             self.lTitreM.pack(pady=3)
             self.fTops.pack()
+
+        #Manga du jour
         elif self.vTop.get() == "Manga du jour":
             self.mangaAlea = {"error" : "test"}
             boucle = 0
@@ -108,6 +118,8 @@ class Tops(Frame):
                 self.lTitreM = Button(self.fTops, text = self.mangaAlea["title"][:37]+"...", width = 40, font = "-size 13", command = lambda x=self.mangaAlea["mal_id"]: self.openManga(x))
             self.lTitreM.pack(pady=3)
             self.fTops.pack()
+
+        #Anime au hasard
         elif self.vTop.get() == "Anime au hasard":
             self.animeAlea = {"error" : "test"}
             while True:
@@ -130,6 +142,8 @@ class Tops(Frame):
                 self.lTitreM = Button(self.fTops, text = self.animeAlea["title"][:37]+"...", width = 40, font = "-size 13", command = lambda x=self.animeAlea["mal_id"]: self.openAnime(x))
             self.lTitreM.pack(pady=3)
             self.fTops.pack()
+
+        #Manga au hasard
         elif self.vTop.get() == "Manga au hasard":
             self.mangaAlea = {"error" : "test"}
             while True:
@@ -152,15 +166,21 @@ class Tops(Frame):
                 self.lTitreM = Button(self.fTops, text = self.mangaAlea["title"][:37]+"...", width = 40, font = "-size 13", command = lambda x=self.mangaAlea["mal_id"]: self.openManga(x))
             self.lTitreM.pack(pady=3)
             self.fTops.pack()
+        
+        #Gestion erreur
         elif self.vTop.get() == "Choisissez un top":
             showerror("Erreur", "Selectionnez un top.")
+            self.fTops = Frame(self)
+            self.fTops.pack()
         else:
             showerror("Erreur", "Ce top n'est pas encore disponible")
             self.fTops = Frame(self)
             self.fTops.pack()
     
     def openManga(self, malId):
+        """Ouvre une page présentant le manga dont l'id MAL est <malId>"""
         self.main.showPage("manga|"+str(malId))
     
     def openAnime(self, malId):
+        """Ouvre une page présentant l'animé dont l'id MAL est <malId>"""
         self.main.showPage("anime|"+str(malId))

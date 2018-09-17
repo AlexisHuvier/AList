@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.messagebox import askquestion
 
 class Menu(Frame):
+    """Menu de gauche permettant d'accéder à la plupart des pages"""
     def __init__(self, main):
         super(Menu, self).__init__(main, bg="#686868", relief = GROOVE)
         self.pack_propagate(False)
@@ -24,10 +25,12 @@ class Menu(Frame):
         self.pack(side = LEFT)
     
     def quit(self):
+        """Quitte le logiciel"""
         if askquestion("Quitter", "Êtes-vous sûr de quitter ?") == "yes":
             self.main.destroy()
     
     def showPage(self, page):
+        """Affiche une page via la fenêtre principale"""
         self.main.showPage(page)
         
         

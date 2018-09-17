@@ -16,6 +16,7 @@ from files.python.tops import Tops
 
 class Main(Tk):
     def __init__(self):
+        """Fenêtre principale du logiciel"""
         super(Main, self).__init__()
         self.pageActuel = ""
         self.jikan = Jikan()
@@ -36,6 +37,9 @@ class Main(Tk):
         self.mainloop()
     
     def showPage(self, page):
+        """Affiche la page <page>
+        Certaines pages ont un code pour avoir un autre argument comme "anime|<nom>"
+        """
         if self.pageActuel != page:
             self.page.destroy()
             if page == "accueil":
