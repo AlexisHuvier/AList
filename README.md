@@ -26,6 +26,12 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 
 ## Changelog : 
 
+### V 0.3.0 : XXX Update - XX Sept 2018 (INDEV):
+- Modification du système des mangas pour prendre en compte les volumes en plus des chapitres
+- Ajout de commentaire sur la totalité des classes et des fonctions
+- Modification de la licence
+- Modification des pages : Liste des mangas, mangas et modification manga pour les adapter au nouveau système
+
 ### V 0.2.0 : Tops Update - 16 Sept 2018 (LATEST):
 - Amélioration graphique de la page d'accueil et des pages de recherches
 - Ajout de la page de modification pour manga (oublie de la précédente version)
