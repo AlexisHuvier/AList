@@ -11,11 +11,11 @@ class Tops(Frame):
         self.config(width=800, height=600)
         self.main = main
         self.jikan = jikan
-        self.lTitre = Label(self, text = "Tops", font="-size 25 -weight bold")
+        self.lTitre = Label(self, bg="#9f9f9f", text = "Tops", font="-size 25 -weight bold")
         self.lTitre.pack(pady = 10)
         self.idDuJour = 10+datetime.now().year//datetime.now().month*datetime.now().day
 
-        self.fTop = Frame(self)
+        self.fTop = Frame(self, bg="#9f9f9f")
         self.vTop = StringVar(self)
         self.vTop.set("Choisissez un top") # default value
         self.menuTop = OptionMenu(self.fTop, self.vTop, "Choisissez un top", "Anime depuis toujours", "Manga depuis toujours", "Anime du jour", "Manga du jour", "Anime au hasard", "Manga au hasard")
@@ -25,7 +25,7 @@ class Tops(Frame):
         self.bValide.pack(side = RIGHT, padx = 100, pady = 5)
         self.fTop.pack(pady = 5)
 
-        self.fTops = Frame(self)
+        self.fTops = Frame(self, bg="#9f9f9f")
         self.fTops.pack()
 
         self.pack(side=RIGHT)
@@ -37,10 +37,10 @@ class Tops(Frame):
         #Top anime
         if self.vTop.get() == "Anime depuis toujours":
             self.tAnime = self.jikan.top(type='anime')
-            self.fTops = Frame(self)
+            self.fTops = Frame(self, bg="#9f9f9f")
             self.fTops.pack_propagate(False)
             self.fTops.config(width=600, height=480)
-            self.lTitreTA = Label(self.fTops, text = "Top 10 Anime", font= "-size 20")
+            self.lTitreTA = Label(self.fTops, bg="#9f9f9f", text = "Top 10 Anime", font= "-size 20")
             self.lTitreTA.pack(pady = 10)
             for i in range(10):
                 if len(self.tAnime["top"][i]["title"]) < 40:
@@ -54,10 +54,10 @@ class Tops(Frame):
         elif self.vTop.get() == "Manga depuis toujours":
             self.tManga = self.jikan.top(type='manga')
 
-            self.fTops = Frame(self)
+            self.fTops = Frame(self, bg="#9f9f9f")
             self.fTops.pack_propagate(False)
             self.fTops.config(width=600, height=480)
-            self.lTitreTM = Label(self.fTops, text = "Top 10 Manga", font= "-size 20")
+            self.lTitreTM = Label(self.fTops, bg="#9f9f9f", text = "Top 10 Manga", font= "-size 20")
             self.lTitreTM.pack(pady = 10)
             for i in range(10):
                 if len(self.tManga["top"][i]["title"]) < 40:
@@ -81,10 +81,10 @@ class Tops(Frame):
                             self.animeAlea = {"error" : "test"}
                 except:
                     break
-            self.fTops = Frame(self)
+            self.fTops = Frame(self, bg="#9f9f9f")
             self.fTops.pack_propagate(False)
             self.fTops.config(width=600, height=480)
-            self.lTitreTM = Label(self.fTops, text = "Anime du jour", font= "-size 20")
+            self.lTitreTM = Label(self.fTops, bg="#9f9f9f", text = "Anime du jour", font= "-size 20")
             self.lTitreTM.pack(pady = 10)
             if len(self.animeAlea["title"]) < 40:
                 self.lTitreM = Button(self.fTops, text = self.animeAlea["title"], font = "-size 13", width = 40, command = lambda x=self.animeAlea["mal_id"]: self.openAnime(x))
@@ -107,10 +107,10 @@ class Tops(Frame):
                             self.mangaAlea = {"error" : "test"}
                 except:
                     break
-            self.fTops = Frame(self)
+            self.fTops = Frame(self, bg="#9f9f9f")
             self.fTops.pack_propagate(False)
             self.fTops.config(width=600, height=480)
-            self.lTitreTM = Label(self.fTops, text = "Manga du jour", font= "-size 20")
+            self.lTitreTM = Label(self.fTops, bg="#9f9f9f", text = "Manga du jour", font= "-size 20")
             self.lTitreTM.pack(pady = 10)
             if len(self.mangaAlea["title"]) < 40:
                 self.lTitreM = Button(self.fTops, text = self.mangaAlea["title"], font = "-size 13", width = 40, command = lambda x=self.mangaAlea["mal_id"]: self.openManga(x))
@@ -131,10 +131,10 @@ class Tops(Frame):
                             self.animeAlea = {"error" : "test"}
                 except:
                     break
-            self.fTops = Frame(self)
+            self.fTops = Frame(self, bg="#9f9f9f")
             self.fTops.pack_propagate(False)
             self.fTops.config(width=600, height=480)
-            self.lTitreTM = Label(self.fTops, text = "Anime du jour", font= "-size 20")
+            self.lTitreTM = Label(self.fTops, bg="#9f9f9f", text = "Anime du jour", font= "-size 20")
             self.lTitreTM.pack(pady = 10)
             if len(self.animeAlea["title"]) < 40:
                 self.lTitreM = Button(self.fTops, text = self.animeAlea["title"], font = "-size 13", width = 40, command = lambda x=self.animeAlea["mal_id"]: self.openAnime(x))
@@ -155,10 +155,10 @@ class Tops(Frame):
                             self.mangaAlea = {"error" : "test"}
                 except:
                     break
-            self.fTops = Frame(self)
+            self.fTops = Frame(self, bg="#9f9f9f")
             self.fTops.pack_propagate(False)
             self.fTops.config(width=600, height=480)
-            self.lTitreTM = Label(self.fTops, text = "Manga du jour", font= "-size 20")
+            self.lTitreTM = Label(self.fTops, bg="#9f9f9f", text = "Manga du jour", font= "-size 20")
             self.lTitreTM.pack(pady = 10)
             if len(self.mangaAlea["title"]) < 40:
                 self.lTitreM = Button(self.fTops, text = self.mangaAlea["title"], font = "-size 13", width = 40, command = lambda x=self.mangaAlea["mal_id"]: self.openManga(x))
@@ -170,11 +170,11 @@ class Tops(Frame):
         #Gestion erreur
         elif self.vTop.get() == "Choisissez un top":
             showerror("Erreur", "Selectionnez un top.")
-            self.fTops = Frame(self)
+            self.fTops = Frame(self, bg="#9f9f9f")
             self.fTops.pack()
         else:
             showerror("Erreur", "Ce top n'est pas encore disponible")
-            self.fTops = Frame(self)
+            self.fTops = Frame(self, bg="#9f9f9f")
             self.fTops.pack()
     
     def openManga(self, malId):

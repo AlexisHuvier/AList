@@ -12,19 +12,19 @@ class lManga(Frame):
         self.config(width=800, height=600)
         self.main = main
         self.jikan = jikan
-        self.lTitre = Label(self, text = "Liste de mes mangas", font="-size 22 -weight bold")
+        self.lTitre = Label(self, bg="#9f9f9f", text = "Liste de mes mangas", font="-size 22 -weight bold")
         self.lTitre.pack(pady = 10)
         self.bLeft = Button(self, text = "<", command = self.showLeftPage)
         self.bLeft.pack(side = LEFT, padx = 10)
         self.bRight = Button(self, text = ">", command= self.showRightPage)
         self.bRight.pack(side = RIGHT, padx = 10)
-        self.fMangas = Frame(self)
+        self.fMangas = Frame(self, bg="#9f9f9f")
         self.fMangas.pack(pady = 5)
-        self.fButtons = Frame(self)
+        self.fButtons = Frame(self, bg="#9f9f9f")
         self.fButtons.pack(pady = 5)
-        self.bImport = Button(self.fButtons, text = "Importer MAL")
+        self.bImport = Button(self.fButtons, text = "Importer MAL", command = self.importMAL)
         self.bImport.pack(side = LEFT, padx = 10)
-        self.bExport = Button(self.fButtons, text = "Exporter MAL")
+        self.bExport = Button(self.fButtons, text = "Exporter MAL", command = self.exportMALFen)
         self.bExport.pack(side = RIGHT, padx = 10)
         self.page = 0
         self.pageMax = len(glob.glob("./files/manga/*.txt"))//6
@@ -53,19 +53,19 @@ class lManga(Frame):
         """Créer la page à afficher puis l'affiche"""
         self.fMangas.destroy()
         self.fButtons.destroy()
-        self.fMangas = Frame(self)
+        self.fMangas = Frame(self, bg="#9f9f9f")
         self.fMangas.pack(pady = 5)
-        self.fButtons = Frame(self)
+        self.fButtons = Frame(self, bg="#9f9f9f")
         self.fButtons.pack(pady = 5)
         self.bImport = Button(self.fButtons, text = "Importer MAL", command = self.importMAL)
         self.bImport.pack(side = LEFT, padx = 10)
         self.bExport = Button(self.fButtons, text = "Exporter MAL", command = self.exportMALFen)
         self.bExport.pack(side = RIGHT, padx = 10)
         if len(glob.glob("./files/manga/*.txt")) > 0:
-            self.fList = Frame(self.fMangas)
+            self.fList = Frame(self.fMangas, bg="#9f9f9f")
             self.fList.pack(side = LEFT, padx =10)
         if len(glob.glob("./files/manga/*.txt"))-6*self.page > 3:
-            self.fList2 = Frame(self.fMangas)
+            self.fList2 = Frame(self.fMangas, bg="#9f9f9f")
             self.fList2.pack(side = RIGHT, padx =10)
         for i in range(6):
             contenu = ""
@@ -76,22 +76,29 @@ class lManga(Frame):
                 break
             infos = contenu.split("\n")
             if i < 3:
-                self.fManga = Frame(self.fList)
+                self.fManga = Frame(self.fList, bg="#9f9f9f", relief = "ridge", borderwidth = 5)
             else:
-                self.fManga = Frame(self.fList2)
-            self.lAName = Label(self.fManga, text = infos[1].split(" : ")[1], font = "-size 13")
-            self.lAName.pack(pady=7)
-            self.lAStatus = Label(self.fManga, text = "Status : "+infos[2].split(" : ")[1], font = "-size 11")
+                self.fManga = Frame(self.fList2, bg="#9f9f9f", relief = "ridge", borderwidth = 5)
+            self.fManga.pack_propagate(False)
+            self.fManga.config(width=300, height=150)
+            if len(infos[1].split(" : ")[1]) < 30:
+                self.lAName = Label(self.fManga, bg="#9f9f9f", text = infos[1].split(" : ")[1], font = "-size 13")
+            else:
+                self.lAName = Label(self.fManga, bg="#9f9f9f", text = infos[1].split(" : ")[1][:27]+"...", font = "-size 13")
+            self.lAName.pack(pady=5)
+            self.lAStatus = Label(self.fManga, bg="#9f9f9f", text = "Status : "+infos[2].split(" : ")[1], font = "-size 11")
             self.lAStatus.pack(pady=0)
-            self.lAVol = Label(self.fManga, text = "Volumes : "+infos[3].split(" : ")[1]+" / "+infos[4].split(" : ")[1], font = "-size 11")
+            self.lAVol = Label(self.fManga, bg="#9f9f9f", text = "Volumes : "+infos[3].split(" : ")[1]+" / "+infos[4].split(" : ")[1], font = "-size 11")
             self.lAVol.pack(pady =0)
-            self.lAEp = Label(self.fManga, text = "Chapitres : "+infos[5].split(" : ")[1]+" / "+infos[6].split(" : ")[1], font = "-size 11")
+            self.lAEp = Label(self.fManga, bg="#9f9f9f", text = "Chapitres : "+infos[5].split(" : ")[1]+" / "+infos[6].split(" : ")[1], font = "-size 11")
             self.lAEp.pack(pady =0)
-            self.bInfo = Button(self.fManga, text = "Plus d'info", command = lambda x=infos[0].split(" : ")[1]: self.openManga(x))
-            self.bInfo.pack(side = RIGHT, pady =7, padx = 5)
-            self.bModif = Button(self.fManga, text = "Modifier", command = lambda x=infos[0].split(" : ")[1]: self.modifyManga(x))
-            self.bModif.pack(pady = 7, padx = 0)
-            self.fManga.pack(pady = 2)
+            self.fButtonsManga = Frame(self.fManga, bg = "#9f9f9f")
+            self.bInfo = Button(self.fButtonsManga, text = "Plus d'info", command = lambda x=infos[0].split(" : ")[1]: self.openManga(x))
+            self.bInfo.pack(side = RIGHT, padx = 5)
+            self.bModif = Button(self.fButtonsManga, text = "Modifier", command = lambda x=infos[0].split(" : ")[1]: self.modifyManga(x))
+            self.bModif.pack(side = LEFT, padx = 5)
+            self.fButtonsManga.pack(pady = 5)
+            self.fManga.pack(pady = 5)
     
     def openManga(self, malId):
         """Ouvre une page présentant le manga dont l'id MAL est <malId>"""

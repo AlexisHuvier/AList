@@ -12,21 +12,21 @@ class lAnime(Frame):
         self.config(width=800, height=600)
         self.main = main
         self.jikan = jikan
-        self.lTitre = Label(self, text = "Liste de mes animes", font="-size 22 -weight bold")
-        self.lTitre.pack(pady = 10)
+        self.lTitre = Label(self, bg="#9f9f9f", text = "Liste de mes animes", font="-size 22 -weight bold")
+        self.lTitre.pack(pady = 5)
         
         self.bLeft = Button(self, text = "<", command = self.showLeftPage)
         self.bLeft.pack(side = LEFT, padx = 10)
         self.bRight = Button(self, text = ">", command= self.showRightPage)
         self.bRight.pack(side = RIGHT, padx = 10)
-        self.fAnimes = Frame(self)
-        self.fAnimes.pack(pady = 5)
-        self.fButtons = Frame(self)
+        self.fAnimes = Frame(self, bg="#9f9f9f")
+        self.fAnimes.pack(pady = 10)
+        self.fButtons = Frame(self, bg="#9f9f9f")
         self.fButtons.pack(pady = 5)
-        self.bImport = Button(self.fButtons, text = "Importer MAL")
-        self.bImport.pack(side = LEFT, padx = 10)
-        self.bExport = Button(self.fButtons, text = "Exporter MAL")
-        self.bExport.pack(side = RIGHT, padx = 10)
+        self.bImport = Button(self.fButtons, text = "Importer MAL", command = self.importMAL)
+        self.bImport.pack(side = LEFT, padx = 5)
+        self.bExport = Button(self.fButtons, text = "Exporter MAL", command = self.exportMALFen)
+        self.bExport.pack(side = RIGHT, padx = 5)
         self.page = 0
         self.pageMax = len(glob.glob("./files/anime/*.txt"))//6
         
@@ -54,20 +54,20 @@ class lAnime(Frame):
         """Créer la page à afficher puis l'affiche"""
         self.fAnimes.destroy()
         self.fButtons.destroy()
-        self.fAnimes = Frame(self)
-        self.fAnimes.pack(pady = 5)
-        self.fButtons = Frame(self)
+        self.fAnimes = Frame(self, bg="#9f9f9f")
+        self.fAnimes.pack(pady = 10)
+        self.fButtons = Frame(self, bg="#9f9f9f")
         self.fButtons.pack(pady = 5)
         self.bImport = Button(self.fButtons, text = "Importer MAL", command = self.importMAL)
-        self.bImport.pack(side = LEFT, padx = 10)
+        self.bImport.pack(side = LEFT, padx = 5)
         self.bExport = Button(self.fButtons, text = "Exporter MAL", command = self.exportMALFen)
-        self.bExport.pack(side = RIGHT, padx = 10)
+        self.bExport.pack(side = RIGHT, padx = 5)
         if len(glob.glob("./files/anime/*.txt")) > 0:
-            self.fList = Frame(self.fAnimes)
-            self.fList.pack(side = LEFT, padx =10)
+            self.fList = Frame(self.fAnimes, bg="#9f9f9f")
+            self.fList.pack(side = LEFT, padx =5)
         if len(glob.glob("./files/anime/*.txt"))-6*self.page > 3:
-            self.fList2 = Frame(self.fAnimes)
-            self.fList2.pack(side = RIGHT, padx =10)
+            self.fList2 = Frame(self.fAnimes, bg="#9f9f9f")
+            self.fList2.pack(side = RIGHT, padx =5)
         for i in range(6):
             contenu = ""
             try:
@@ -77,20 +77,27 @@ class lAnime(Frame):
                 break
             infos = contenu.split("\n")
             if i < 3:
-                self.fAnime = Frame(self.fList)
+                self.fAnime = Frame(self.fList, bg="#9f9f9f", relief = "ridge", borderwidth = 5)
             else:
-                self.fAnime = Frame(self.fList2)
-            self.lAName = Label(self.fAnime, text = infos[1].split(" : ")[1], font = "-size 13")
+                self.fAnime = Frame(self.fList2, bg="#9f9f9f", relief = "ridge", borderwidth = 5)
+            self.fAnime.pack_propagate(False)
+            self.fAnime.config(width=300, height=150)
+            if len(infos[1].split(" : ")[1]) < 30:
+                self.lAName = Label(self.fAnime, bg="#9f9f9f", text = infos[1].split(" : ")[1], font = "-size 13")
+            else:
+                self.lAName = Label(self.fAnime, bg="#9f9f9f", text = infos[1].split(" : ")[1][:27]+"...", font = "-size 13")
             self.lAName.pack(pady=10)
-            self.lAStatus = Label(self.fAnime, text = "Status : "+infos[2].split(" : ")[1], font = "-size 11")
+            self.lAStatus = Label(self.fAnime, bg="#9f9f9f", text = "Status : "+infos[2].split(" : ")[1], font = "-size 11")
             self.lAStatus.pack(pady=0)
-            self.lAEp = Label(self.fAnime, text = "Episodes : "+infos[3].split(" : ")[1]+" / "+infos[4].split(" : ")[1], font = "-size 11")
+            self.lAEp = Label(self.fAnime, bg="#9f9f9f", text = "Episodes : "+infos[3].split(" : ")[1]+" / "+infos[4].split(" : ")[1], font = "-size 11")
             self.lAEp.pack(pady =5)
-            self.bInfo = Button(self.fAnime, text = "Plus d'info", command = lambda x=infos[0].split(" : ")[1]: self.openAnime(x))
-            self.bInfo.pack(side = RIGHT, pady =5, padx = 5)
-            self.bModif = Button(self.fAnime, text = "Modifier", command = lambda x=infos[0].split(" : ")[1]: self.modifyAnime(x))
-            self.bModif.pack(pady = 5, padx = 5)
-            self.fAnime.pack(pady = 10)
+            self.fButtonsAnime = Frame(self.fAnime, bg = "#9f9f9f")
+            self.bInfo = Button(self.fButtonsAnime, text = "Plus d'info", command = lambda x=infos[0].split(" : ")[1]: self.openAnime(x))
+            self.bInfo.pack(side = RIGHT, padx = 5)
+            self.bModif = Button(self.fButtonsAnime, text = "Modifier", command = lambda x=infos[0].split(" : ")[1]: self.modifyAnime(x))
+            self.bModif.pack(side = LEFT, padx = 5)
+            self.fButtonsAnime.pack(pady = 5)
+            self.fAnime.pack(pady = 5)
     
     def openAnime(self, malId):
         """Ouvre une page présentant l'anime dont l'id MAL est <malId>"""

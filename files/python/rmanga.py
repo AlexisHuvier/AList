@@ -10,14 +10,14 @@ class rManga(Frame):
         self.config(width=800, height=600)
         self.main = main
         self.jikan = jikan
-        self.lTitre = Label(self, text = "Rechercher un manga", font="-size 25 -weight bold")
+        self.lTitre = Label(self, bg="#9f9f9f", text = "Rechercher un manga", font="-size 25 -weight bold")
         self.lTitre.pack(pady = 30)
         
         self.eSearch = Entry(self, font = "-size 15")
         self.eSearch.pack(pady = 10)
         self.bEntry = Button(self, text = "Rechercher", font = "-size 15", command = self.searchEntry)
         self.bEntry.pack(pady = 10)
-        self.fResult = Frame(self)
+        self.fResult = Frame(self, bg="#9f9f9f")
         self.fResult.pack(pady=10)
         self.pack(side=RIGHT)
     
@@ -27,7 +27,7 @@ class rManga(Frame):
             showerror("Erreur", "Entrez quelque chose à rechercher")
         else:
             self.fResult.destroy()
-            self.fResult = Frame(self)
+            self.fResult = Frame(self, bg="#9f9f9f")
             self.fResult.pack(pady=10)
             self.result = self.jikan.search("manga", self.eSearch.get())
             for i in range(5):

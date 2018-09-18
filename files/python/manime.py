@@ -14,10 +14,10 @@ class mAnime(Frame):
         with open("./files/anime/"+malId+".txt", "r") as fichier:
             self.infos = fichier.read().split("\n")
         
-        self.lTitre = Label(self, text = "Modification Anime\n"+self.infos[1].split(" : ")[1], font="-size 25 -weight bold")
+        self.lTitre = Label(self, bg="#9f9f9f", text = "Modification Anime\n"+self.infos[1].split(" : ")[1], font="-size 25 -weight bold")
         self.lTitre.pack(pady = 30)
         
-        self.lStatus = Label(self, text = "Status :", font= "-size 18")
+        self.lStatus = Label(self, bg="#9f9f9f", text = "Status :", font= "-size 18")
         self.lStatus.pack(pady = 5)
         self.liStatus = Listbox(self, selectmode = "single")
         self.liStatus.insert(1, "A voir")
@@ -34,7 +34,7 @@ class mAnime(Frame):
         elif self.infos[2].split(" : ")[1] == "Abandonné":
             self.liStatus.selection_set(3)
         
-        self.lEpisodes = Label(self, text = "Episodes vus (Max : "+self.infos[4].split(" : ")[1]+")", font = "-size 18")
+        self.lEpisodes = Label(self, bg="#9f9f9f", text = "Episodes vus (Max : "+self.infos[4].split(" : ")[1]+")", font = "-size 18")
         self.lEpisodes.pack(pady = 10)
         self.eEpisodes = Entry(self)
         self.eEpisodes.insert(0, self.infos[3].split(" : ")[1])

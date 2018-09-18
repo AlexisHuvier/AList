@@ -15,34 +15,36 @@ class Anime(Frame):
         self.jikan = jikan
         self.anime = self.jikan.anime(malId)
         
+        if len(self.anime["title"]) < 15:
+            self.lTitre = Label(self,bg="#9f9f9f", text = self.anime["title"], font="-size 23 -weight bold")
+        elif len(self.anime["title"]) < 25:
+            self.lTitre = Label(self,bg="#9f9f9f", text = self.anime["title"], font="-size 21 -weight bold")
+        elif len(self.anime["title"]) < 35:
+            self.lTitre = Label(self,bg="#9f9f9f", text = self.anime["title"], font="-size 19 -weight bold")
+        else:
+            self.lTitre = Label(self,bg="#9f9f9f", text = self.anime["title"][:33]+"...", font="-size 19 -weight bold")
+        self.lTitre.pack(pady = 30)
+
+        self.fAnime = Frame(self, bg = "#9f9f9f")
+        
         urllib.request.urlretrieve(self.anime["image_url"], "files/temp.jpg")
         image = Image.open("files/temp.jpg") 
         photo = ImageTk.PhotoImage(image) 
         
-        self.lImage = Label(self, image=photo)
+        self.lImage = Label(self.fAnime,bg="#9f9f9f", image=photo)
         self.lImage.image = photo 
-        self.lImage.pack(side = RIGHT, padx = 20)
+        self.lImage.pack(side = RIGHT, padx = 50)
         
         os.remove("files/temp.jpg")
         
-        if len(self.anime["title"]) < 15:
-            self.lTitre = Label(self, text = self.anime["title"], font="-size 23 -weight bold")
-        elif len(self.anime["title"]) < 25:
-            self.lTitre = Label(self, text = self.anime["title"], font="-size 21 -weight bold")
-        elif len(self.anime["title"]) < 35:
-            self.lTitre = Label(self, text = self.anime["title"], font="-size 19 -weight bold")
-        else:
-            self.lTitre = Label(self, text = self.anime["title"][:33]+"...", font="-size 19 -weight bold")
-        self.lTitre.pack(pady = 30)
-        
-        self.lType = Label(self, text = "Type : Anime", font="-size 11")
+        self.lType = Label(self.fAnime,bg="#9f9f9f", text = "Type : Anime", font="-size 11")
         self.lType.pack(pady = 5)
         if self.anime["title_english"]:
-            self.lTitleEN = Label(self, text = "Titre Anglais : "+self.anime["title_english"], font = "-size 11")
+            self.lTitleEN = Label(self.fAnime,bg="#9f9f9f", text = "Titre Anglais : "+self.anime["title_english"], font = "-size 11")
         else:
-            self.lTitleEN = Label(self, text = "Titre Anglais : Aucun", font = "-size 11")
+            self.lTitleEN = Label(self.fAnime,bg="#9f9f9f", text = "Titre Anglais : Aucun", font = "-size 11")
         self.lTitleEN.pack(pady = 5)
-        self.lAuteur = Label(self, text = "Studio principal : "+self.anime["studios"][0]["name"], font = "-size 11")
+        self.lAuteur = Label(self.fAnime,bg="#9f9f9f", text = "Studio principal : "+self.anime["studios"][0]["name"], font = "-size 11")
         self.lAuteur.pack(pady = 5)
         textGenre = "Genres : "
         nb = 5
@@ -56,24 +58,24 @@ class Anime(Frame):
                 else:
                     textGenre += ", "+i["name"]
             nb -= 1
-        self.lGenre = Label(self, text = textGenre, font = "-size 11")
+        self.lGenre = Label(self.fAnime,bg="#9f9f9f", text = textGenre, font = "-size 11")
         self.lGenre.pack(pady=5)
         if self.anime["status"] == "Finished" or self.anime["status"] == "Finished Airing":
-            self.lStatus = Label(self, text = "Status : Fini", font = "-size 11")
+            self.lStatus = Label(self.fAnime,bg="#9f9f9f", text = "Status : Fini", font = "-size 11")
             self.lStatus.pack(pady = 5)
         elif self.anime["status"] == "Publishing":
-            self.lStatus = Label(self, text = "Status : En cours de publication", font = "-size 11")
+            self.lStatus = Label(self.fAnime,bg="#9f9f9f", text = "Status : En cours de publication", font = "-size 11")
             self.lStatus.pack(pady = 5)
         elif self.anime["status"] == "Not yet aired":
-            self.lStatus = Label(self, text = "Status : Non débuté", font = "-size 11")
+            self.lStatus = Label(self.fAnime,bg="#9f9f9f", text = "Status : Non débuté", font = "-size 11")
             self.lStatus.pack(pady = 5)
         else:
-            self.lStatus = Label(self, text = "Status : Inconnu", font = "-size 11")
+            self.lStatus = Label(self.fAnime,bg="#9f9f9f", text = "Status : Inconnu", font = "-size 11")
             self.lStatus.pack(pady = 5)
         if self.anime["episodes"]:
-            self.lVolumesChapitres = Label(self, text = "Episodes : "+str(self.anime["episodes"]), font = "-size 11")
+            self.lVolumesChapitres = Label(self.fAnime,bg="#9f9f9f", text = "Episodes : "+str(self.anime["episodes"]), font = "-size 11")
         else:
-            self.lVolumesChapitres = Label(self, text = "Episodes : 0", font = "-size 11")
+            self.lVolumesChapitres = Label(self.fAnime,bg="#9f9f9f", text = "Episodes : 0", font = "-size 11")
         self.lVolumesChapitres.pack(pady=5)
         
         textR = ""
@@ -89,7 +91,7 @@ class Anime(Frame):
             textR += "    Popularité : "+str(self.anime["popularity"])
         else:
             textR += "    Popularité : Inconnue"
-        self.lRank = Label(self, text = textR, font = "-size 11")
+        self.lRank = Label(self.fAnime,bg="#9f9f9f", text = textR, font = "-size 11")
         self.lRank.pack(pady=5)
         
         textSynopsis = "Synopsis (en anglais) :\n"
@@ -111,15 +113,21 @@ class Anime(Frame):
                     nb -= len(i)
         else:
             textSynopsis += "Aucun"
-        self.lSynopsis = Label(self, text = textSynopsis, font = "-size 11")
+        self.lSynopsis = Label(self.fAnime,bg="#9f9f9f", text = textSynopsis, font = "-size 11")
         self.lSynopsis.pack(pady=20)
+
+        self.fAnime.pack()
+
+        self.fButtons = Frame(self, bg = "#9f9f9f")
         
-        self.bLien = Button(self, command= lambda: self.openWeb(self.anime["url"]), text = "Lien MAL")
-        self.bLien.pack(side = RIGHT, padx = 20, pady = 10)
-        self.bTrailer = Button(self, command = lambda: self.openWeb(self.anime["trailer_url"]), text = "Trailer")
-        self.bTrailer.pack(side = RIGHT, padx = 20, pady = 10)
-        self.bAddList = Button(self, text = "Ajouter à ma liste", command = self.addToList)
-        self.bAddList.pack(side = RIGHT, padx = 20, pady = 10)
+        self.bLien = Button(self.fButtons, command= lambda: self.openWeb(self.anime["url"]), text = "Lien MAL")
+        self.bLien.pack(side = LEFT, padx = 20)
+        self.bTrailer = Button(self.fButtons, command = lambda: self.openWeb(self.anime["trailer_url"]), text = "Trailer")
+        self.bTrailer.pack(side = RIGHT, padx = 20)
+        self.bAddList = Button(self.fButtons, text = "Ajouter à ma liste", command = self.addToList)
+        self.bAddList.pack(padx = 20)
+
+        self.fButtons.pack(pady = 10)
         
         self.pack(side=RIGHT)
     
