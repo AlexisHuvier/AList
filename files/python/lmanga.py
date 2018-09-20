@@ -130,7 +130,7 @@ class lManga(Frame):
                     with open("files/manga/"+manga[0].text+".txt", "w") as fichier:
                         fichier.write(tempText)
                 showinfo("Import réussi", "Tous les mangas ont été importés")
-                self.main.showPage("lManga")
+                self.main.showPage("reload")
             except:
                 showerror("Erreur", "Sélectionnez un fichier valide")
         else:

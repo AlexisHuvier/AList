@@ -128,7 +128,7 @@ class lAnime(Frame):
                     with open("files/anime/"+anime[0].text+".txt", "w") as fichier:
                         fichier.write(tempText)
                 showinfo("Import réussi", "Tous les animés ont été importés")
-                self.main.showPage("lAnime")
+                self.main.showPage("reload")
             except:
                 showerror("Erreur", "Sélectionnez un fichier valide")
         else:

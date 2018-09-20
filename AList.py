@@ -42,18 +42,32 @@ class Main(Tk):
         """
         if self.pageActuel != page:
             self.page.destroy()
-            if page == "accueil":
+            if page == "accueil" or (page == "reload" and self.pageActuel == "accueil"):
                 self.page = Accueil(self, self.jikan)
-            elif page == "tops":
+            elif page == "tops" or (page == "reload" and self.pageActuel == "tops"):
                 self.page = Tops(self, self.jikan)
-            elif page == "rAnime":
+            elif page == "rAnime" or (page == "reload" and self.pageActuel == "rAnime"):
                 self.page = rAnime(self, self.jikan)
-            elif page == "rManga":
+            elif page == "rManga" or (page == "reload" and self.pageActuel == "rManga"):
                 self.page = rManga(self, self.jikan)
-            elif page == "lAnime":
+            elif page == "lAnime" or (page == "reload" and self.pageActuel == "lAnime"):
                 self.page = lAnime(self, self.jikan)
-            elif page == "lManga":
+            elif page == "lManga" or (page == "reload" and self.pageActuel == "lManga"):
                 self.page = lManga(self, self.jikan)
+            elif page == "reload" and len(self.pageActuel.split("|")) == 2:
+                if self.pageActuel.split("|")[0] == "anime":
+                    self.page = Anime(self, self.jikan, self.pageActuel.split("|")[1])
+                elif self.pageActuel.split("|")[0] == "manga":
+                    self.page = Manga(self, self.jikan, self.pageActuel.split("|")[1])
+                elif self.pageActuel.split("|")[0] == "animeM":
+                    self.page = mAnime(self, self.jikan, self.pageActuel.split("|")[1])
+                elif self.pageActuel.split("|")[0] == "mangaM":
+                    self.page = mManga(self, self.jikan, self.pageActuel.split("|")[1])
+                else:
+                    self.page = Frame(self)
+                    self.page.pack_propagate(False)
+                    self.page.config(width=800, height=600)
+                    self.page.pack(side=RIGHT)
             else:
                 if len(page.split("|")) == 2:
                     if page.split("|")[0] == "anime":
