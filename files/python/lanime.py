@@ -30,8 +30,22 @@ class lAnime(Frame):
         self.page = 0
         self.pageMax = len(glob.glob("./files/anime/*.txt"))//6
         
+        self.LAWatching, self.LAToWatch, self.LADropped, self.LAFinish = [], [], [], []
+        for i in glob.glob("./files/anime/*.txt"):
+            with open(i, "r") as fichier:
+                infos = fichier.read().split("\n")
+            if infos[2].split(" : ")[1] == "En visionnement":
+                self.LAWatching.append(i)
+            elif infos[2].split(" : ")[1] == "Fini":
+                self.LAFinish.append(i)
+            elif infos[2].split(" : ")[1] == "A voir":
+                self.LAToWatch.append(i)
+            else:
+                self.LADropped.append(i)
+        self.listeAnimes = self.LAWatching + self.LAToWatch + self.LAFinish + self.LADropped
+
         self.createPage()
-                
+
         self.pack(side=RIGHT)
     
     def showRightPage(self):
@@ -62,16 +76,16 @@ class lAnime(Frame):
         self.bImport.pack(side = LEFT, padx = 5)
         self.bExport = Button(self.fButtons, text = "Exporter MAL", command = self.exportMALFen)
         self.bExport.pack(side = RIGHT, padx = 5)
-        if len(glob.glob("./files/anime/*.txt")) > 0:
+        if len(self.listeAnimes) > 0:
             self.fList = Frame(self.fAnimes, bg="#9f9f9f")
             self.fList.pack(side = LEFT, padx =5)
-        if len(glob.glob("./files/anime/*.txt"))-6*self.page > 3:
+        if len(self.listeAnimes)-6*self.page > 3:
             self.fList2 = Frame(self.fAnimes, bg="#9f9f9f")
             self.fList2.pack(side = RIGHT, padx =5)
         for i in range(6):
             contenu = ""
             try:
-                with open(glob.glob("./files/anime/*.txt")[i+6*self.page], "r") as fichier:
+                with open(self.listeAnimes[i+6*self.page], "r") as fichier:
                     contenu += fichier.read()
             except:
                 break

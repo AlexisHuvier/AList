@@ -28,7 +28,21 @@ class lManga(Frame):
         self.bExport.pack(side = RIGHT, padx = 10)
         self.page = 0
         self.pageMax = len(glob.glob("./files/manga/*.txt"))//6
-        
+                
+        self.LMWatching, self.LMToWatch, self.LMDropped, self.LMFinish = [], [], [], []
+        for i in glob.glob("./files/manga/*.txt"):
+            with open(i, "r") as fichier:
+                infos = fichier.read().split("\n")
+            if infos[2].split(" : ")[1] == "En visionnement":
+                self.LMWatching.append(i)
+            elif infos[2].split(" : ")[1] == "Fini":
+                self.LMFinish.append(i)
+            elif infos[2].split(" : ")[1] == "A voir":
+                self.LMToWatch.append(i)
+            else:
+                self.LMDropped.append(i)
+        self.listeMangas = self.LMWatching + self.LMToWatch + self.LMFinish + self.LMDropped
+
         self.createPage()
                 
         self.pack(side=RIGHT)
@@ -61,16 +75,16 @@ class lManga(Frame):
         self.bImport.pack(side = LEFT, padx = 10)
         self.bExport = Button(self.fButtons, text = "Exporter MAL", command = self.exportMALFen)
         self.bExport.pack(side = RIGHT, padx = 10)
-        if len(glob.glob("./files/manga/*.txt")) > 0:
+        if len(self.listeMangas) > 0:
             self.fList = Frame(self.fMangas, bg="#9f9f9f")
             self.fList.pack(side = LEFT, padx =10)
-        if len(glob.glob("./files/manga/*.txt"))-6*self.page > 3:
+        if len(self.listeMangas)-6*self.page > 3:
             self.fList2 = Frame(self.fMangas, bg="#9f9f9f")
             self.fList2.pack(side = RIGHT, padx =10)
         for i in range(6):
             contenu = ""
             try:
-                with open(glob.glob("./files/manga/*.txt")[i+6*self.page], "r") as fichier:
+                with open(self.listeMangas[i+6*self.page], "r") as fichier:
                     contenu += fichier.read()
             except:
                 break
