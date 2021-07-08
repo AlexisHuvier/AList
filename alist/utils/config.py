@@ -10,7 +10,8 @@ class Config:
                 self.values = json.load(f)
         else:
             self.values = {
-                "theme": "azure-dark"
+                "theme": "azure-dark",
+                "translation": True
             }
             self.save()
 
