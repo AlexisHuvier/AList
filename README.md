@@ -4,27 +4,13 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 ## Dépendances :
 - Python 3.5+
 - Pillow (pip install Pillow)
-- Jikanpy (pip install git+git://github.com/AWConant/jikanpy.git) <-- Nécessite GIT
-
-## Autres informations :
-- Développeur principal : LavaPower
-- Contributeur : x
-- Développé sous :
-  - Système :
-    - Linux Manjaro / Windows 7 (V 0.1.0 --> Latest)
-  - Version Python :
-    - 3.7.0 (V 0.1.0 --> Latest)
-  - Libs supplémentaires :
-    - Pillow (V 0.1.0 --> Latest)
-    - Jikanpy (V 0.1.0 --> Latest)
-
-## Remerciements :
-- Xeness (https://github.com/TheoBessel/) : Pour sa tentative de créer une version standalone pour Mac (Pas encore dispo)
-
-## Bugs connus de la version en développement :
-- /
+- Jikanpy (pip install jikanpy)
+- ttkthemes (pip install ttkthemes)
 
 ## Changelog : 
+
+### v 2.0.0 : Fayshia Update - XX XXXX XXXX (INDEV):
+- Recréation complète du logiciel
 
 ### V 1.0.0 : First Update - 23 Sept 2018 (LATEST):
 - Modification du système des mangas pour prendre en compte les volumes en plus des chapitres
