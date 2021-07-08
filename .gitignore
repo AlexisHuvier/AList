@@ -64,3 +64,5 @@ files/manga/
 \.vscode/
 
 *.xml
+
+.idea/
