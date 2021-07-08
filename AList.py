@@ -15,7 +15,7 @@ class Main(Tk):
         ttk.Style().theme_use(self.config.get("theme", "azure-dark"))
         
         self.title("AList")
-        self.geometry("1280x900")
+        self.geometry("1280x800")
         self.resizable(width=False, height=False)
 
         self.titre = ttk.Label(self, text="AList")
