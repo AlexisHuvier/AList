@@ -3,7 +3,7 @@ from tkinter import *
 from jikanpy import Jikan
 
 from alist.utils import Config
-from alist.pages import Menu, Accueil
+from alist.pages import *
 
 
 class Main(Tk):
@@ -34,6 +34,16 @@ class Main(Tk):
             self.page.destroy()
             if page == "accueil" or (page == "reload" and self.current_page == "accueil"):
                 self.page = Accueil(self)
+            elif page == "list_anime" or (page == "reload" and self.current_page == "list_anime"):
+                self.page = ListAnime(self)
+            elif page == "list_manga" or (page == "reload" and self.current_page == "list_manga"):
+                self.page = ListManga(self)
+            elif page == "my_anime" or (page == "reload" and self.current_page == "my_anime"):
+                self.page = MyAnime(self)
+            elif page == "my_manga" or (page == "reload" and self.current_page == "my_manga"):
+                self.page = MyManga(self)
+            elif page == "parameters" or (page == "reload" and self.current_page == "parameters"):
+                self.page = Parameters(self)
             else:
                 print("ERROR : Unknown Page ("+page+")")
             self.current_page = page
