@@ -1,15 +1,15 @@
 from tkinter import ttk
 from tkinter import *
-from jikanpy import Jikan
 
 from alist.utils import Config
 from alist.pages import *
+from alist.data import *
 
 
 class Main(Tk):
     def __init__(self):
         super(Main, self).__init__()
-        self.jikan = Jikan()
+        self.mal = MALProvider()
         self.config = Config()
 
         self.tk.call('source', 'alist/themes/' + self.config.get("theme", "azure-dark") + '.tcl')
