@@ -5,7 +5,6 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 - Python 3.5+
 - Pillow (pip install Pillow)
 - Jikanpy (pip install jikanpy)
-- ttkthemes (pip install ttkthemes)
 
 ## Changelog : 
 
