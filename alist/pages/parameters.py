@@ -30,6 +30,9 @@ class Parameters(RightPage):
         valid = ttk.Button(self, width=20, text="Valider", command=self.validate)
         valid.pack(pady=30)
 
+        delcache = ttk.Button(self, width=20, text="Vider le Cache", command=self.delete_cache)
+        delcache.pack(pady=30)
+
         self.pack(side=RIGHT, fill=BOTH)
 
     def validate(self):
@@ -38,3 +41,6 @@ class Parameters(RightPage):
         self.main.config.save()
         messagebox.showwarning("AList - Paramètres", "Certains paramètres nécessitent de relancer le programme.")
         self.main.show_page("accueil")
+
+    def delete_cache(self):
+        self.main.image.del_cache()
