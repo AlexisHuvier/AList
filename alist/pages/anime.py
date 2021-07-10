@@ -28,6 +28,8 @@ class Anime(RightPage):
         else:
             en_title = ttk.Label(anime, text="Titre Anglais : Aucun")
         en_title.pack(pady=5)
+        author = ttk.Label(anime, text="Studio Principal : "+self.anime["studios"][0]["name"])
+        author.pack(pady=5)
 
         genres = ["Genres : "]
         for k, v in enumerate(self.anime["genres"]):
