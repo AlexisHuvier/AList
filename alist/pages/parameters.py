@@ -43,4 +43,4 @@ class Parameters(RightPage):
         self.main.show_page("accueil")
 
     def delete_cache(self):
-        self.main.image.del_cache()
+        self.main.imager.del_cache()

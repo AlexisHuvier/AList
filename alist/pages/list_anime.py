@@ -131,7 +131,7 @@ class ListAnime(RightPage):
             temp = ttk.Frame(self.result_frame.viewport)
 
             image = ttk.Label(temp)
-            self.main.image.apply_image_on_label("anime_" + str(anime["mal_id"]) + ".jpg", anime["image_url"], image)
+            self.main.imager.apply_image_on_label("anime_" + str(anime["mal_id"]) + ".jpg", anime["image_url"], image)
             image.pack()
 
             title = ttk.Button(temp, text=anime["title"])

@@ -130,7 +130,7 @@ class ListManga(RightPage):
             temp = ttk.Frame(self.result_frame.viewport)
 
             image = ttk.Label(temp)
-            self.main.image.apply_image_on_label("manga_" + str(manga["mal_id"]) + ".jpg", manga["image_url"], image)
+            self.main.imager.apply_image_on_label("manga_" + str(manga["mal_id"]) + ".jpg", manga["image_url"], image)
             image.pack()
 
             title = ttk.Button(temp, text=manga["title"])
