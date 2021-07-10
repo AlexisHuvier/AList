@@ -10,6 +10,7 @@ class Main(Tk):
     def __init__(self):
         super(Main, self).__init__()
         self.mal = MALProvider()
+        self.image = ImageProvider()
         self.config = Config()
 
         self.tk.call('source', 'alist/themes/' + self.config.get("theme", "azure-dark") + '.tcl')
