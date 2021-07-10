@@ -1,6 +1,22 @@
 from PIL import Image, ImageTk
 import urllib.request
 import os
+import threading
+
+
+class DownloadImage(threading.Thread):
+    def __init__(self, file, url, label):
+        super(DownloadImage, self).__init__()
+        self.file = file
+        self.url = url
+        self.label = label
+
+    def run(self):
+        urllib.request.urlretrieve(self.url, self.file)
+        image = Image.open(self.file)
+        thumb = ImageTk.PhotoImage(image)
+        self.label["image"] = thumb
+        self.label.image = thumb
 
 
 class ImageProvider:
@@ -9,12 +25,16 @@ class ImageProvider:
         os.makedirs(self.cachedir, exist_ok=True)
         self.cache = os.listdir(self.cachedir)
 
-    def get_tkinter_image(self, file, url):
+    def apply_image_on_label(self, file, url, label):
         if file not in self.cache:
-            urllib.request.urlretrieve(url, self.cachedir + "/" + file)
             self.cache.append(file)
-        image = Image.open(self.cachedir + "/" + file)
-        return ImageTk.PhotoImage(image)
+            thread = DownloadImage(self.cachedir + "/" + file, url, label)
+            thread.start()
+        else:
+            image = Image.open(self.cachedir + "/" + file)
+            thumb = ImageTk.PhotoImage(image)
+            label["image"] = thumb
+            label.image = thumb
 
     def del_image(self, file):
         if file in self.cache:

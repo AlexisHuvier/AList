@@ -130,9 +130,8 @@ class ListAnime(RightPage):
         for i, anime in enumerate(results):
             temp = ttk.Frame(self.result_frame.viewport)
 
-            thumb = self.main.image.get_tkinter_image("anime_"+str(anime["mal_id"])+".jpg", anime["image_url"])
-            image = ttk.Label(temp, image=thumb)
-            image.image = thumb
+            image = ttk.Label(temp)
+            self.main.image.apply_image_on_label("anime_" + str(anime["mal_id"]) + ".jpg", anime["image_url"], image)
             image.pack()
 
             title = ttk.Button(temp, text=anime["title"])

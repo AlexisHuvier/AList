@@ -129,9 +129,8 @@ class ListManga(RightPage):
         for i, manga in enumerate(results):
             temp = ttk.Frame(self.result_frame.viewport)
 
-            thumb = self.main.image.get_tkinter_image("manga_"+str(manga["mal_id"])+".jpg", manga["image_url"])
-            image = ttk.Label(temp, image=thumb)
-            image.image = thumb
+            image = ttk.Label(temp)
+            self.main.image.apply_image_on_label("manga_" + str(manga["mal_id"]) + ".jpg", manga["image_url"], image)
             image.pack()
 
             title = ttk.Button(temp, text=manga["title"])
