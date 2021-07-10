@@ -134,7 +134,8 @@ class ListAnime(RightPage):
             self.main.imager.apply_image_on_label("anime_" + str(anime["mal_id"]) + ".jpg", anime["image_url"], image)
             image.pack()
 
-            title = ttk.Button(temp, text=anime["title"])
+            title = ttk.Button(temp, text=anime["title"],
+                               command=lambda a=anime: self.main.show_page("anime "+str(a["mal_id"])))
             title.pack(pady=10)
 
             temp.grid(row=i // 2, column=i % 2, pady=20)

@@ -5,3 +5,5 @@ from alist.pages.list_manga import ListManga
 from alist.pages.my_anime import MyAnime
 from alist.pages.my_manga import MyManga
 from alist.pages.parameters import Parameters
+from alist.pages.anime import Anime
+from alist.pages.manga import Manga

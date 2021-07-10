@@ -133,7 +133,8 @@ class ListManga(RightPage):
             self.main.imager.apply_image_on_label("manga_" + str(manga["mal_id"]) + ".jpg", manga["image_url"], image)
             image.pack()
 
-            title = ttk.Button(temp, text=manga["title"])
+            title = ttk.Button(temp, text=manga["title"],
+                               command=lambda m=manga: self.main.show_page("manga "+str(m["mal_id"])))
             title.pack(pady=10)
 
             temp.grid(row=i // 2, column=i % 2, pady=20)

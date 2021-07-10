@@ -47,6 +47,10 @@ class Main(Tk):
                 self.page = MyManga(self)
             elif page == "parameters" or (page == "reload" and self.current_page == "parameters"):
                 self.page = Parameters(self)
+            elif page.startswith("anime ") or (page == "reload" and self.current_page.startswith("anime ")):
+                self.page = Anime(self, int(page.split(" ")[1]))
+            elif page.startswith("manga ") or (page == "reload" and self.current_page.startswith("manga ")):
+                self.page = Manga(self, int(page.split(" ")[1]))
             else:
                 print("ERROR : Unknown Page ("+page+")")
             self.current_page = page
