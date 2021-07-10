@@ -5,6 +5,7 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 - Python 3.5+
 - Pillow (pip install Pillow)
 - Jikanpy (pip install jikanpy)
+- googletans (pip install googletrans=3.1.0a0)
 
 ## Changelog : 
 
