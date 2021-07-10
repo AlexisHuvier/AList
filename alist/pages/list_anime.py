@@ -1,7 +1,4 @@
-from tkinter import ttk, BOTH, Frame, GROOVE, StringVar, RIGHT, LEFT
-from PIL import Image, ImageTk
-import urllib.request
-import os
+from tkinter import ttk, BOTH, Frame, StringVar, RIGHT, LEFT
 
 from alist.pages.right_page import RightPage
 from alist.utils import ScrollFrame
@@ -26,8 +23,8 @@ class ListAnime(RightPage):
 
         self.top = StringVar(self)
         self.top.set("Top Global")
-        top_select = ttk.OptionMenu(top_frame, self.top, "Top Global", "Top Sortie", "Top A Venir", "Top TV", "Top Film",
-                                    "Top OVA", "Top Spécial", "Top Populaire", "Top Favoris")
+        top_select = ttk.OptionMenu(top_frame, self.top, "Top Global", "Top Global", "Top Sortie", "Top A Venir",
+                                    "Top TV", "Top Film", "Top OVA", "Top Spécial", "Top Populaire", "Top Favoris")
         top_select["width"] = 30
         top_select.pack(side=LEFT, padx=(30, 10))
         valid_top = ttk.Button(top_frame, text="Afficher le Top", command=self.validate_top, width=20)
@@ -133,15 +130,10 @@ class ListAnime(RightPage):
         for i, anime in enumerate(results):
             temp = ttk.Frame(self.result_frame.viewport)
 
-            urllib.request.urlretrieve(anime["image_url"], "alist/temp.jpg")
-            image = Image.open("alist/temp.jpg")
-            photo = ImageTk.PhotoImage(image)
-
-            image = ttk.Label(temp, image=photo)
-            image.image = photo
+            thumb = self.main.image.get_tkinter_image("anime_"+str(anime["mal_id"])+".jpg", anime["image_url"])
+            image = ttk.Label(temp, image=thumb)
+            image.image = thumb
             image.pack()
-
-            os.remove("alist/temp.jpg")
 
             title = ttk.Button(temp, text=anime["title"])
             title.pack(pady=10)
