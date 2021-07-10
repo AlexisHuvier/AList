@@ -1,7 +1,7 @@
 from tkinter import ttk, TkVersion, TclVersion, RIGHT, BOTH
-import webbrowser
 
 from alist.pages.right_page import RightPage
+from alist.utils import utils
 from alist import __version_num__, __version__
 
 
@@ -20,11 +20,11 @@ class Accueil(RightPage):
         infos.pack(pady=30)
 
         github = ttk.Button(self, width=10, text="GitHub",
-                            command=lambda: webbrowser.open("https://github.com/AlexisHuvier/AList"))
+                            command=lambda: utils.open_url("https://github.com/AlexisHuvier/AList"))
         github.pack(pady=15)
 
         discord = ttk.Button(self, width=10, text="Discord",
-                             command=lambda: webbrowser.open("https://discord.gg/UtpsTKTsTM"))
+                             command=lambda: utils.open_url("https://discord.gg/UtpsTKTsTM"))
         discord.pack(pady=15)
 
         self.pack(side=RIGHT, fill=BOTH)
