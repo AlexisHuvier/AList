@@ -11,7 +11,6 @@ class MALProvider:
         finalpage = (page - 1) // 5 + 1
         range_ = (page - 1) % 5
         try:
-            print(finalpage, range_)
             return self.jikan.search(type_, name, finalpage)["results"][range_*10:range_*10+10]
         except (exceptions.APIException, exceptions.JikanException, exceptions.DeprecatedEndpoint):
             return []
