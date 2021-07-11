@@ -116,10 +116,24 @@ class Manga(RightPage):
         lien = ttk.Button(buttons, text="Lien MAL", width=20,
                           command=lambda: utils.open_url(self.manga["url"]))
         lien.pack(side=LEFT, padx=20)
-        add_list = ttk.Button(buttons, text="Ajouter à ma liste", width=20)
+        add_list = ttk.Button(buttons, text="Ajouter à ma liste", width=20, command=self.add_to_list)
         add_list.pack(side=RIGHT, padx=20)
 
         buttons.pack(pady=10)
 
         self.pack(side=RIGHT, fill=BOTH)
 
+    def add_to_list(self):
+        if self.manga["chapters"]:
+            if self.manga["volumes"]:
+                self.main.mymanga.add(self.manga["mal_id"], self.manga["title"], self.manga["volumes"],
+                                      self.manga["chapters"], self.manga["type"])
+            else:
+                self.main.mymanga.add(self.manga["mal_id"], self.manga["title"], 0, self.manga["chapters"],
+                                      self.manga["type"])
+        else:
+            if self.manga["volumes"]:
+                self.main.mymanga.add(self.manga["mal_id"], self.manga["title"], self.manga["volumes"], 0,
+                                      self.manga["type"])
+            else:
+                self.main.mymanga.add(self.manga["mal_id"], self.manga["title"], 0, 0, self.manga["type"])

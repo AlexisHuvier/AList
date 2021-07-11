@@ -106,10 +106,15 @@ class Anime(RightPage):
         trailer = ttk.Button(buttons, text="Trailer", width=20,
                              command=lambda: utils.open_url(self.anime["trailer_url"]))
         trailer.pack(side=RIGHT, padx=20)
-        add_list = ttk.Button(buttons, text="Ajouter à ma liste", width=20)
+        add_list = ttk.Button(buttons, text="Ajouter à ma liste", width=20, command=self.add_to_list)
         add_list.pack(padx=20)
 
         buttons.pack(pady=10)
 
         self.pack(side=RIGHT, fill=BOTH)
 
+    def add_to_list(self):
+        if self.anime["episodes"]:
+            self.main.myanime.add(self.anime["mal_id"], self.anime["title"], self.anime["episodes"], self.anime["type"])
+        else:
+            self.main.myanime.add(self.anime["mal_id"], self.anime["title"], 0, self.anime["type"])
