@@ -68,7 +68,8 @@ class MyAnime(RightPage):
 
             buttons = ttk.Frame(temp)
 
-            modify = ttk.Button(buttons, text="Modifier")
+            modify = ttk.Button(buttons, text="Modifier",
+                                command=lambda a=anime: self.main.show_page("modifanime "+str(a["id"])))
             modify.pack(side=LEFT, padx=10)
             more_info = ttk.Button(buttons, text="Plus d'info",
                                    command=lambda a=anime: self.main.show_page("anime "+str(a["id"])))

@@ -70,7 +70,8 @@ class MyManga(RightPage):
 
             buttons = ttk.Frame(temp)
 
-            modify = ttk.Button(buttons, text="Modifier")
+            modify = ttk.Button(buttons, text="Modifier",
+                                command=lambda a=manga: self.main.show_page("modifmanga "+str(a["id"])))
             modify.pack(side=LEFT, padx=10)
             more_info = ttk.Button(buttons, text="Plus d'info",
                                    command=lambda a=manga: self.main.show_page("manga "+str(a["id"])))
