@@ -68,3 +68,5 @@ files/manga/
 .idea/
 
 alist/cache/*
+alist/anime.json
+alist/manga.json
