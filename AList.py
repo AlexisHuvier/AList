@@ -12,6 +12,8 @@ class Main(Tk):
         self.mal = MALProvider()
         self.imager = ImageProvider()
         self.translator = TranslationProvider(self)
+        self.myanime = MyAnimeListProvider()
+        self.mymanga = MyMangaListProvider()
 
         self.config = Config()
 
