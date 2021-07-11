@@ -1,4 +1,4 @@
-from tkinter import ttk, BOTH, Frame, StringVar, RIGHT, LEFT
+from tkinter import ttk, BOTH, StringVar, RIGHT, LEFT
 
 from alist.pages.right_page import RightPage
 from alist.utils import ScrollFrame
@@ -13,7 +13,7 @@ class ListAnime(RightPage):
         title = ttk.Label(self, text="Liste Animes", font="-size 22 -weight bold")
         title.pack(pady=15)
 
-        top_frame = Frame(self)
+        top_frame = ttk.Frame(self)
 
         self.search = StringVar(self)
         search_entry = ttk.Entry(top_frame, textvariable=self.search, width=30)
@@ -32,7 +32,7 @@ class ListAnime(RightPage):
 
         top_frame.pack(pady=20)
 
-        bottom_frame = Frame(self)
+        bottom_frame = ttk.Frame(self)
 
         left_page = ttk.Button(bottom_frame, text="<-", width=20, command=self.previous_page)
         left_page.pack(side=LEFT, padx=20)

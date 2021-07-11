@@ -1,4 +1,4 @@
-from tkinter import ttk, RIGHT, BOTH, Frame, LEFT
+from tkinter import ttk, RIGHT, BOTH, LEFT
 
 from alist.pages.right_page import RightPage
 from alist.utils import utils
@@ -13,7 +13,7 @@ class Manga(RightPage):
         title = ttk.Label(self, text=self.manga["title"], font="-size 20 -weight bold")
         title.pack(pady=15)
 
-        manga = Frame(self)
+        manga = ttk.Frame(self)
 
         image = ttk.Label(manga)
         self.main.imager.apply_image_on_label("manga_" + str(self.manga["mal_id"]) + ".jpg",
@@ -111,7 +111,7 @@ class Manga(RightPage):
 
         manga.pack()
 
-        buttons = Frame(self)
+        buttons = ttk.Frame(self)
 
         lien = ttk.Button(buttons, text="Lien MAL", width=20,
                           command=lambda: utils.open_url(self.manga["url"]))

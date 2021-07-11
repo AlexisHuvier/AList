@@ -1,5 +1,5 @@
 from tkinter import ttk
-from tkinter import *
+from tkinter import GROOVE, LEFT, BOTH
 from tkinter.messagebox import askquestion
 
 
