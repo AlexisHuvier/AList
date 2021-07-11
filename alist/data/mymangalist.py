@@ -27,11 +27,11 @@ class MyMangaListProvider:
 
     def modify(self, mal_id, **kwargs):
         for k, v in kwargs.items():
-            self.values[mal_id][k] = v
+            self.values[str(mal_id)][k] = v
         self.save()
 
     def get(self, mal_id):
-        return self.values.get(mal_id, None)
+        return self.values.get(str(mal_id), None)
 
     def get_all(self):
         return self.values.values()
