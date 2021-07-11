@@ -30,6 +30,9 @@ class MyMangaListProvider:
             self.values[mal_id][k] = v
         self.save()
 
+    def get(self, mal_id):
+        return self.values.get(mal_id, None)
+
     def get_all(self):
         return self.values.values()
 
