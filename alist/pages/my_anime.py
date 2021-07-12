@@ -1,4 +1,4 @@
-from tkinter import ttk, RIGHT, BOTH, LEFT, StringVar, SUNKEN
+from tkinter import ttk, RIGHT, BOTH, LEFT, StringVar, SUNKEN, filedialog
 
 from alist.pages.right_page import RightPage
 from alist.utils import ScrollFrame
@@ -27,16 +27,45 @@ class MyAnime(RightPage):
         valid_etat = ttk.Button(top_frame, text="Afficher", width=20, command=self.validate_state)
         valid_etat.pack(side=LEFT, padx=10)
 
-        top_frame.pack(pady=20)
+        top_frame.pack(pady=10)
+
+        bottom_frame = ttk.Frame(self)
+
+        self.exp_imp = StringVar(self)
+        self.exp_imp.set("MyAnimeList")
+        exp_imp = ttk.OptionMenu(bottom_frame, self.exp_imp, "MyAnimeList")
+        exp_imp["width"] = 30
+        exp_imp.pack(side=LEFT, padx=20)
+        import_ = ttk.Button(bottom_frame, text="Import", width=20, command=self.import_)
+        import_.pack(side=LEFT, padx=10)
+        export = ttk.Button(bottom_frame, text="Export", width=20, command=self.export_)
+        export.pack(side=LEFT, padx=10)
+
+        bottom_frame.pack(pady=10)
 
         self.result_frame = ScrollFrame(self, width=1080, height=800)
         self.result_frame.pack_propagate(False)
         self.result_frame.grid_propagate(False)
-        self.result_frame.pack(pady=(20, 0))
+        self.result_frame.pack(pady=(10, 0))
 
         self.validate_state()
 
         self.pack(side=RIGHT, fill=BOTH)
+
+    def import_(self):
+        if self.exp_imp.get() == "MyAnimeList":
+            file = filedialog.askopenfilename(parent=self, title="AList - Import MAL",
+                                              filetypes=(("Fichier MAL", ".xml"),), multiple=False)
+            if file:
+                self.main.mal_import.import_("anime", file)
+                self.main.show_page("reload")
+
+    def export_(self):
+        if self.exp_imp.get() == "MyAnimeList":
+            file = filedialog.asksaveasfilename(parent=self, title="AList - Export MAL",
+                                                filetypes=(("Fichier MAL", ".xml"),))
+            if file:
+                self.main.mal_export.export("anime", file)
 
     def validate_search(self):
         self.reload_results(self.main.myanime.search(self.search.get()))
@@ -81,4 +110,4 @@ class MyAnime(RightPage):
 
         self.result_frame.viewport.columnconfigure(0, weight=1)
         self.result_frame.viewport.columnconfigure(1, weight=1)
-        self.result_frame.pack(pady=(20, 0))
+        self.result_frame.pack(pady=(10, 0))

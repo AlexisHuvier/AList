@@ -14,6 +14,8 @@ class Main(Tk):
         self.translator = TranslationProvider(self)
         self.myanime = MyAnimeListProvider()
         self.mymanga = MyMangaListProvider()
+        self.mal_export = MALExporter(self)
+        self.mal_import = MALImporter(self)
 
         self.config = Config()
 
