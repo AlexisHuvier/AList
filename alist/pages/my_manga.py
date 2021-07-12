@@ -89,7 +89,7 @@ class MyManga(RightPage):
             temp.config(width=400, height=220)
 
             title = ttk.Label(temp, text=manga["name"], font="-size 13")
-            title.pack(pady=20)
+            title.pack(pady=10)
             status = ttk.Label(temp, text="Statut : "+manga["status"])
             status.pack(pady=5)
             ep = ttk.Label(temp, text="Volumes : "+str(manga["vol"])+"/"+str(manga["max_vol"]))
@@ -99,18 +99,49 @@ class MyManga(RightPage):
 
             buttons = ttk.Frame(temp)
 
-            modify = ttk.Button(buttons, text="Modifier",
-                                command=lambda a=manga: self.main.show_page("modifmanga "+str(a["id"])))
-            modify.pack(side=LEFT, padx=10)
+            delete = ttk.Button(buttons, text="Supprimer", width=10,
+                                command=lambda a=manga: self.delete_manga(a["id"]))
+            delete.pack(side=LEFT, padx=10)
             more_info = ttk.Button(buttons, text="Plus d'info",
                                    command=lambda a=manga: self.main.show_page("manga "+str(a["id"])))
             more_info.pack(side=RIGHT, padx=10)
+            modify = ttk.Button(buttons, text="Modifier",
+                                command=lambda a=manga: self.main.show_page("modifmanga "+str(a["id"])))
+            modify.pack(padx=10)
 
-            buttons.pack(pady=20)
+            buttons.pack(pady=(15, 3))
+
+            buttons2 = ttk.Frame(temp)
+            down_vol = ttk.Button(buttons2, text="-1 Vol", width=8,
+                                  command=lambda a=manga: self.modify_vol_chap(a, "vol", a["vol"] - 1))
+            down_vol.pack(side=LEFT, padx=10)
+            down_chap = ttk.Button(buttons2, text="-1 Chap", width=8,
+                                   command=lambda a=manga: self.modify_vol_chap(a, "chap", a["chap"] - 1))
+            down_chap.pack(side=LEFT, padx=10)
+            up_vol = ttk.Button(buttons2, text="+1 Vol", width=8,
+                                command=lambda a=manga: self.modify_vol_chap(a, "vol", a["vol"] + 1))
+            up_vol.pack(side=RIGHT, padx=10)
+            up_chap = ttk.Button(buttons2, text="+1 Chap", width=8,
+                                 command=lambda a=manga: self.modify_vol_chap(a, "chap", a["chap"] + 1))
+            up_chap.pack(side=RIGHT, padx=10)
+            buttons2.pack(pady=(3, 15))
 
             temp.grid(row=i // 2, column=i % 2, pady=20)
 
         self.result_frame.viewport.columnconfigure(0, weight=1)
         self.result_frame.viewport.columnconfigure(1, weight=1)
         self.result_frame.pack(pady=(10, 0))
+
+    def modify_vol_chap(self, manga, type_, nb):
+        if nb > manga["max_"+type_]:
+            eval("self.main.mymanga.modify(manga[\"id\"], "+type_+"=manga[\"max_\""+type_+"])")
+        elif nb < 0:
+            eval("self.main.mymanga.modify(manga[\"id\"], "+type_+"=0)")
+        else:
+            eval("self.main.mymanga.modify(manga[\"id\"], "+type_+"=nb)")
+        self.main.show_page("reload")
+
+    def delete_manga(self, mal_id):
+        self.main.mymanga.delete(mal_id)
+        self.main.show_page("reload")
 
