@@ -61,7 +61,9 @@ class Main(Tk):
                 self.page = ModifManga(self, int(page.split(" ")[1]))
             else:
                 print("ERROR : Unknown Page ("+page+")")
-            self.current_page = page
+
+            if page != "reload":
+                self.current_page = page
 
 
 if __name__ == "__main__":
