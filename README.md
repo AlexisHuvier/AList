@@ -9,7 +9,7 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 
 ## Changelog : 
 
-### v 2.0.0 : Fayshia Update - XX XXXX XXXX (INDEV):
+### v 2.0.0 : Fayshia Update - XX Juil 2021 (INDEV):
 - Recréation complète du logiciel
 
 ### V 1.0.0 : First Update - 23 Sept 2018 (LATEST):
@@ -28,5 +28,5 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 - Déplacement de la fonction "Au hasard" dans la page des tops
 - Modification de la page d'accueil
 
-### V 0.0.1 : Initial Update - 11 Sept 2018s :
+### V 0.0.1 : Initial Update - 11 Sept 2018 :
 - Première version
