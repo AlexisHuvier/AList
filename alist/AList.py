@@ -66,5 +66,9 @@ class Main(Tk):
                 self.current_page = page
 
 
+def launch():
+    Main()
+
+
 if __name__ == "__main__":
     Main()

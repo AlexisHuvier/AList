@@ -7,6 +7,21 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 - Jikanpy (pip install jikanpy)
 - googletans (pip install googletrans=3.1.0a0)
 
+## Install :
+
+### PIP
+
+- Launch in cmd : pip install AList
+- launch in cmd : alist
+- Enjoy
+
+### Git
+
+- Clone this repo
+- Install requirements (pip install -r requirements.txt)
+- Launch in cmd : python alist/AList.py
+- Enjoy
+
 ## Changelog : 
 
 ### v 2.0.0 : Fayshia Update - XX Juil 2021 (INDEV):
