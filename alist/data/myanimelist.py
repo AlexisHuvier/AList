@@ -35,7 +35,7 @@ class MyAnimeListProvider:
         return self.values.values()
 
     def search(self, name):
-        return (v for v in self.values.values() if name in v["name"])
+        return (v for v in self.values.values() if name.lower() in v["name"].lower())
 
     def get_all_state(self, state):
         return (v for v in self.values.values() if v["status"] == state)
