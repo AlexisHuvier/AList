@@ -23,6 +23,10 @@ class MyAnimeListProvider:
         }
         self.save()
 
+    def delete(self, mal_id):
+        del self.values[str(mal_id)]
+        self.save()
+
     def modify(self, mal_id, **kwargs):
         for k, v in kwargs.items():
             self.values[str(mal_id)][k] = v

@@ -30,6 +30,10 @@ class MyMangaListProvider:
             self.values[str(mal_id)][k] = v
         self.save()
 
+    def delete(self, mal_id):
+        del self.values[str(mal_id)]
+        self.save()
+
     def get(self, mal_id):
         return self.values.get(str(mal_id), None)
 
