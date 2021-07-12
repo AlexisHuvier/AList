@@ -24,8 +24,8 @@ class MALImporter:
                 ep = i.find("my_watched_episodes").text
                 status = STATUS_MAL_AL[i.find("my_status").text]
                 type_ = i.find("series_type").text
-                self.main.myanime.add(id_, title, max_ep, type_)
-                self.main.myanime.modify(id_, ep=ep, status=status)
+                self.main.myanime.add(int(id_), title, int(max_ep), type_)
+                self.main.myanime.modify(int(id_), ep=int(ep), status=status)
         else:
             for i in tree.xpath("/myanimelist/manga"):
                 title = i.find("manga_title").text
@@ -36,5 +36,5 @@ class MALImporter:
                 chap = i.find("my_read_chapters").text
                 status = STATUS_MAL_AL[i.find("my_status").text]
                 type_ = "Manga"
-                self.main.mymanga.add(id_, title, max_vol, max_chap, type_)
-                self.main.mymanga.modify(id_, vol=vol, chap=chap, status=status)
+                self.main.mymanga.add(int(id_), title, int(max_vol), int(max_chap), type_)
+                self.main.mymanga.modify(int(id_), vol=int(vol), chap=int(chap), status=status)
