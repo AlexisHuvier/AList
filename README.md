@@ -24,10 +24,10 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 
 ## Changelog : 
 
-### v 2.0.0 : Fayshia Update - XX Juil 2021 (INDEV):
+### v 2.0.0 : Fayshia Update - 13 Juil 2021 (LATEST):
 - Recréation complète du logiciel
 
-### V 1.0.0 : First Update - 23 Sept 2018 (LATEST):
+### V 1.0.0 : First Update - 23 Sept 2018:
 - Modification du système des mangas pour prendre en compte les volumes en plus des chapitres
 - Ajout de commentaire sur la totalité des classes et des fonctions
 - Modification de la licence
