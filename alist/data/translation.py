@@ -1,4 +1,4 @@
-from googletrans import Translator
+from alist.utils import GoogleTranslator
 
 GENRE_TRANSLATION = {
     "Action": "Action",
@@ -50,13 +50,11 @@ GENRE_TRANSLATION = {
 class TranslationProvider:
     def __init__(self, main):
         self.main = main
-        self.translator = Translator()
+        self.translator = GoogleTranslator()
 
     def translate(self, text, src="en", dest="fr"):
         if self.main.config.get("translation", True):
-            if len(text) > 15000:
-                text = text[:15000]
-            return self.translator.translate(text, src=src, dest=dest).text
+            return self.translator.translate(text, lang_src=src, lang_tgt=dest)
         else:
             return text
 
