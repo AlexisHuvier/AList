@@ -13,7 +13,8 @@ setup(
     install_requires=[
         "jikanpy",
         "Pillow",
-        "googletrans~=3.1.0a0"
+        "requests",
+        "urllib3"
     ],
     entry_points={
         "console_scripts": [
