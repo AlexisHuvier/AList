@@ -3,9 +3,10 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 
 ## Dépendances :
 - Python 3.5+
-- Pillow (pip install Pillow)
-- Jikanpy (pip install jikanpy)
-- googletans (pip install googletrans=3.1.0a0)
+- Pillow 
+- Jikanpy
+- requests
+- urllib3
 
 ## Install :
 
@@ -23,6 +24,10 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 - Enjoy
 
 ## Changelog : 
+
+### V 2.1.0 : Eleisya Update - XX XXXX XXXX (INDEV) :
+- Changement de librairie de traduction
+- Refonte de la page anime
 
 ### v 2.0.0 : Fayshia Update - 13 Juil 2021 (LATEST):
 - Recréation complète du logiciel
