@@ -31,6 +31,7 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 - Refonte de la page anime
 - Refonte de la page manga
 - Refonte du système d'affichage des pages
+- Crash Fix : Crash au lancement si intallé avec pip
 
 ### v 2.0.0 : Fayshia Update - 13 Juil 2021 (LATEST):
 - Recréation complète du logiciel
