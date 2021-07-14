@@ -5,10 +5,14 @@ from alist.utils import Config
 from alist.pages import *
 from alist.data import *
 
+import os
+
 
 class Main(Tk):
     def __init__(self):
         super(Main, self).__init__()
+        os.chdir(os.path.dirname(__file__)+"/..")
+
         self.mal = MALProvider()
         self.imager = ImageProvider()
         self.translator = TranslationProvider(self)
