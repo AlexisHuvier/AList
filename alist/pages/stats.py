@@ -7,7 +7,13 @@ from alist.utils import pretty_number
 class Stats(RightPage):
     def __init__(self, main, mal_id, title):
         super(Stats, self).__init__(main)
-        self.stats = self.main.mal.anime_stats(mal_id)
+        if title.startswith("a_"):
+            self.stats = self.main.mal.anime(mal_id, "stats")
+            type_ = "anime"
+        else:
+            self.stats = self.main.mal.manga(mal_id, "stats")
+            type_ = "manga"
+        title = title[2:]
 
         title = ttk.Label(self, text=title, font="-size 22 -weight bold")
         title.pack(pady=15)
@@ -23,11 +29,15 @@ class Stats(RightPage):
         listing_.heading("Etat", text="Etat", anchor="center")
         listing_.heading("Nombre", text="Nombre", anchor="center")
 
-        listing_.insert("", "end", "watching", values=("En visionnement", pretty_number(self.stats["watching"]),))
+        listing_.insert("", "end", "watching",
+                        values=("En visionnement",
+                                pretty_number(self.stats["watching" if type_ == "anime" else "reading"]),))
         listing_.insert("", "end", "completed", values=("Complété", pretty_number(self.stats["completed"]),))
         listing_.insert("", "end", "on_hold", values=("En attente", pretty_number(self.stats["on_hold"]),))
         listing_.insert("", "end", "dropped", values=("Abandonné", pretty_number(self.stats["dropped"]),))
-        listing_.insert("", "end", "plan_to_watch", values=("A voir", pretty_number(self.stats["plan_to_watch"]),))
+        listing_.insert("", "end", "plan_to_watch",
+                        values=("A voir",
+                                pretty_number(self.stats["plan_to_watch" if type_ == "anime" else "plan_to_read"]),))
         listing_.insert("", "end", "total", values=("Total", pretty_number(self.stats["total"]),))
 
         listing_.pack(pady=(5, 15))
@@ -41,7 +51,7 @@ class Stats(RightPage):
         score_.column("Nombre", anchor="center")
         score_.column("Pourcentage", anchor="center")
         score_.heading("#0", text="", anchor="center")
-        score_.heading("Note", text="Etat", anchor="center")
+        score_.heading("Note", text="Note", anchor="center")
         score_.heading("Nombre", text="Nombre", anchor="center")
         score_.heading("Pourcentage", text="Pourcentage", anchor="center")
 
@@ -64,7 +74,7 @@ class Stats(RightPage):
         stats_ = ttk.Label(self, text=stats)
         stats_.pack(pady=(5, 15))
 
-        back = ttk.Button(self, text="Retour", command=lambda: self.main.show_page("anime "+str(mal_id)))
+        back = ttk.Button(self, text="Retour", command=lambda: self.main.show_page(type_+" "+str(mal_id)))
         back.pack(pady=15)
 
         self.pack(side=RIGHT, fill=BOTH)
