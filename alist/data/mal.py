@@ -15,9 +15,15 @@ class MALProvider:
         except (exceptions.APIException, exceptions.JikanException, exceptions.DeprecatedEndpoint):
             return []
 
-    def anime(self, id_=0, extension=None):
+    def anime(self, id_=0):
         try:
-            return self.jikan.anime(id_, extension)
+            return self.jikan.anime(id_)
+        except (exceptions.APIException, exceptions.JikanException, exceptions.DeprecatedEndpoint):
+            return None
+
+    def anime_stats(self, id_=0):
+        try:
+            return self.jikan.anime(id_, "stats")
         except (exceptions.APIException, exceptions.JikanException, exceptions.DeprecatedEndpoint):
             return None
 
