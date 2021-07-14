@@ -27,7 +27,9 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 
 ### V 2.1.0 : Eleisya Update - XX XXXX XXXX (INDEV) :
 - Changement de librairie de traduction
+- Nouvelles pages : Stats
 - Refonte de la page anime
+- Refonte du système d'affichage des pages
 
 ### v 2.0.0 : Fayshia Update - 13 Juil 2021 (LATEST):
 - Recréation complète du logiciel
