@@ -29,6 +29,7 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 - Changement de librairie de traduction
 - Nouvelles pages : Stats
 - Refonte de la page anime
+- Refonte de la page manga
 - Refonte du système d'affichage des pages
 
 ### v 2.0.0 : Fayshia Update - 13 Juil 2021 (LATEST):
