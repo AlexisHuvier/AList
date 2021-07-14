@@ -11,7 +11,10 @@ class Manga(RightPage):
         self.manga = self.main.mal.manga(mal_id)
 
         title = ttk.Label(self, text=self.manga["title"], font="-size 20 -weight bold")
-        title.pack(pady=15)
+        title.pack(pady=(15, 10))
+
+        add_list = ttk.Button(self, text="Ajouter à ma liste", width=20, command=self.add_to_list)
+        add_list.pack(pady=(5, 15))
 
         manga = ttk.Frame(self)
 
@@ -19,32 +22,22 @@ class Manga(RightPage):
         self.main.imager.apply_image_on_label("manga_" + str(self.manga["mal_id"]) + ".jpg",
                                               self.manga["image_url"],
                                               image)
-        image.pack(side=RIGHT, padx=50)
+        image.grid(row=0, column=1, rowspan=9)
 
         type_ = ttk.Label(manga, text="Type : Manga")
-        type_.pack(pady=5)
-        if self.manga["title_english"]:
-            en_title = ttk.Label(manga, text="Titre Anglais : "+self.manga["title_english"])
-        else:
-            en_title = ttk.Label(manga, text="Titre Anglais : Aucun")
-        en_title.pack(pady=5)
-        if len(self.manga["authors"][0]["name"].split(", ")) == 2:
-            author = ttk.Label(manga, text="Auteur principal : "+self.manga["authors"][0]["name"].split(", ")[1]+" " +
-                                           self.manga["authors"][0]["name"].split(", ")[0])
-        else:
-            author = ttk.Label(manga, text="Auteur pricipal : "+self.manga["authors"][0]["name"])
-        author.pack(pady=5)
+        type_.grid(row=1, column=0)
+        en_title = ttk.Label(manga, text="Titre Anglais : "+self.manga["title_english"])
+        en_title.grid(row=2, column=0)
+        jap_title = ttk.Label(manga, text="Titre Japonais : "+self.manga["title_japanese"])
+        jap_title.grid(row=2, column=0)
+        author = ttk.Label(manga, text="Auteurs : "+", ".join((i["name"].split(", ")[1]+" "+i["name"].split(", ")[0]
+                                                               for i in self.manga["authors"])))
+        author.grid(row=3, column=0)
 
-        genres = ["Genres : "]
-        for k, v in enumerate(self.manga["genres"]):
-            if k != 0:
-                if k % 7 == 0: # Retour à ligne tous les 5 genres
-                    genres.append(", \n")
-                else:
-                    genres.append(", ")
-            genres.append(self.main.translator.manuel_translate(v["name"]))
+        genres = "Genres : " + \
+                 ", ".join((self.main.translator.manuel_translate(i["name"]) for i in self.manga["genres"]))
         genre = ttk.Label(manga, text="".join(genres), justify="center")
-        genre.pack(pady=5)
+        genre.grid(row=4, column=0)
 
         if self.manga["status"].startswith("Finished"):
             status = ttk.Label(manga, text="Statut : Fini")
@@ -54,7 +47,7 @@ class Manga(RightPage):
             status = ttk.Label(manga, text="Statut : A Venir")
         else:
             status = ttk.Label(manga, text="Statut : Inconnu")
-        status.pack(pady=5)
+        status.grid(row=5, column=0)
 
         if self.manga["volumes"]:
             if self.manga["chapters"]:
@@ -69,7 +62,7 @@ class Manga(RightPage):
                                                  str(self.manga["chapters"]))
             else:
                 vol_chap = ttk.Label(manga, text="Nombre de Volumes : 0    Nombre de Chapitres : 0")
-        vol_chap.pack(pady=5)
+        vol_chap.grid(row=6, column=0)
 
         stats_list = []
         if self.manga["rank"]:
@@ -84,19 +77,29 @@ class Manga(RightPage):
             stats_list.append("    Popularité : "+str(self.manga["popularity"]))
         else:
             stats_list.append("    Popularité : Inconnue")
+        stats_list.append("    Favoris : "+str(self.manga["favorites"]))
         stats = ttk.Label(manga, text="".join(stats_list))
-        stats.pack(pady=5)
+        stats.grid(row=7, column=0)
 
-        synopsis_list = ["Synopsis :\n"]
+        for i in range(9):
+            manga.rowconfigure(i, weight=1)
+        for i in range(2):
+            manga.columnconfigure(i, weight=1)
+
+        manga.pack(fill="x")
+
+        synopsis_label = ttk.Label(self, text="Synopsis :")
+        synopsis_label.pack(pady=(20, 5))
+        synopsis_list = []
         if self.manga["synopsis"]:
             mots = self.main.translator.translate(self.manga["synopsis"]).split(" ")
-            nb = 80
+            nb = 150
             lignes = 0
             for i in mots:
                 if nb - len(i) <= 0:
-                    nb = 80 - len(i)
+                    nb = 150 - len(i)
                     lignes += 1
-                    if lignes == 20:
+                    if lignes == 10:
                         synopsis_list.append("...")
                         break
                     else:
@@ -106,20 +109,34 @@ class Manga(RightPage):
                     nb -= len(i)
         else:
             synopsis_list.append("Aucun")
-        synopsis = ttk.Label(manga, text="".join(synopsis_list), justify="center")
-        synopsis.pack(pady=20)
+        synopsis = ttk.Label(self, text="".join(synopsis_list), justify="center")
+        synopsis.pack(pady=(5, 20))
 
-        manga.pack()
+        btn = ttk.Frame(self)
 
-        buttons = ttk.Frame(self)
+        news = ttk.Button(btn, text="News", width=20)
+        news.pack(side=LEFT, padx=20)
+        videos = ttk.Button(btn, text="Vidéos", width=20)
+        videos.pack(side=RIGHT, padx=20)
+        images = ttk.Button(btn, text="Images", width=20)
+        images.pack(padx=20)
 
-        lien = ttk.Button(buttons, text="Lien MAL", width=20,
+        btn.pack(pady=10)
+
+        btn2 = ttk.Frame(self)
+        characters = ttk.Button(btn2, text="Personnages", width=20)
+        characters.pack(side=LEFT, padx=20)
+        stats = ttk.Button(btn2, text="Statistiques", width=20,
+                           command=lambda: self.main.show_page("stats " + str(self.manga["mal_id"]) + " m_" +
+                                                               self.manga["title"]))
+        stats.pack(side=LEFT, padx=20)
+        lien = ttk.Button(btn2, text="Lien MAL", width=20,
                           command=lambda: utils.open_url(self.manga["url"]))
-        lien.pack(side=LEFT, padx=20)
-        add_list = ttk.Button(buttons, text="Ajouter à ma liste", width=20, command=self.add_to_list)
-        add_list.pack(side=RIGHT, padx=20)
+        lien.pack(side=RIGHT, padx=20)
+        reviews = ttk.Button(btn2, text="Avis", width=20)
+        reviews.pack(side=RIGHT, padx=20)
 
-        buttons.pack(pady=10)
+        btn2.pack(pady=10)
 
         self.pack(side=RIGHT, fill=BOTH)
 
