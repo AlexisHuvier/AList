@@ -133,7 +133,9 @@ class Anime(RightPage):
         btn2 = ttk.Frame(self)
         characters = ttk.Button(btn2, text="Personnages", width=20)
         characters.pack(side=LEFT, padx=20)
-        stats = ttk.Button(btn2, text="Statistiques", width=20)
+        stats = ttk.Button(btn2, text="Statistiques", width=20,
+                           command=lambda: self.main.show_page("stats " + str(self.anime["mal_id"]) + " " +
+                                                               self.anime["title"]))
         stats.pack(side=LEFT, padx=20)
         lien = ttk.Button(btn2, text="Lien MAL", width=20,
                           command=lambda: utils.open_url(self.anime["url"]))
