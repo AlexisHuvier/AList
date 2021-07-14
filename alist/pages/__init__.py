@@ -10,3 +10,4 @@ from alist.pages.manga import Manga
 from alist.pages.modif_anime import ModifAnime
 from alist.pages.modif_manga import ModifManga
 from alist.pages.stats import Stats
+from alist.pages.news import News
