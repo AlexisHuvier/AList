@@ -39,28 +39,34 @@ class Main(Tk):
     def show_page(self, page):
         if self.current_page != page:
             self.page.destroy()
-            if page == "accueil" or (page == "reload" and self.current_page == "accueil"):
-                self.page = Accueil(self)
-            elif page == "list_anime" or (page == "reload" and self.current_page == "list_anime"):
-                self.page = ListAnime(self)
-            elif page == "list_manga" or (page == "reload" and self.current_page == "list_manga"):
-                self.page = ListManga(self)
-            elif page == "my_anime" or (page == "reload" and self.current_page == "my_anime"):
-                self.page = MyAnime(self)
-            elif page == "my_manga" or (page == "reload" and self.current_page == "my_manga"):
-                self.page = MyManga(self)
-            elif page == "parameters" or (page == "reload" and self.current_page == "parameters"):
-                self.page = Parameters(self)
-            elif page.startswith("anime ") or (page == "reload" and self.current_page.startswith("anime ")):
-                self.page = Anime(self, int(page.split(" ")[1]))
-            elif page.startswith("manga ") or (page == "reload" and self.current_page.startswith("manga ")):
-                self.page = Manga(self, int(page.split(" ")[1]))
-            elif page.startswith("modifanime ") or (page == "reload" and self.current_page.startswith("modifanime ")):
-                self.page = ModifAnime(self, int(page.split(" ")[1]))
-            elif page.startswith("modifmanga ") or (page == "reload" and self.current_page.startswith("modifmanga ")):
-                self.page = ModifManga(self, int(page.split(" ")[1]))
+
+            temp = page.split(" ")
+            if len(temp) > 1 and temp[1] != "":
+                id_ = int(temp[1])
             else:
-                print("ERROR : Unknown Page ("+page+")")
+                id_ = 0
+            if len(temp) > 2:
+                title = " ".join(temp[2:])
+            else:
+                title = ""
+
+            pages = {
+                "accueil": [Accueil, []],
+                "list_anime": [ListAnime, []],
+                "list_manga": [ListManga, []],
+                "my_anime": [MyAnime, []],
+                "my_manga": [MyManga, []],
+                "parameters": [Parameters, []],
+                "anime ": [Anime, [id_]],
+                "manga ": [Manga, [id_]],
+                "modifanime ": [ModifAnime, [id_]],
+                "modifmanga ": [ModifManga, [id_]],
+                "stats ": [ Stats, [id_, title]]
+            }
+            for k, v in pages.items():
+                if page.startswith(k) or (page == "reload" and self.current_page.startswith(k)):
+                    self.page = v[0](self, *v[1])
+                    break
 
             if page != "reload":
                 self.current_page = page
