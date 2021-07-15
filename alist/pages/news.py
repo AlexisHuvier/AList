@@ -19,7 +19,7 @@ class News(RightPage):
         title = ttk.Label(self, text=title, font="-size 22 -weight bold")
         title.pack(pady=15)
 
-        scroll = ScrollFrame(self, width=1080, height=800)
+        scroll = ScrollFrame(self, width=1080, height=630)
         scroll.pack_propagate(False)
 
         for article in self.news["articles"]:
