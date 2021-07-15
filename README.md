@@ -26,11 +26,12 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 ## Changelog : 
 
 ### V 2.1.0 : Eleisya Update - XX XXXX XXXX (INDEV) :
-- Changement de librairie de traduction
 - Nouvelles pages : Stats, News
 - Refonte de la page anime
 - Refonte de la page manga
 - Refonte du système d'affichage des pages
+- Changement de librairie de traduction
+- Utilisation de thread pour la traduction
 - Crash Fix : Crash au lancement si intallé avec pip
 
 ### v 2.0.0 : Fayshia Update - 13 Juil 2021 (LATEST):

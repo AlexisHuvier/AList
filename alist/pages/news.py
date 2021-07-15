@@ -28,14 +28,16 @@ class News(RightPage):
 
             date = ttk.Label(temp, text=str(date.day)+"/"+str(date.month)+"/"+str(date.year))
             date.grid(row=0, column=0, pady=10, padx=(10, 0), sticky="w")
-            title = ttk.Label(temp, text=self.main.translator.translate(article["title"]), font="-weight bold")
+            title = ttk.Label(temp, text=article["title"], font="-weight bold")
+            self.main.translator.translate(title, article["title"])
             title.grid(row=0, column=1, pady=10)
             author = ttk.Label(temp, text=article["author_name"])
             author.grid(row=0, column=2, pady=10, padx=(0, 10), sticky="e")
 
-            intro = ttk.Label(temp, text=self.main.translator.translate(
-                article["intro"] if len(article["intro"]) < 130 else article["intro"][:127]+"..."
-            ))
+            intro = ttk.Label(temp,
+                              text=article["intro"] if len(article["intro"]) < 130 else article["intro"][:127]+"..."
+            )
+            self.main.translator.translate(intro, article["intro"], 130, 1)
             intro.grid(row=1, column=0, columnspan=3, pady=10)
 
             url = ttk.Button(temp, text="Lien", command=lambda a=article: open_url(a["url"]))

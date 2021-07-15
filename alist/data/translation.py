@@ -1,3 +1,5 @@
+import threading
+
 from alist.utils import GoogleTranslator
 
 GENRE_TRANSLATION = {
@@ -47,22 +49,52 @@ GENRE_TRANSLATION = {
 }
 
 
+class Translate(threading.Thread):
+    def __init__(self, main, translator, src, dest, text, label, length, lines):
+        super(Translate, self).__init__()
+        self.main = main
+        self.translator = translator
+        self.src = src
+        self.dest = dest
+        self.text = text
+        self.label = label
+        self.length = length
+        self.lines = lines
+
+    def run(self):
+        if self.main.config.get("translation", True):
+            liste = []
+            mots =  self.translator.translate(self.text, lang_src=self.src, lang_tgt=self.dest).split(" ")
+            nb = self.length
+            lignes = 0
+            for i in mots:
+                if nb - len(i) <= 0:
+                    nb = self.length - len(i)
+                    lignes += 1
+                    if lignes == self.lines:
+                        liste.append("...")
+                        break
+                    else:
+                        liste.extend(("\n", i, " "))
+                else:
+                    liste.extend((i, " "))
+                    nb -= len(i)
+            self.label["text"] = "".join(liste)
+        else:
+            self.label["text"] = self.text
+
+
 class TranslationProvider:
     def __init__(self, main):
         self.main = main
         self.translator = GoogleTranslator()
 
-    def translate(self, text, src="en", dest="fr"):
-        if self.main.config.get("translation", True):
-            return self.translator.translate(text, lang_src=src, lang_tgt=dest)
-        else:
-            return text
+    def translate(self, label, text, length=150, lines=10, src="en", dest="fr"):
+        label["text"] = text
+        thread = Translate(self.main, self.translator, src, dest, text, label, length, lines)
+        thread.start()
 
-    def manuel_translate(self, text):
-        if self.main.config.get("translation", True):
-            if text in GENRE_TRANSLATION.keys():
-                return GENRE_TRANSLATION[text]
-            else:
-                return self.translate(text)
-        else:
-            return text
+    def genre_translate(self, genre):
+        if genre in GENRE_TRANSLATION.keys():
+            return GENRE_TRANSLATION[genre]
+        return genre

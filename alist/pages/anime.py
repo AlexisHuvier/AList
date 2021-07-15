@@ -39,13 +39,14 @@ class Anime(RightPage):
         licensors = ttk.Label(top, text="Licenciers : "+", ".join((i["name"] for i in self.anime["licensors"])))
         licensors.grid(row=6, column=0)
         if self.anime["premiered"]:
-            season = ttk.Label(top, text="Saison : "+self.main.translator.translate(self.anime["premiered"]))
+            season = ttk.Label(top, text="")
+            self.main.translator.translate(season, "Season : "+self.anime["premiered"])
         else:
             season = ttk.Label(top, text="Saison : Inconnue")
         season.grid(row=7, column=0)
 
         genres = "Genres : " + \
-                 ", ".join((self.main.translator.manuel_translate(i["name"]) for i in self.anime["genres"]))
+                 ", ".join((self.main.translator.genre_translate(i["name"]) for i in self.anime["genres"]))
         genre = ttk.Label(top, text="".join(genres), justify="center")
         genre.grid(row=8, column=0)
 
@@ -92,26 +93,11 @@ class Anime(RightPage):
 
         synopsis_label = ttk.Label(self, text="Synopsis :")
         synopsis_label.pack(pady=(20, 5))
-        synopsis_list = []
         if self.anime["synopsis"]:
-            mots = self.main.translator.translate(self.anime["synopsis"]).split(" ")
-            nb = 150
-            lignes = 0
-            for i in mots:
-                if nb - len(i) <= 0:
-                    nb = 150 - len(i)
-                    lignes += 1
-                    if lignes == 10:
-                        synopsis_list.append("...")
-                        break
-                    else:
-                        synopsis_list.extend(("\n", i, " "))
-                else:
-                    synopsis_list.extend((i, " "))
-                    nb -= len(i)
+            synopsis = ttk.Label(self, text="", justify="center")
+            self.main.translator.translate(synopsis, self.anime["synopsis"])
         else:
-            synopsis_list.append("Aucun")
-        synopsis = ttk.Label(self, text="".join(synopsis_list), justify="center")
+            synopsis = ttk.Label(self, text="Aucun", justify="center")
         synopsis.pack(pady=(5, 20))
 
         btn = ttk.Frame(self)
