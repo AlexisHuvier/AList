@@ -1,6 +1,6 @@
 import threading
 
-from alist.utils import GoogleTranslator
+from alist.utils import GoogleTranslator, wrap_text
 
 GENRE_TRANSLATION = {
     "Action": "Action",
@@ -63,25 +63,10 @@ class Translate(threading.Thread):
 
     def run(self):
         if self.main.config.get("translation", True):
-            liste = []
-            mots =  self.translator.translate(self.text, lang_src=self.src, lang_tgt=self.dest).split(" ")
-            nb = self.length
-            lignes = 0
-            for i in mots:
-                if nb - len(i) <= 0:
-                    nb = self.length - len(i)
-                    lignes += 1
-                    if lignes == self.lines:
-                        liste.append("...")
-                        break
-                    else:
-                        liste.extend(("\n", i, " "))
-                else:
-                    liste.extend((i, " "))
-                    nb -= len(i)
-            self.label["text"] = "".join(liste)
+            self.label["text"] = wrap_text(self.translator.translate(self.text, lang_src=self.src, lang_tgt=self.dest),
+                                           self.length, self.lines)
         else:
-            self.label["text"] = self.text
+            self.label["text"] = wrap_text(self.text, self.length, self.lines)
 
 
 class TranslationProvider:

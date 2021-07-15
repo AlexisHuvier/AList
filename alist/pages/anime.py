@@ -1,7 +1,7 @@
 from tkinter import ttk, RIGHT, BOTH, LEFT
 
 from alist.pages.right_page import RightPage
-from alist.utils import utils
+from alist.utils import wrap_text, open_url
 
 
 class Anime(RightPage):
@@ -105,7 +105,7 @@ class Anime(RightPage):
         episodes = ttk.Button(btn, text="Episodes", width=20)
         episodes.pack(side=LEFT, padx=20)
         trailer = ttk.Button(btn, text="Trailer", width=20,
-                             command=lambda: utils.open_url(self.anime["trailer_url"]))
+                             command=lambda: open_url(self.anime["trailer_url"]))
         trailer.pack(side=LEFT, padx=20)
         news = ttk.Button(btn, text="News", width=20,
                           command=lambda: self.main.show_page("news " + str(self.anime["mal_id"]) + " a_" +
@@ -126,7 +126,7 @@ class Anime(RightPage):
                                                                self.anime["title"]))
         stats.pack(side=LEFT, padx=20)
         lien = ttk.Button(btn2, text="Lien MAL", width=20,
-                          command=lambda: utils.open_url(self.anime["url"]))
+                          command=lambda: open_url(self.anime["url"]))
         lien.pack(side=RIGHT, padx=20)
         reviews = ttk.Button(btn2, text="Avis", width=20)
         reviews.pack(side=RIGHT, padx=20)
