@@ -26,7 +26,7 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 ## Changelog : 
 
 ### V 2.1.0 : Eleisya Update - XX XXXX XXXX (INDEV) :
-- Nouvelles pages : Stats, News
+- Nouvelles pages : Stats, News, Images
 - Refonte de la page anime
 - Refonte de la page manga
 - Refonte du système d'affichage des pages

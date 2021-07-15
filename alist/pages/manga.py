@@ -105,7 +105,9 @@ class Manga(RightPage):
         news.pack(side=LEFT, padx=20)
         videos = ttk.Button(btn, text="Vidéos", width=20)
         videos.pack(side=RIGHT, padx=20)
-        images = ttk.Button(btn, text="Images", width=20)
+        images = ttk.Button(btn, text="Images", width=20,
+                            command=lambda: self.main.show_page("images " + str(self.manga["mal_id"]) + " m_" +
+                                                                self.manga["title"]))
         images.pack(padx=20)
 
         btn.pack(pady=10)

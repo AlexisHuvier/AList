@@ -111,10 +111,12 @@ class Anime(RightPage):
                           command=lambda: self.main.show_page("news " + str(self.anime["mal_id"]) + " a_" +
                                                               self.anime["title"]))
         news.pack(side=LEFT, padx=20)
-        images = ttk.Button(btn, text="Images", width=20)
-        images.pack(side=RIGHT, padx=20)
         videos = ttk.Button(btn, text="Vidéos", width=20)
         videos.pack(side=RIGHT, padx=20)
+        images = ttk.Button(btn, text="Images", width=20,
+                            command=lambda: self.main.show_page("images " + str(self.anime["mal_id"]) + " a_" +
+                                                                self.anime["title"]))
+        images.pack(side=RIGHT, padx=20)
 
         btn.pack(pady=10)
 

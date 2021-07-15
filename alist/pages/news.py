@@ -48,9 +48,9 @@ class News(RightPage):
 
             temp.pack(pady=10, fill="x")
 
-        scroll.pack(pady=15)
+        scroll.pack(pady=10)
 
         back = ttk.Button(self, text="Retour", command=lambda: self.main.show_page(type_+" "+str(mal_id)))
-        back.pack(pady=15)
+        back.pack(pady=10)
 
         self.pack(side=RIGHT, fill=BOTH)
