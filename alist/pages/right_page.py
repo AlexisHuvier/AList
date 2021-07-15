@@ -7,6 +7,6 @@ class RightPage(ttk.Frame):
         super(RightPage, self).__init__(main, relief=GROOVE)
         self.pack_propagate(False)
         self.grid_propagate(False)
-        self["padding"] = 5
+        self["padding"] = 10
         self.config(width=980, height=800)
         self.main = main
