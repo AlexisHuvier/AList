@@ -128,7 +128,9 @@ class Manga(RightPage):
         lien = ttk.Button(btn2, text="Lien MAL", width=20,
                           command=lambda: open_url(self.manga["url"]))
         lien.pack(side=RIGHT, padx=20)
-        reviews = ttk.Button(btn2, text="Avis", width=20)
+        reviews = ttk.Button(btn2, text="Avis", width=20,
+                             command=lambda: self.main.show_page("reviews " + str(self.manga["mal_id"]) + " m_1_" +
+                                                                 self.manga["title"]))
         reviews.pack(side=RIGHT, padx=20)
 
         btn2.pack(pady=10)

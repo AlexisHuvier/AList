@@ -138,7 +138,9 @@ class Anime(RightPage):
         lien = ttk.Button(btn2, text="Lien MAL", width=20,
                           command=lambda: open_url(self.anime["url"]))
         lien.pack(side=RIGHT, padx=20)
-        reviews = ttk.Button(btn2, text="Avis", width=20)
+        reviews = ttk.Button(btn2, text="Avis", width=20,
+                             command=lambda: self.main.show_page("reviews " + str(self.anime["mal_id"]) + " a_1_" +
+                                                                 self.anime["title"]))
         reviews.pack(side=RIGHT, padx=20)
 
         btn2.pack(pady=10)

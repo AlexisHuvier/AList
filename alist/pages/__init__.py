@@ -15,3 +15,4 @@ from alist.pages.images import Images
 from alist.pages.videos import Videos
 from alist.pages.characters import Characters
 from alist.pages.recommands import Recommands
+from alist.pages.reviews import Reviews
