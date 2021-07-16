@@ -14,18 +14,15 @@ class MyAnime(RightPage):
 
         self.search = StringVar(self)
         search_entry = ttk.Entry(top_frame, textvariable=self.search, width=30)
-        search_entry.pack(side=LEFT, padx=10)
-        valid_search = ttk.Button(top_frame, text="Rechercher", width=20, command=self.validate_search)
-        valid_search.pack(side=LEFT, padx=(10, 30))
+        search_entry.bind("<Return>", self.validate_search)
+        search_entry.pack(side=LEFT, padx=30)
 
         self.etat = StringVar(self)
         self.etat.set("Tous")
         etat_select = ttk.OptionMenu(top_frame, self.etat, "Tous", "Tous", "A voir", "En visionnement", "Fini",
                                      "Abandonné")
         etat_select["width"] = 30
-        etat_select.pack(side=LEFT, padx=(30, 10))
-        valid_etat = ttk.Button(top_frame, text="Afficher", width=20, command=self.validate_state)
-        valid_etat.pack(side=LEFT, padx=10)
+        etat_select.pack(side=LEFT, padx=30)
 
         top_frame.pack(pady=10)
 
@@ -52,6 +49,9 @@ class MyAnime(RightPage):
 
         self.pack(side=RIGHT, fill=BOTH)
 
+        self.etat.trace("w", self.validate_state)
+        self.validate_state()
+
     def import_(self):
         if self.exp_imp.get() == "MyAnimeList":
             file = filedialog.askopenfilename(parent=self, title="AList - Import MAL",
@@ -67,10 +67,10 @@ class MyAnime(RightPage):
             if file:
                 self.main.mal_export.export("anime", file)
 
-    def validate_search(self):
+    def validate_search(self, *ignore):
         self.reload_results(self.main.myanime.search(self.search.get()))
 
-    def validate_state(self):
+    def validate_state(self, *ignore):
         if self.etat.get() == "Tous":
             self.reload_results(self.main.myanime.get_all())
         else:

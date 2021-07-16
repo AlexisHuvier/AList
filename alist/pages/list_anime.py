@@ -17,18 +17,15 @@ class ListAnime(RightPage):
 
         self.search = StringVar(self)
         search_entry = ttk.Entry(top_frame, textvariable=self.search, width=30)
-        search_entry.pack(side=LEFT, padx=10)
-        valid_search = ttk.Button(top_frame, text="Rechercher", command=self.validate_search, width=20)
-        valid_search.pack(side=LEFT, padx=(10, 30))
+        search_entry.bind("<Return>", self.validate_search)
+        search_entry.pack(side=LEFT, padx=30)
 
         self.top = StringVar(self)
         self.top.set("Top Global")
         top_select = ttk.OptionMenu(top_frame, self.top, "Top Global", "Top Global", "Top Sortie", "Top A Venir",
                                     "Top TV", "Top Film", "Top OVA", "Top Spécial", "Top Populaire", "Top Favoris")
         top_select["width"] = 30
-        top_select.pack(side=LEFT, padx=(30, 10))
-        valid_top = ttk.Button(top_frame, text="Afficher le Top", command=self.validate_top, width=20)
-        valid_top.pack(side=LEFT, padx=10)
+        top_select.pack(side=LEFT, padx=30)
 
         top_frame.pack(pady=20)
 
@@ -49,6 +46,9 @@ class ListAnime(RightPage):
         self.result_frame.pack(pady=(20, 0))
 
         self.pack(side=RIGHT, fill=BOTH)
+
+        self.top.trace("w", self.validate_top)
+        self.validate_top()
 
     def next_page(self):
         if self.current_display.startswith("search "):
@@ -97,13 +97,13 @@ class ListAnime(RightPage):
                 self.reload_results(self.main.mal.top("anime", self.current_page, temp[self.current_display]))
             self.num_page["text"] = "Page "+str(self.current_page)
 
-    def validate_search(self):
+    def validate_search(self, *ignore):
         self.current_display = "search "+self.search.get()
         self.current_page = 1
         self.num_page["text"] = "Page "+str(self.current_page)
         self.reload_results(self.main.mal.search('anime', self.search.get()))
 
-    def validate_top(self):
+    def validate_top(self, *ignore):
         temp = {
             "Top Global": None,
             "Top Sortie": "airing",
