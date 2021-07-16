@@ -131,6 +131,10 @@ class Anime(RightPage):
                            command=lambda: self.main.show_page("stats " + str(self.anime["mal_id"]) + " a_" +
                                                                self.anime["title"]))
         stats.pack(side=LEFT, padx=20)
+        recommands = ttk.Button(btn2, text="Recommandations", width=20,
+                                command=lambda: self.main.show_page("recommands " + str(self.anime["mal_id"]) + " a_" +
+                                                                    self.anime["title"]))
+        recommands.pack(side=LEFT, padx=20)
         lien = ttk.Button(btn2, text="Lien MAL", width=20,
                           command=lambda: open_url(self.anime["url"]))
         lien.pack(side=RIGHT, padx=20)

@@ -121,11 +121,15 @@ class Manga(RightPage):
                            command=lambda: self.main.show_page("stats " + str(self.manga["mal_id"]) + " m_" +
                                                                self.manga["title"]))
         stats.pack(side=LEFT, padx=20)
+        recommands = ttk.Button(btn2, text="Recommandations", width=20,
+                                command=lambda: self.main.show_page("recommands " + str(self.manga["mal_id"]) + " m_" +
+                                                                    self.manga["title"]))
+        recommands.pack(side=LEFT, padx=20)
         lien = ttk.Button(btn2, text="Lien MAL", width=20,
                           command=lambda: open_url(self.manga["url"]))
         lien.pack(side=RIGHT, padx=20)
         reviews = ttk.Button(btn2, text="Avis", width=20)
-        reviews.pack(padx=20)
+        reviews.pack(side=RIGHT, padx=20)
 
         btn2.pack(pady=10)
 
