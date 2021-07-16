@@ -14,6 +14,8 @@ class Manga(RightPage):
         title.pack(pady=(15, 10))
 
         add_list = ttk.Button(self, text="Ajouter à ma liste", width=20, command=self.add_to_list)
+        if self.main.mymanga.is_in(self.manga["mal_id"]):
+            add_list["state"] = "disabled"
         add_list.pack(pady=(5, 15))
 
         manga = ttk.Frame(self)

@@ -12,6 +12,9 @@ class MyMangaListProvider:
             self.values = {}
             self.save()
 
+    def is_in(self, mal_id):
+        return str(mal_id) in self.values.keys()
+
     def add(self, mal_id, name, nb_vol, nb_chap, type_):
         self.values[str(mal_id)] = {
             "id": mal_id,
