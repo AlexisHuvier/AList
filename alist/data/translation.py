@@ -75,7 +75,9 @@ class TranslationProvider:
         self.translator = GoogleTranslator()
 
     def translate(self, label, text, length=150, lines=10, src="en", dest="fr"):
-        label["text"] = text
+        if len(text) >= 4500:
+            text = text[:4500]
+        label["text"] = wrap_text(text, length, lines)
         thread = Translate(self.main, self.translator, src, dest, text, label, length, lines)
         thread.start()
 
