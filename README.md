@@ -27,11 +27,14 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 
 ### V 2.1.0 : Eleisya Update - XX XXXX XXXX (INDEV) :
 - Nouvelles pages : Stats, News, Images
-- Refonte de la page anime
-- Refonte de la page manga
+- Refonte des pages : Anime, Manga
 - Refonte du système d'affichage des pages
 - Changement de librairie de traduction
 - Utilisation de thread pour la traduction
+- Suppression des boutons pour valider les recherches et les tops
+- Retour à la page Anime/Manga à la validation d'un Anime/Manga
+- Bug Fix : Les images peuvent ne pas être chargées
+- Bug Fix : Un Anime/Manga peut être ajouter deux fois à la liste
 - Crash Fix : Crash au lancement si intallé avec pip
 
 ### v 2.0.0 : Fayshia Update - 13 Juil 2021 (LATEST):
