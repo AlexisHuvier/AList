@@ -15,7 +15,7 @@ class DownloadImage(threading.Thread):
         urllib.request.urlretrieve(self.url, self.file)
         image = Image.open(self.file)
         thumb = ImageTk.PhotoImage(image)
-        self.label["image"] = thumb
+        self.label.configure(image=thumb)
         self.label.image = thumb
 
 
@@ -33,7 +33,7 @@ class ImageProvider:
         else:
             image = Image.open(self.cachedir + "/" + file)
             thumb = ImageTk.PhotoImage(image)
-            label["image"] = thumb
+            label.configure(image=thumb)
             label.image = thumb
 
     def del_image(self, file):
