@@ -13,7 +13,7 @@ class MyMangaListProvider:
             self.save()
 
     def add(self, mal_id, name, nb_vol, nb_chap, type_):
-        self.values[mal_id] = {
+        self.values[str(mal_id)] = {
             "id": mal_id,
             "name": name,
             "vol": 0,

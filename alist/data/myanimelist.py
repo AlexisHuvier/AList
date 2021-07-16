@@ -16,7 +16,7 @@ class MyAnimeListProvider:
         return str(mal_id) in self.values.keys()
 
     def add(self, mal_id, name, nb_ep, type_):
-        self.values[mal_id] = {
+        self.values[str(mal_id)] = {
             "id": mal_id,
             "name": name,
             "ep": 0,
