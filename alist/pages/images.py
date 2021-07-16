@@ -1,7 +1,7 @@
 from tkinter import ttk, RIGHT, BOTH
 
 from alist.pages.right_page import RightPage
-from alist.utils import ScrollFrame
+from alist.utils import ScrollFrame, open_url
 
 
 class Images(RightPage):
@@ -26,9 +26,13 @@ class Images(RightPage):
 
             image = ttk.Label(temp)
             self.main.imager.apply_image_on_label(type_+"_"+str(mal_id)+"_pic"+str(i)+".jpg", pic["small"], image)
+            image.bind("<Button-1>", lambda _, url=pic["large"]: open_url(url))
             image.pack()
 
             temp.grid(row=i // 4, column=i % 4, pady=5, padx=5)
+
+        for i in range(4):
+            scroll.viewport.columnconfigure(i, weight=1)
 
         scroll.pack(pady=10)
 
