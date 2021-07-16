@@ -1,7 +1,7 @@
 from tkinter import ttk, RIGHT, BOTH, LEFT
 
 from alist.pages.right_page import RightPage
-from alist.utils import wrap_text, open_url
+from alist.utils import open_url
 
 
 class Anime(RightPage):
@@ -111,7 +111,9 @@ class Anime(RightPage):
                           command=lambda: self.main.show_page("news " + str(self.anime["mal_id"]) + " a_" +
                                                               self.anime["title"]))
         news.pack(side=LEFT, padx=20)
-        videos = ttk.Button(btn, text="Vidéos", width=20)
+        videos = ttk.Button(btn, text="Vidéos", width=20,
+                            command=lambda: self.main.show_page("videos " + str(self.anime["mal_id"]) + " " +
+                                                                self.anime["title"]))
         videos.pack(side=RIGHT, padx=20)
         images = ttk.Button(btn, text="Images", width=20,
                             command=lambda: self.main.show_page("images " + str(self.anime["mal_id"]) + " a_" +

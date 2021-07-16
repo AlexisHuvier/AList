@@ -1,7 +1,7 @@
 from tkinter import ttk, RIGHT, BOTH, LEFT
 
 from alist.pages.right_page import RightPage
-from alist.utils import utils
+from alist.utils import open_url
 
 
 class Manga(RightPage):
@@ -105,8 +105,8 @@ class Manga(RightPage):
                           command=lambda: self.main.show_page("news " + str(self.manga["mal_id"]) + " m_" +
                                                               self.manga["title"]))
         news.pack(side=LEFT, padx=20)
-        videos = ttk.Button(btn, text="Vidéos", width=20)
-        videos.pack(side=RIGHT, padx=20)
+        characters = ttk.Button(btn, text="Personnages", width=20)
+        characters.pack(side=RIGHT, padx=20)
         images = ttk.Button(btn, text="Images", width=20,
                             command=lambda: self.main.show_page("images " + str(self.manga["mal_id"]) + " m_" +
                                                                 self.manga["title"]))
@@ -115,17 +115,15 @@ class Manga(RightPage):
         btn.pack(pady=10)
 
         btn2 = ttk.Frame(self)
-        characters = ttk.Button(btn2, text="Personnages", width=20)
-        characters.pack(side=LEFT, padx=20)
         stats = ttk.Button(btn2, text="Statistiques", width=20,
                            command=lambda: self.main.show_page("stats " + str(self.manga["mal_id"]) + " m_" +
                                                                self.manga["title"]))
         stats.pack(side=LEFT, padx=20)
         lien = ttk.Button(btn2, text="Lien MAL", width=20,
-                          command=lambda: utils.open_url(self.manga["url"]))
+                          command=lambda: open_url(self.manga["url"]))
         lien.pack(side=RIGHT, padx=20)
         reviews = ttk.Button(btn2, text="Avis", width=20)
-        reviews.pack(side=RIGHT, padx=20)
+        reviews.pack(padx=20)
 
         btn2.pack(pady=10)
 

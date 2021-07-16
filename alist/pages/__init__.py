@@ -12,3 +12,4 @@ from alist.pages.modif_manga import ModifManga
 from alist.pages.stats import Stats
 from alist.pages.news import News
 from alist.pages.images import Images
+from alist.pages.videos import Videos

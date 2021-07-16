@@ -67,7 +67,8 @@ class Main(Tk):
                 "modifmanga ": [ModifManga, [id_]],
                 "stats ": [Stats, [id_, title]],
                 "news ": [News, [id_, title]],
-                "images ": [Images, [id_, title]]
+                "images ": [Images, [id_, title]],
+                "videos ": [Videos, [id_, title]]
             }
             for k, v in pages.items():
                 if page.startswith(k) or (page == "reload" and self.current_page.startswith(k)):
