@@ -40,4 +40,5 @@ class ModifManga(RightPage):
 
     def validate(self):
         self.main.mymanga.modify(self.manga["id"], status=self.status.get(), vol=int(self.vol.get()),
-                                chap=int(self.chap.get()))
+                                 chap=int(self.chap.get()))
+        self.main.show_page("my_manga")

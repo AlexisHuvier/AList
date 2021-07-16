@@ -34,3 +34,4 @@ class ModifAnime(RightPage):
 
     def validate(self):
         self.main.myanime.modify(self.anime["id"], status=self.status.get(), ep=int(self.ep.get()))
+        self.main.show_page("my_anime")
