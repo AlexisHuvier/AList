@@ -123,7 +123,9 @@ class Anime(RightPage):
         btn.pack(pady=10)
 
         btn2 = ttk.Frame(self)
-        characters = ttk.Button(btn2, text="Personnages", width=20)
+        characters = ttk.Button(btn2, text="Personnages", width=20,
+                                command=lambda: self.main.show_page("characters " + str(self.anime["mal_id"]) + " a_" +
+                                                              self.anime["title"]))
         characters.pack(side=LEFT, padx=20)
         stats = ttk.Button(btn2, text="Statistiques", width=20,
                            command=lambda: self.main.show_page("stats " + str(self.anime["mal_id"]) + " a_" +

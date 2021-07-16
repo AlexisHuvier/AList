@@ -13,3 +13,4 @@ from alist.pages.stats import Stats
 from alist.pages.news import News
 from alist.pages.images import Images
 from alist.pages.videos import Videos
+from alist.pages.characters import Characters

@@ -105,7 +105,9 @@ class Manga(RightPage):
                           command=lambda: self.main.show_page("news " + str(self.manga["mal_id"]) + " m_" +
                                                               self.manga["title"]))
         news.pack(side=LEFT, padx=20)
-        characters = ttk.Button(btn, text="Personnages", width=20)
+        characters = ttk.Button(btn, text="Personnages", width=20,
+                                command=lambda: self.main.show_page("characters " + str(self.manga["mal_id"]) + " m_" +
+                                                                    self.manga["title"]))
         characters.pack(side=RIGHT, padx=20)
         images = ttk.Button(btn, text="Images", width=20,
                             command=lambda: self.main.show_page("images " + str(self.manga["mal_id"]) + " m_" +
