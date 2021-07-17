@@ -28,7 +28,10 @@ class Anime(RightPage):
 
         type_ = ttk.Label(top, text="Type : Anime")
         type_.grid(row=1, column=0)
-        en_title = ttk.Label(top, text="Titre Anglais : "+self.anime["title_english"])
+        if self.anime["title_english"]:
+            en_title = ttk.Label(top, text="Titre Anglais : "+self.anime["title_english"])
+        else:
+            en_title = ttk.Label(top, text="Titre Anglais : Aucun")
         en_title.grid(row=2, column=0)
         jap_title = ttk.Label(top, text="Titre Japonais : "+self.anime["title_japanese"])
         jap_title.grid(row=3, column=0)

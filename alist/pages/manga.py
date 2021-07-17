@@ -28,7 +28,10 @@ class Manga(RightPage):
 
         type_ = ttk.Label(manga, text="Type : Manga")
         type_.grid(row=1, column=0)
-        en_title = ttk.Label(manga, text="Titre Anglais : "+self.manga["title_english"])
+        if self.manga["title_english"]:
+            en_title = ttk.Label(manga, text="Titre Anglais : "+self.manga["title_english"])
+        else:
+            en_title = ttk.Label(manga, text="Titre Anglais : Aucun")
         en_title.grid(row=2, column=0)
         jap_title = ttk.Label(manga, text="Titre Japonais : "+self.manga["title_japanese"])
         jap_title.grid(row=2, column=0)
