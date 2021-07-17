@@ -80,14 +80,14 @@ class Episodes(RightPage):
             btn = ttk.Frame(temp)
 
             vostfr = ttk.Button(btn, text="VOSTFR",
-                                command=lambda a=episode: self.open_episode("vostfr", episode["episode_id"], max_ep))
+                                command=lambda a=episode: self.open_episode("vostfr", a["episode_id"], max_ep))
             vostfr.pack(side=LEFT, padx=10)
 
             mal = ttk.Button(btn, text="Lien MAL", command=lambda a=episode: open_url(a["video_url"]))
             mal.pack(side=LEFT, padx=10)
 
             vf = ttk.Button(btn, text="VF",
-                            command=lambda a=episode: self.open_episode("vf", episode["episode_id"], max_ep))
+                            command=lambda a=episode: self.open_episode("vf", a["episode_id"], max_ep))
             vf.pack(side=LEFT, padx=10)
 
             btn.pack(pady=5)
