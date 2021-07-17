@@ -72,7 +72,8 @@ class Main(Tk):
                 "videos ": [Videos, [id_, title]],
                 "characters ": [Characters, [id_, title]],
                 "recommands ": [Recommands, [id_, title]],
-                "reviews ": [Reviews, [id_, title]]
+                "reviews ": [Reviews, [id_, title]],
+                "episodes ": [Episodes, [id_, title]]
             }
             for k, v in pages.items():
                 if page.startswith(k) or (page == "reload" and self.current_page.startswith(k)):

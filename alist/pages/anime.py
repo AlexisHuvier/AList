@@ -102,7 +102,9 @@ class Anime(RightPage):
 
         btn = ttk.Frame(self)
 
-        episodes = ttk.Button(btn, text="Episodes", width=20)
+        episodes = ttk.Button(btn, text="Episodes", width=20,
+                              command=lambda: self.main.show_page("episodes " + str(self.anime["mal_id"]) + " 1_" +
+                                                                  self.anime["title"]))
         episodes.pack(side=LEFT, padx=20)
         trailer = ttk.Button(btn, text="Trailer", width=20,
                              command=lambda: open_url(self.anime["trailer_url"]))
