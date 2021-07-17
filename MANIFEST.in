@@ -2,3 +2,4 @@ include alist/themes/azure/*
 include alist/themes/azure-dark/*
 include alist/themes/Breeze/*
 include alist/themes/*
+include alist/sources.json

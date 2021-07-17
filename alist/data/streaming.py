@@ -1,4 +1,6 @@
 import urllib.request
+import json
+import os
 
 from alist.utils import modif_text
 
@@ -10,52 +12,11 @@ class AListURLOpener(urllib.request.FancyURLopener):
 class StreamingProvider:
     def __init__(self):
         self.opener = AListURLOpener()
-        self.sources_vf = {
-            "voiranime": {
-                "title_modifications": {
-                    "lower": True,
-                    " ": "-",
-                    ":": "",
-                    ";": "",
-                    ".": "",
-                    "/": ""
-                },
-                "url": "http://voiranime.com/anime/{title}-vf/{title}-{full_id_ep}-vf/"
-            },
-            "gum-gum-streaming": {
-                "title_modifications": {
-                    "lower": True,
-                    " ": "-",
-                    ":": "",
-                    ";": "",
-                    ".": "",
-                    "/": ""
-                },
-                "url": "http://gum-gum-streaming.com/{title}-{id_ep}-vf/"
-            }
-        }
-        self.sources_vostfr = {
-            "voiranime": {
-                "title_modifications": {
-                    "lower": True,
-                    " ": "-",
-                    ":": "",
-                    ";": ""
-                },
-                "url": "http://voiranime.com/anime/{title}/{title}-{full_id_ep}-vostfr/"
-            },
-            "gum-gum-streaming": {
-                "title_modifications": {
-                    "lower": True,
-                    " ": "-",
-                    ":": "",
-                    ";": "",
-                    ".": "",
-                    "/": ""
-                },
-                "url": "http://gum-gum-streaming.com/{title}-{id_ep}-vostfr/"
-            }
-        }
+        with open(os.path.dirname(__file__)+"/../sources.json") as f:
+            values = json.load(f)
+        self.title_modifications = values["title_modifications"]
+        self.sources_vf = values["vf"]
+        self.sources_vostfr = values["vostfr"]
 
     def provide(self, version, title, id_ep, max_ep):
         if version == "vf":
@@ -68,13 +29,13 @@ class StreamingProvider:
 
         results = {}
         for k, v in sources.items():
-            final_title = modif_text(v["title_modifications"], title)
+            final_title = modif_text(self.title_modifications, title)
             modif_url = {
                 "{title}": final_title,
                 "{id_ep}": id_ep,
                 "{full_id_ep}": full_id_ep
             }
-            final_url = modif_text(modif_url, v["url"])
+            final_url = modif_text(modif_url, v)
             u = self.opener.open(final_url)
             if u.url == final_url and u.status == 200:
                 results[k] = final_url
