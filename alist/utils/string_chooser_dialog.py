@@ -20,5 +20,5 @@ class StringChooser:
         btn.pack(padx=10, pady=10)
 
     def validate(self):
-        self.top.quit()
+        self.top.destroy()
         self.callback(self.var.get())
