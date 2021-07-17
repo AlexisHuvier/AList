@@ -20,6 +20,7 @@ class Main(Tk):
         self.mymanga = MyMangaListProvider()
         self.mal_export = MALExporter(self)
         self.mal_import = MALImporter(self)
+        self.streaming = StreamingProvider()
 
         self.config = Config()
 
