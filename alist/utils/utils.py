@@ -1,6 +1,17 @@
 import webbrowser
 
 
+def modif_text(modification, text):
+    if modification.get("lower", False) is True:
+        text = text.lower()
+    if modification.get("upper", False) is True:
+        text = text.upper()
+    for k, v in modification.items():
+        if k != "lower" and k != "upper":
+            text = text.replace(k, v)
+    return text
+
+
 def open_url(url):
     webbrowser.open(url)
 
