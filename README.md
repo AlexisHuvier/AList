@@ -35,6 +35,7 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 - Retour à la page Anime/Manga à la validation d'un Anime/Manga
 - Bug Fix : Les images peuvent ne pas être chargées
 - Bug Fix : Un Anime/Manga peut être ajouté deux fois à la liste
+- Crash Fix : Le titre anglais peut être nul
 - Crash Fix : Crash au lancement si installé avec pip
 
 ### v 2.0.0 : Fayshia Update - 13 Juil 2021 (LATEST):
