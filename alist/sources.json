@@ -9,10 +9,12 @@
     },
     "vf": {
         "voiranime": "http://voiranime.com/anime/{title}-vf/{title}-{full_id_ep}-vf/",
-        "gum-gum-streaming": "http://gum-gum-streaming.com/{title}-{id_ep}-vf/"
+        "gum-gum-streaming": "http://gum-gum-streaming.com/{title}-{id_ep}-vf/",
+        "mavanimes": "http://www.mavanimes.co/{title}-{id_ep}-vf"
     },
     "vostfr": {
         "voiranime": "http://voiranime.com/anime/{title}/{title}-{full_id_ep}-vostfr/",
-        "gum-gum-streaming": "http://gum-gum-streaming.com/{title}-{id_ep}-vostfr/"
+        "gum-gum-streaming": "http://gum-gum-streaming.com/{title}-{id_ep}-vostfr/",
+        "mavanimes": "http://www.mavanimes.co/{title}-{id_ep}-vostfr"
     }
 }
