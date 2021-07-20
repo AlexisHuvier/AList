@@ -25,7 +25,8 @@ Gestionnaire d'anime/manga avec d'autres fonctionnalités
 
 ## Changelog : 
 
-### V 2.1.0 : Eleisya Update - XX XXXX XXXX (INDEV) :
+### V 2.1.0 : Eleisya Update - XX Juil 2021 (INDEV) :
+- Add Wiki
 - Nouvelles pages : Stats, News, Images, Videos, Characters, Recommands, Episodes
 - Refonte des pages : Anime, Manga
 - Refonte du système d'affichage des pages

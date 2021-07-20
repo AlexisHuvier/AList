@@ -23,6 +23,10 @@ class Accueil(RightPage):
                             command=lambda: utils.open_url("https://github.com/AlexisHuvier/AList"))
         github.pack(pady=15)
 
+        wiki = ttk.Button(self, width=10, text="Wiki",
+                          command=lambda: utils.open_url("https://github.com/AlexisHuvier/AList/wiki"))
+        wiki.pack(pady=15)
+
         discord = ttk.Button(self, width=10, text="Discord",
                              command=lambda: utils.open_url("https://discord.gg/UtpsTKTsTM"))
         discord.pack(pady=15)
