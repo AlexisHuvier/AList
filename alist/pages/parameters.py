@@ -16,7 +16,8 @@ class Parameters(RightPage):
         self.theme = StringVar(self)
         self.theme.set(self.main.config.get("theme", "azure-dark"))
         themes = [self.main.config.get("theme", "azure-dark")]
-        themes += [i.split(".")[0] for i in os.listdir("alist/themes") if ".tcl" in i and i.split(".")[0] not in themes]
+        themes += [i.split(".")[0] for i in os.listdir(os.path.dirname(__file__)+"/../themes") if ".tcl" in i and
+                   i.split(".")[0] not in themes]
         theme_choose = ttk.OptionMenu(self, self.theme, *themes)
         theme_choose["width"] = 20
         theme_choose.pack(pady=15)

@@ -4,7 +4,7 @@ import os
 
 class Config:
     def __init__(self):
-        self.file = os.path.join("alist", "config.json")
+        self.file = os.path.join(os.path.dirname(__file__), "..", "config.json")
         if os.path.exists(self.file):
             with open(self.file, "r") as f:
                 self.values = json.load(f)

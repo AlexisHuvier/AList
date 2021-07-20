@@ -4,7 +4,7 @@ import os
 
 class MyMangaListProvider:
     def __init__(self):
-        self.file = "alist/manga.json"
+        self.file = os.path.dirname(__file__)+"/../manga.json"
         if os.path.exists(self.file):
             with open(self.file, "r") as f:
                 self.values = json.load(f)
